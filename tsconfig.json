@@ -17,6 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["components/*"],
+      "@gcorn/*": ["components/gcorn/*"],
       "@/pages/*": ["pages/*"],
       "@/styles/*": ["styles/*"]
     }
