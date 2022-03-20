@@ -9,7 +9,7 @@ export default function GCornHomePage() {
   return (
     <React.Fragment>
       <Head>
-        <title>gCorn: A Corner for Geeks</title>
+        <title>gCorn: Login</title>
         <link rel='icon' href='/gcorn/gcorn-logo.svg' />
       </Head>
       <main className={classes.mainSection}>
