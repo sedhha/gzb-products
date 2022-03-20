@@ -19,6 +19,7 @@
       "@/components/*": ["components/*"],
       "@gcorn/*": ["components/gcorn/*"],
       "@common/*": ["components/common/*"],
+      "@constants/*": ["constants/*"],
       "@/pages/*": ["pages/*"],
       "@/styles/*": ["styles/*"]
     }

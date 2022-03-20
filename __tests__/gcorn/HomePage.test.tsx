@@ -1,7 +1,7 @@
 import HomePage, {
   routeProps,
   ARIA_LABEL_DESCRIPTOR,
-} from '../../components/gcorn/HomePage';
+} from '@/components/gcorn/HomePage';
 import { render, screen, fireEvent } from '@testing-library/react';
 import * as NextRouter from 'next/router';
 import { routeSynthesizer } from '@/components/gcorn/global/utils/routes';

@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import 'jest-styled-components';
 import OutlineButton from '@common/Buttons/OutlineButton';
-import { commonStyledVariables } from '../utils/commonThemes';
+import { commonStyledVariables } from '@constants/test-utils/commonThemes';
 
 describe('Outline Button Test Cases', () => {
   it('Outline Button should pick Outline Color dynamically: ', () => {
