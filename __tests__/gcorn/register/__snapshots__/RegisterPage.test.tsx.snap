@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LoginPage Test should render without throwing an error 1`] = `
+exports[`RegisterPage Test should render without throwing an error 1`] = `
 <div>
   <main
     class="flex flex-col items-center justify-center w-screen h-screen gap-1 p-0 m-0 flex-column"
@@ -50,12 +50,17 @@ exports[`LoginPage Test should render without throwing an error 1`] = `
         placeholder="Password"
         type="password"
       />
+      <input
+        class="p-2 text-base bg-transparent border-b-2 outline-none placeholder-slate-600 border-gcorn_pl focus:border-gcorn_p"
+        placeholder="Confirm Password"
+        type="password"
+      />
       <br />
       <button
         class="px-4 py-2 font-semibold bg-transparent border rounded text-gcorn_p border-gcorn_p hover:bg-gcorn_p hover:text-white hover:border-transparent"
         type="submit"
       >
-        Login
+        Next
       </button>
     </form>
   </main>

@@ -4,7 +4,16 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        //GCorn Colors
+        gcorn_p: '#00b050',
+        gcorn_pl: '#B0E6C8',
+      },
+      fontFamily: {
+        gcorn_f: "'Open Sans', sans-serif",
+      },
+    },
   },
   plugins: [],
 };
