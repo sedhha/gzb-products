@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Outline Button Test Cases Outline Button should pick Outline Color dynamically:  1`] = `
+.c0 {
+  outline: none;
+  background-color: transparent;
+  border: 2px solid red;
+  cursor: pointer;
+  padding: 0.6rem 1rem;
+  color: red;
+  border-radius: 1rem;
+  font-size: 1rem;
+  -webkit-letter-spacing: 0.1rem;
+  -moz-letter-spacing: 0.1rem;
+  -ms-letter-spacing: 0.1rem;
+  letter-spacing: 0.1rem;
+  min-width: 10rem;
+  -webkit-transition: 0.3s ease all;
+  transition: 0.3s ease all;
+}
+
+.c1:hover {
+  background-color: red;
+  color: white;
+}
+
+<button
+  className="c0 c1"
+/>
+`;

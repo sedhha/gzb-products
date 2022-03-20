@@ -18,6 +18,7 @@
     "paths": {
       "@/components/*": ["components/*"],
       "@gcorn/*": ["components/gcorn/*"],
+      "@common/*": ["components/common/*"],
       "@/pages/*": ["pages/*"],
       "@/styles/*": ["styles/*"]
     }
