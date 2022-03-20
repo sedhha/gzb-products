@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginPage from '@gcorn/Login/LoginPage';
+import LoginPage from '@/components/gcorn/login/LoginPage';
 
 export default function GCorn() {
   return <LoginPage />;

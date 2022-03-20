@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input Box Test Cases Input Box should pick Outline Color dynamically:  1`] = `
+.c0 {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-bottom: 0.5px solid red;
+}
+
+.c1:focus {
+  border-bottom: 2px solid red;
+}
+
+<input
+  className="c0 c1"
+/>
+`;
