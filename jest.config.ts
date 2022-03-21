@@ -21,7 +21,11 @@ const customJestConfig: Config.InitialOptions = {
       branches: 100,
     },
   },
-  collectCoverageFrom: ['components/**/*.{ts,tsx}'],
+  collectCoverageFrom: [
+    'components/**/*.{ts,tsx}',
+    'lib/**/*.{ts,tsx}',
+    '!**/*.config.{ts,tsx}',
+  ],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
