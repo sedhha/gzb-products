@@ -11,7 +11,10 @@
   },
   "dependencies": {
     "firebase": "^9.6.9",
+    "firebase-admin": "^10.0.2",
+    "geofire-common": "^5.2.0",
     "next": "latest",
+    "next-pwa": "^5.4.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "sass": "^1.49.9",

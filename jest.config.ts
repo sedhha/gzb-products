@@ -25,6 +25,8 @@ const customJestConfig: Config.InitialOptions = {
     'components/**/*.{ts,tsx}',
     'lib/**/*.{ts,tsx}',
     '!**/*.config.{ts,tsx}',
+    //Specific Ignore Files
+    'lib/backend/services/firebase/public/metadata.ts', //Straight Forward picking data from Firebase server
   ],
 };
 

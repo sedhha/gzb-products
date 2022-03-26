@@ -29,6 +29,18 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+firebase-admin-sdk.json
 
 # vercel
 .vercel
+
+# Notes
+notes/*
+
+# PWA files
+**/public/sw.js
+**/public/workbox-*.js
+**/public/worker-*.js
+**/public/sw.js.map
+**/public/workbox-*.js.map
+**/public/worker-*.js.map

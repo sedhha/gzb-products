@@ -20,8 +20,13 @@
       "@gcorn/*": ["components/gcorn/*"],
       "@common/*": ["components/common/*"],
       "@constants/*": ["constants/*"],
+      "@firebase-server/*": ["lib/backend/services/firebase/*"],
+      "@firebase-client/*": ["lib/frontend/services/firebase/*"],
+      "@gzb-mocks/*": ["mocks/*"],
       "@/pages/*": ["pages/*"],
-      "@/styles/*": ["styles/*"]
+      "@/styles/*": ["styles/*"],
+      "@test-utils/*": ["test-utils/*"],
+      "@global-backend/*": ["lib/backend/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types.d.ts"],
