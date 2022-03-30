@@ -27,6 +27,7 @@ const customJestConfig: Config.InitialOptions = {
     '!**/*.config.{ts,tsx}',
     //Specific Ignore Files
     'lib/backend/services/firebase/public/metadata.ts', //Straight Forward picking data from Firebase server
+    '!components/common/Debugger/Debugger.tsx', //Debugging Component
   ],
 };
 

@@ -22,7 +22,7 @@ import {
   isValidGender,
   isEmptyString,
   firebaseSuspectedError,
-} from './register';
+} from '@global-backend/validators/forms';
 import FirebaseLikeError from '@constants/firebase/errors';
 
 const validateGZBFirebaseUser = async (
