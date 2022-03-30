@@ -88,7 +88,7 @@ describe('Register With GZB', () => {
     );
   });
   it('should register a New Female User when Registration is Successful', async () => {
-    const logSpy = jest.spyOn(console, 'log');
+    const logSpy = jest.spyOn(console, 'log').mockImplementation(jest.fn());
     const result = await registerWithGZB(successfulRegistrationWithFemale);
     expect(result).toStrictEqual(
       genericResponse({
