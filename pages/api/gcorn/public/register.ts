@@ -13,9 +13,13 @@ const registerHandler: NextApiHandler = async (
   const payload = req.body as IUserRegistationForm;
   const registrationResponse = await registerUser(payload);
   if (registrationResponse.error) {
-    return response.status(400).json(errorResponse(registrationResponse));
+    return response
+      .status(400)
+      .json(errorResponse({ opsDetails: registrationResponse }));
   }
-  return response.status(201).json(genericResponse(registrationResponse));
+  return response
+    .status(201)
+    .json(genericResponse({ opsDetails: registrationResponse }));
 };
 
 export default registerHandler;

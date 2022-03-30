@@ -6,20 +6,10 @@ import OutlineButton from '../common/Buttons/OutlineButton';
 import AppConstants from './global/constants/constants';
 import { useRouter } from 'next/router';
 import { routeSynthesizer } from './global/utils/routes';
+import { routeProps } from './constants/routes';
+import { ariaLabels } from './constants/ui-constants';
 
-export const routeProps = [
-  {
-    id: 0,
-    buttonText: 'Sign In',
-    routeLocation: 'login',
-  },
-  {
-    id: 1,
-    buttonText: 'Create An Account',
-    routeLocation: 'register',
-  },
-];
-export const ARIA_LABEL_DESCRIPTOR = 'GCorn-HomePage-';
+const { HOME_PAGE_ARIA_LABEL_DESCRIPTOR } = ariaLabels;
 
 export default function GCornHomePage() {
   const router = useRouter();
@@ -40,6 +30,7 @@ export default function GCornHomePage() {
             alt={'gcorn-logo'}
             layout='fill'
             objectFit='contain'
+            priority
           />
         </div>
         <div className={classes.WrapperDiv}>
@@ -53,7 +44,9 @@ export default function GCornHomePage() {
               key={route.id}
               outlineColor={AppConstants.THEME_GREEN}
               aria-label={
-                ARIA_LABEL_DESCRIPTOR + 'OUTLINE_BUTTON' + route.routeLocation
+                HOME_PAGE_ARIA_LABEL_DESCRIPTOR +
+                'OUTLINE_BUTTON' +
+                route.routeLocation
               }
               onClick={() => onNavigationButtonClick(route.routeLocation)}>
               {route.buttonText}

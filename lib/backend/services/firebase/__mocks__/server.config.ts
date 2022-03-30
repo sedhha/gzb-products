@@ -1,4 +1,5 @@
 import { firebasePaths } from '@constants/firebase/paths';
+import { IFirebaseCreation } from '@constants/interfaces/firebase/Auth.interfaces';
 import { IFirebaseMetaData } from '@constants/interfaces/firebase/metadata.interfaces';
 import metadataJson from '@gzb-mocks/metadata.json';
 import registerJson from '@gzb-mocks/registeration.json';
@@ -36,12 +37,24 @@ const getUserByEmail = (email: string) =>
       ? resolve(true)
       : reject(false);
   });
+
+const createUser = async (payload: IFirebaseCreation): Promise<void> => {
+  const { email } = payload;
+  if (payload.photoURL.includes('female')) console.log('triggered');
+  try {
+    await getUserByEmail(email);
+    return;
+  } catch (e) {
+    return;
+  }
+};
 const db = {
   doc,
 };
 
 const auth = {
   getUserByEmail,
+  createUser,
 };
 const storage = jest.fn();
 

@@ -15,10 +15,11 @@ exports[`HomePage Test should render without throwing an error 1`] = `
           alt="gcorn-logo"
           data-nimg="fill"
           decoding="async"
-          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          sizes="100vw"
+          src="/gcorn/gcorn-logo.svg"
+          srcset="/gcorn/gcorn-logo.svg 640w, /gcorn/gcorn-logo.svg 750w, /gcorn/gcorn-logo.svg 828w, /gcorn/gcorn-logo.svg 1080w, /gcorn/gcorn-logo.svg 1200w, /gcorn/gcorn-logo.svg 1920w, /gcorn/gcorn-logo.svg 2048w, /gcorn/gcorn-logo.svg 3840w"
           style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: contain;"
         />
-        <noscript />
       </span>
     </div>
     <div

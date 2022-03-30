@@ -1,11 +1,9 @@
 import { IUserRegistationForm } from '@constants/interfaces/gcorn/backend/apis/registerAPI.interfaces';
-import {
-  checkIfEmailExists,
-  errorMessages,
-  registerUser,
-} from '@firebase-server/public/register';
+import { registerUser } from '@firebase-server/public/register';
 import { getMetadata } from '@firebase-server/public/metadata';
 import registerJson from '@gzb-mocks/registeration.json';
+import { ErrorCodes } from '@constants/interfaces/gcorn/backend/apis/response.interfaces';
+import { getErrorMessageFromKey } from '@global-backend/utils/api/responseSynthesizer';
 
 jest.mock('@firebase-server/server.config');
 
@@ -19,7 +17,9 @@ describe('Registration Form Testing', () => {
     registerJson.registration_users.emailExists.forEach(async (element) => {
       const result = await registerUser(element as IUserRegistationForm);
       expect(result.error).toBe(true);
-      expect(result.message).toBe(errorMessages.emailExists);
+      expect(result.details).toBe(
+        getErrorMessageFromKey(ErrorCodes.EMAIL_EXISTS)
+      );
     });
   });
 
@@ -27,7 +27,9 @@ describe('Registration Form Testing', () => {
     registerJson.registration_users.nameEmpty.forEach(async (element) => {
       const result = await registerUser(element as IUserRegistationForm);
       expect(result.error).toBe(true);
-      expect(result.message).toBe(errorMessages.nameEmpty);
+      expect(result.details).toBe(
+        getErrorMessageFromKey(ErrorCodes.EMPTY_NAME_FIELD)
+      );
     });
   });
 
@@ -35,7 +37,9 @@ describe('Registration Form Testing', () => {
     registerJson.registration_users.isDateValid.forEach(async (element) => {
       const result = await registerUser(element as IUserRegistationForm);
       expect(result.error).toBe(true);
-      expect(result.message).toBe(errorMessages.invalidDOB);
+      expect(result.details).toBe(
+        getErrorMessageFromKey(ErrorCodes.INVALID_DOB)
+      );
     });
   });
 
@@ -44,7 +48,9 @@ describe('Registration Form Testing', () => {
       async (element) => {
         const result = await registerUser(element as IUserRegistationForm);
         expect(result.error).toBe(true);
-        expect(result.message).toBe(errorMessages.belowThirteen);
+        expect(result.details).toBe(
+          getErrorMessageFromKey(ErrorCodes.BELOW_THIRTEEN)
+        );
       }
     );
   });
@@ -53,7 +59,9 @@ describe('Registration Form Testing', () => {
     registerJson.registration_users.isValidGender.forEach(async (element) => {
       const result = await registerUser(element as IUserRegistationForm);
       expect(result.error).toBe(true);
-      expect(result.message).toBe(errorMessages.invalidGender);
+      expect(result.details).toBe(
+        getErrorMessageFromKey(ErrorCodes.INVALID_GENDER)
+      );
     });
   });
 
@@ -61,7 +69,9 @@ describe('Registration Form Testing', () => {
     registerJson.registration_users.invalidEmail.forEach(async (element) => {
       const result = await registerUser(element as IUserRegistationForm);
       expect(result.error).toBe(true);
-      expect(result.message).toBe(errorMessages.invalidEmail);
+      expect(result.details).toBe(
+        getErrorMessageFromKey(ErrorCodes.INVALID_EMAIL)
+      );
     });
   });
 });
@@ -76,7 +86,9 @@ describe('Registration Password Testing', () => {
       registerJson.registration_users.invalidPassword.lessThan8Characters;
     const result = await registerUser(content as IUserRegistationForm);
     expect(result.error).toBe(true);
-    expect(result.message).toBe(errorMessages.passwordLessthan8Char);
+    expect(result.details).toBe(
+      getErrorMessageFromKey(ErrorCodes.PASSWORD_LESS_THAN_8_CHARACTERS)
+    );
   });
 
   it('Should not accept any passwords with missing Uppercase letters', async () => {
@@ -84,7 +96,9 @@ describe('Registration Password Testing', () => {
       registerJson.registration_users.invalidPassword.noUpperCase;
     const result = await registerUser(content as IUserRegistationForm);
     expect(result.error).toBe(true);
-    expect(result.message).toBe(errorMessages.passwordNoUpperCase);
+    expect(result.details).toBe(
+      getErrorMessageFromKey(ErrorCodes.PASSWORD_NOT_HAVING_UPPERCASE)
+    );
   });
 
   it('Should not accept any passwords with missing Lowercase letters', async () => {
@@ -92,7 +106,9 @@ describe('Registration Password Testing', () => {
       registerJson.registration_users.invalidPassword.noLowerCase;
     const result = await registerUser(content as IUserRegistationForm);
     expect(result.error).toBe(true);
-    expect(result.message).toBe(errorMessages.passwordNoLowerCase);
+    expect(result.details).toBe(
+      getErrorMessageFromKey(ErrorCodes.PASSWORD_NOT_HAVING_LOWERCASE)
+    );
   });
 
   it('Should not accept any passwords with missing Numbers', async () => {
@@ -100,7 +116,9 @@ describe('Registration Password Testing', () => {
       registerJson.registration_users.invalidPassword.noNumbers;
     const result = await registerUser(content as IUserRegistationForm);
     expect(result.error).toBe(true);
-    expect(result.message).toBe(errorMessages.passwordNoNumbers);
+    expect(result.details).toBe(
+      getErrorMessageFromKey(ErrorCodes.PASSWORD_NO_NUMBERS)
+    );
   });
 
   it('Should not accept any passwords with missing Special Characters', async () => {
@@ -108,7 +126,9 @@ describe('Registration Password Testing', () => {
       registerJson.registration_users.invalidPassword.noSpecialCharacters;
     const result = await registerUser(content as IUserRegistationForm);
     expect(result.error).toBe(true);
-    expect(result.message).toBe(errorMessages.passwordNoSpecialChar);
+    expect(result.details).toBe(
+      getErrorMessageFromKey(ErrorCodes.PASSOWRD_MISSING_SPECIAL_CHARACTER)
+    );
   });
 
   it('Should not accept any passwords which contains "<" or ">"', async () => {
@@ -116,7 +136,9 @@ describe('Registration Password Testing', () => {
       registerJson.registration_users.invalidPassword.arrowChars;
     const result = await registerUser(content as IUserRegistationForm);
     expect(result.error).toBe(true);
-    expect(result.message).toBe(errorMessages.passwordMissingNoSpecialChar);
+    expect(result.details).toBe(
+      getErrorMessageFromKey(ErrorCodes.PASSWORD_HAVING_ARROW_BRACKETS)
+    );
   });
 
   it('Should not accept any passwords which are 16 characters long', async () => {
@@ -124,13 +146,17 @@ describe('Registration Password Testing', () => {
       registerJson.registration_users.invalidPassword.exceeds16Characters;
     const result = await registerUser(content as IUserRegistationForm);
     expect(result.error).toBe(true);
-    expect(result.message).toBe(errorMessages.passwordExceeds16Char);
+    expect(result.details).toBe(
+      getErrorMessageFromKey(ErrorCodes.PASSWORD_EXCEEDING_16_CHARACTERS)
+    );
   });
 
   it('Should Accept the Form in all other cases', async () => {
     content.password = registerJson.registration_users.invalidPassword.accepted;
     const result = await registerUser(content as IUserRegistationForm);
     expect(result.error).toBe(false);
-    expect(result.message).toBe(errorMessages.success);
+    expect(result.details).toBe(
+      getErrorMessageFromKey(ErrorCodes.GCORN_REGISTRATION_SUCCESS)
+    );
   });
 });

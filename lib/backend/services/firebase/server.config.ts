@@ -16,13 +16,15 @@ if (admin.apps.length === 0)
       privateKey: privateKey,
       projectId: process.env.NEXT_PUBLIC_FB_CLIENT_PROJECT_ID,
     }),
+    databaseURL: process.env.FB_ADMIN_RTDB_URL,
   });
 
 const db = admin.firestore();
 const auth = admin.auth();
 const storage = admin.storage();
+const rdb = admin.database();
 
-const Server = { auth, db, storage };
+const Server = { auth, db, storage, rdb };
 export default Server;
 //To Add other Details:
 //https://stackoverflow.com/questions/38389341/firebase-create-user-with-email-password-display-name-and-photo-url

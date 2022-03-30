@@ -1,34 +1,54 @@
 {
   "success": {
     "status_code": 200,
-    "message": "",
     "data": {},
     "error": false,
     "access_allowed": false,
-    "session_expired": false
+    "session_expired": false,
+    "opsDetails": {
+      "error": true,
+      "code": "UNEXPECTED_OPERATION_FROM_SERVER",
+      "details": "No description available for this operation.",
+      "api_version": "v1"
+    }
   },
   "error": {
     "status_code": 401,
-    "message": "",
     "data": {},
     "error": true,
     "access_allowed": false,
-    "session_expired": false
+    "session_expired": false,
+    "opsDetails": {
+      "error": true,
+      "code": "UNEXPECTED_OPERATION_FROM_SERVER",
+      "details": "No description available for this operation.",
+      "api_version": "v1"
+    }
   },
   "success-custom": {
     "status_code": 201,
-    "message": "Success Custom",
     "data": { "custom": true },
     "error": false,
     "access_allowed": true,
-    "session_expired": true
+    "session_expired": true,
+    "opsDetails": {
+      "error": true,
+      "code": "UNEXPECTED_OPERATION_FROM_SERVER",
+      "details": "No description available for this operation.",
+      "api_version": "v1"
+    }
   },
   "error-custom": {
     "status_code": 403,
-    "message": "Error Custom",
     "data": { "custom": true },
     "error": true,
     "access_allowed": true,
-    "session_expired": true
+    "session_expired": true,
+    "opsDetails": {
+      "error": true,
+      "code": "UNEXPECTED_OPERATION_FROM_SERVER",
+      "details": "No description available for this operation.",
+      "api_version": "v1"
+    }
   }
 }

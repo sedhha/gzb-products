@@ -51,10 +51,29 @@ exports[`RegisterPage Test should render without throwing an error 1`] = `
         type="password"
       />
       <input
-        class="p-2 text-base bg-transparent border-b-2 outline-none placeholder-slate-600 border-gcorn_pl focus:border-gcorn_p"
+        class="p-2 mb-2 text-base bg-transparent border-b-2 outline-none placeholder-slate-600 border-gcorn_pl focus:border-gcorn_p"
         placeholder="Confirm Password"
         type="password"
       />
+      <select
+        class="p-2 mb-2 text-base bg-transparent border-b-2 outline-none w-max placeholder-slate-600 border-gcorn_pl focus:border-gcorn_p"
+      >
+        <option
+          value="Male"
+        >
+          Male
+        </option>
+        <option
+          value="Female"
+        >
+          Female
+        </option>
+        <option
+          value="Others"
+        >
+          Others
+        </option>
+      </select>
       <br />
       <button
         class="px-4 py-2 font-semibold bg-transparent border rounded text-gcorn_p border-gcorn_p hover:bg-gcorn_p hover:text-white hover:border-transparent"

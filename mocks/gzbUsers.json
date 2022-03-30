@@ -1,0 +1,45 @@
+{
+  "emailExists": {
+    "email": "email@example.com",
+    "password": "",
+    "displayName": "",
+    "gender": ""
+  },
+  "passwordWeak": {
+    "email": "email222@example.com",
+    "password": "asddd",
+    "displayName": "",
+    "gender": "Male"
+  },
+  "emptyDisplayName": {
+    "email": "email222@example.com",
+    "password": "StrongPass@12w",
+    "displayName": "",
+    "gender": "Male"
+  },
+  "invalidGender": {
+    "email": "email222@example.com",
+    "password": "StrongPass@12w",
+    "displayName": "John",
+    "gender": ""
+  },
+  "firebaseError": {
+    "email": "email222@example.com",
+    "password": "StrongPass@12w",
+    "displayName": "John",
+    "gender": "Male",
+    "errorTest": true
+  },
+  "successfulRegistration": {
+    "email": "email222@example.com",
+    "password": "StrongPass@12w",
+    "displayName": "John",
+    "gender": "Male"
+  },
+  "successfulRegistrationWithFemale": {
+    "email": "email222@example.com",
+    "password": "StrongPass@12w",
+    "displayName": "Alice",
+    "gender": "Female"
+  }
+}

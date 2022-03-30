@@ -1,8 +1,19 @@
 import React from 'react';
 import Head from 'next/head';
 import Header from '../common/Header/Header';
+import { IFirebaseMetaData } from '@constants/interfaces/firebase/metadata.interfaces';
 
-export default function GCornHomePage() {
+interface Props {
+  metadata: IFirebaseMetaData;
+}
+
+export const getDefaultGender = (gender: string[] | undefined): string =>
+  gender && gender.length > 0 ? gender[0] : 'Male';
+export default function GCornHomePage(props: Props) {
+  const { gender } = props.metadata;
+  const [selectedGender, setSelectedGender] = React.useState(
+    getDefaultGender(gender)
+  );
   return (
     <React.Fragment>
       <Head>
@@ -27,8 +38,18 @@ export default function GCornHomePage() {
           <input
             type='password'
             placeholder='Confirm Password'
-            className='p-2 text-base bg-transparent border-b-2 outline-none placeholder-slate-600 border-gcorn_pl focus:border-gcorn_p'
+            className='p-2 mb-2 text-base bg-transparent border-b-2 outline-none placeholder-slate-600 border-gcorn_pl focus:border-gcorn_p'
           />
+          <select
+            value={selectedGender}
+            onChange={(e) => setSelectedGender(e.target.value)}
+            className='p-2 mb-2 text-base bg-transparent border-b-2 outline-none w-max placeholder-slate-600 border-gcorn_pl focus:border-gcorn_p'>
+            {gender.map((element) => (
+              <option key={element} value={element}>
+                {element}
+              </option>
+            ))}
+          </select>
           <br />
           <button
             type='submit'

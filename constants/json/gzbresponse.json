@@ -1,0 +1,202 @@
+{
+  "unknwon": {
+    "error": true,
+    "error_code": "0000",
+    "code": "UNEXPECTED_OPERATION_FROM_SERVER",
+    "details": "No description available for this operation.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "GZB Products",
+      "id": "00"
+    }
+  },
+  "emailExists": {
+    "error": true,
+    "error_code": "0001",
+    "code": "ERROR_EMAIL_ALREADY_EXISTS",
+    "details": "The Email with which you're trying to register is already registered with GZB Products. Kindly use a different Email address or login with your existing account.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "GZB Products",
+      "id": "00"
+    }
+  },
+  "gzb_registration_success": {
+    "error": false,
+    "error_code": "0002",
+    "code": "GZB_USER_REGISTERED_SUCCESSFULLY",
+    "details": "Congratulations, your GZB Account has been created!",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "GZB Products",
+      "id": "00"
+    }
+  },
+
+  "nameEmpty": {
+    "error": true,
+    "error_code": "0100",
+    "code": "NAME_EMPTY",
+    "details": "Name field must not be empty",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "GCorn",
+      "id": "01"
+    }
+  },
+  "invalidDOB": {
+    "error": true,
+    "error_code": "0101",
+    "code": "INVALID_USER_BIRTHDAY",
+    "details": "Date of Birth is not valid",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "GCorn",
+      "id": "01"
+    }
+  },
+  "belowThirteen": {
+    "error": true,
+    "error_code": "0102",
+    "code": "USER_AGE_BELOW_THIRTEEN",
+    "details": "You must be atleast 13 years old",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "GCorn",
+      "id": "01"
+    }
+  },
+  "invalidGender": {
+    "error": true,
+    "error_code": "0103",
+    "code": "INVALID_USER_GENDER",
+    "details": "Invalid Gender!",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "GCorn",
+      "id": "01"
+    }
+  },
+  "invalidEmail": {
+    "error": true,
+    "error_code": "0104",
+    "code": "INVALID_EMAIL_ID_FORMAT",
+    "details": "Invalid Email Entered",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "GCorn",
+      "id": "01"
+    }
+  },
+  "passwordLessthan8Char": {
+    "error": true,
+    "error_code": "0105",
+    "code": "PASSWORD_LESS_THAN_8_CHARACTERS",
+    "details": "Password must be atleast 8 characters long",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "GCorn",
+      "id": "01"
+    }
+  },
+  "passwordNoUpperCase": {
+    "error": true,
+    "error_code": "0106",
+    "code": "PASSWORD_NO_UPPERCASE_CHARACTER",
+    "details": "Password must have atleast one uppercase letter",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "GCorn",
+      "id": "01"
+    }
+  },
+  "passwordNoLowerCase": {
+    "error": true,
+    "error_code": "0107",
+    "code": "PASSWORD_NO_LOWERCASE_CHARACTER",
+    "details": "Password must have atleast one lowercase letter",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "GCorn",
+      "id": "01"
+    }
+  },
+  "passwordNoNumbers": {
+    "error": true,
+    "error_code": "0108",
+    "code": "PASSWORD_NO_NUMBERS",
+    "details": "Password must have atleast one number",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "GCorn",
+      "id": "01"
+    }
+  },
+  "passwordNoSpecialChar": {
+    "error": true,
+    "error_code": "0109",
+    "code": "PASSOWRD_MISSING_SPECIAL_CHARACTER",
+    "details": "Password must contain one of the following characters: ! @ # ? ]",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "GCorn",
+      "id": "01"
+    }
+  },
+  "passwordMissingNoSpecialChar": {
+    "error": true,
+    "error_code": "0110",
+    "code": "PASSWORD_CONTAINS_ARROW_SYMBOLS",
+    "details": "Password must not contain < or >",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "GCorn",
+      "id": "01"
+    }
+  },
+  "passwordExceeds16Char": {
+    "error": true,
+    "error_code": "0111",
+    "code": "PASSWORD_EXCEEDS_16_CHARACTERS",
+    "details": "Password must not contain more than 16 characters.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "GCorn",
+      "id": "01"
+    }
+  },
+  "gcorn_registration_success": {
+    "error": false,
+    "error_code": "0112",
+    "code": "GCORN_REGISTRATION_SUCCESS",
+    "details": "User Registered Successfully with GCorn",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "GCorn",
+      "id": "01"
+    }
+  },
+
+  "firebaseGeneratedError": {
+    "error": true,
+    "error_code": "0200",
+    "code": "AUTH_ERROR_GENERIC",
+    "details": "",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Backend Database Error",
+      "id": "02"
+    }
+  },
+  "firebaseGenerated": {
+    "error": false,
+    "error_code": "0201",
+    "code": "AUTH_SUCCESS_GENERIC",
+    "details": "Auth Success!",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Backend Database Error",
+      "id": "02"
+    }
+  }
+}

@@ -1,4 +1,4 @@
 {
-  "gender": ["Male", "Female"],
+  "gender": ["Male", "Female", "Others"],
   "roles": ["Admin", "User"]
 }

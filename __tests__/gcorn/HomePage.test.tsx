@@ -1,10 +1,11 @@
-import HomePage, {
-  routeProps,
-  ARIA_LABEL_DESCRIPTOR,
-} from '@/components/gcorn/HomePage';
+import HomePage from '@/components/gcorn/HomePage';
 import { render, screen, fireEvent } from '@testing-library/react';
 import * as NextRouter from 'next/router';
 import { routeSynthesizer } from '@/components/gcorn/global/utils/routes';
+import { routeProps } from '@/components/gcorn/constants/routes';
+import { ariaLabels } from '@/components/gcorn/constants/ui-constants';
+const { HOME_PAGE_ARIA_LABEL_DESCRIPTOR } = ariaLabels;
+
 describe('HomePage Test', () => {
   it('should render without throwing an error', () => {
     const { container } = render(<HomePage />);
@@ -20,7 +21,9 @@ describe('HomePage Test', () => {
 
     routeProps.forEach((element) => {
       const navButton = screen.getByLabelText(
-        ARIA_LABEL_DESCRIPTOR + 'OUTLINE_BUTTON' + element.routeLocation
+        HOME_PAGE_ARIA_LABEL_DESCRIPTOR +
+          'OUTLINE_BUTTON' +
+          element.routeLocation
       );
       expect(navButton).toBeInTheDocument();
       fireEvent.click(navButton);
