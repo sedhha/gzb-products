@@ -27,7 +27,8 @@
       "@/styles/*": ["styles/*"],
       "@test-utils/*": ["test-utils/*"],
       "@global-backend/*": ["lib/backend/*"],
-      "@jsons/*": ["constants/json/*"]
+      "@jsons/*": ["constants/json/*"],
+      "@hooks/*": ["hooks/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types.d.ts"],
