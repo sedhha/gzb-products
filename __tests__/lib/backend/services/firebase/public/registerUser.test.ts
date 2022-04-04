@@ -5,8 +5,6 @@ import registerJson from '@gzb-mocks/registeration.json';
 import { ErrorCodes } from '@constants/interfaces/gcorn/backend/apis/response.interfaces';
 import { getErrorMessageFromKey } from '@global-backend/utils/api/responseSynthesizer';
 
-jest.mock('@firebase-server/server.config');
-
 describe('Registration Form Testing', () => {
   it('should return Empty Object if the metadata path is wrong/unavailable', async () => {
     const metadata = await getMetadata(true);

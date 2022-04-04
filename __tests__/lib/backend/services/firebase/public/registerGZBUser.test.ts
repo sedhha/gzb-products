@@ -18,7 +18,6 @@ import {
 } from '@gzb-mocks/gzbUsers.json';
 import responses from '@jsons/gzbresponse.json';
 import firebaseJson from '@jsons/firebase.json';
-jest.mock('@firebase-server/server.config');
 
 const buildDetailsFromOPS = (
   response: IResponseDetailsMock
