@@ -21,6 +21,22 @@ jobs:
       - name: Run Unit Tests in CI
         run: |
           yarn test:ci
+      - name: Setting Up Environment Secrets
+        run: |
+          echo "Environment Secrets : $NODE_ENV"
+        env:
+          NEXT_PUBLIC_FB_CLIENT_API_KEY: ${{ secrets.NEXT_PUBLIC_FB_CLIENT_API_KEY }}
+          NEXT_PUBLIC_FB_CLIENT_AUTH_DOMAIN: ${{ secrets.NEXT_PUBLIC_FB_CLIENT_AUTH_DOMAIN }}
+          NEXT_PUBLIC_FB_CLIENT_STORAGE_BUCKET: ${{ secrets.NEXT_PUBLIC_FB_CLIENT_STORAGE_BUCKET }}
+          NEXT_PUBLIC_FB_CLIENT_MESSAGING_SENDER_ID: ${{ secrets.NEXT_PUBLIC_FB_CLIENT_MESSAGING_SENDER_ID }}
+          NEXT_PUBLIC_FB_CLIENT_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_FB_CLIENT_PROJECT_ID }}
+          NEXT_PUBLIC_FB_CLIENT_APP_ID: ${{ secrets.NEXT_PUBLIC_FB_CLIENT_APP_ID }}
+          NEXT_PUBLIC_FB_CLIENT_MEASUREMENT_ID: ${{ secrets.NEXT_PUBLIC_FB_CLIENT_MEASUREMENT_ID }}
+          FB_ADMIN_PRIVATE_KEY: ${{ secrets.FB_ADMIN_PRIVATE_KEY }}
+          FB_ADMIN_CLIENT_EMAIL: ${{ secrets.FB_ADMIN_CLIENT_EMAIL }}
+          FB_ADMIN_RTDB_URL: ${{ secrets.FB_ADMIN_RTDB_URL }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+
       - name: Build the Project
         run: |
           yarn build
