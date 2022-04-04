@@ -6,7 +6,9 @@ const { privateKey } = JSON.parse(keyString);
 
 if (privateKey === '') {
   console.log('FIREBASE_PRIVATE_KEY is not set');
-  throw new Error('FIREBASE_PRIVATE_KEY is not set');
+  if (process.env.NODE_ENV === 'development')
+    throw new Error('FIREBASE_PRIVATE_KEY is not set');
+  else console.log('Firebase Private Key Error');
 }
 
 if (admin.apps.length === 0)
