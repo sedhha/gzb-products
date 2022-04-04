@@ -10,7 +10,6 @@ if (privateKey === '') {
     throw new Error('FIREBASE_PRIVATE_KEY is not set');
   else {
     console.log('Firebase Private Key Error');
-    console.log(process.env);
   }
 }
 

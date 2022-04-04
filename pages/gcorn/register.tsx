@@ -11,9 +11,11 @@ export default function GCorn(props: Props) {
 }
 
 export const getStaticProps = async () => {
+  const data = await metadata;
+  console.log(data);
   return {
     props: {
-      metadata: await metadata,
+      metadata: data,
     },
   };
 };
