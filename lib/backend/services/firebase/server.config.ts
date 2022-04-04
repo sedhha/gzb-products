@@ -8,7 +8,10 @@ if (privateKey === '') {
   console.log('FIREBASE_PRIVATE_KEY is not set');
   if (process.env.NODE_ENV === 'development')
     throw new Error('FIREBASE_PRIVATE_KEY is not set');
-  else console.log('Firebase Private Key Error');
+  else {
+    console.log('Firebase Private Key Error');
+    console.log(process.env);
+  }
 }
 
 if (admin.apps.length === 0)
