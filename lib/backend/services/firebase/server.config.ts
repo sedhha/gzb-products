@@ -2,7 +2,6 @@ import admin from 'firebase-admin';
 
 const keyString = process.env.FB_ADMIN_PRIVATE_KEY ?? '{"privateKey": ""}';
 
-console.log('Key String = ', keyString);
 const { privateKey } = JSON.parse(keyString);
 
 if (privateKey === '') {
