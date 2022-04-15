@@ -1,7 +1,5 @@
 import Head from 'next/head';
-import Image from 'next/image';
 
-import styles from '@/pages/index.module.css';
 import React from 'react';
 
 export default function Home() {
