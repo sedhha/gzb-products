@@ -36,3 +36,4 @@ jobs:
           echo FB_ADMIN_RTDB_URL=${{ secrets.FB_ADMIN_RTDB_URL }} >> .env.local
           echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env.local
           yarn build
+          yarn test:ci
