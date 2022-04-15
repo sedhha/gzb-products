@@ -5,14 +5,20 @@
   padding: 0 1rem;
 }
 
-.ActionIcon {
-  font-size: 2.5rem;
+.ButtonText {
+  font-size: 1.5rem;
   color: #192751;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
 }
-.ActionIconLarge {
-  font-size: 3rem;
+
+.LoginButton {
+  padding: 0 1.5rem;
   color: #192751;
+  font-size: 1rem;
 }
+
 .TagLine {
   font-size: 1.5rem;
   font-weight: 300;
@@ -22,12 +28,4 @@
   text-align: center;
   margin-top: -1.5rem;
   padding: 0 1rem;
-}
-
-.ButtonText {
-  font-size: 1.5rem;
-  color: #192751;
-  font-weight: bold;
-  padding: 0;
-  margin: 0;
 }
