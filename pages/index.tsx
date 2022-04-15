@@ -11,6 +11,7 @@ export default function Home() {
         <title>GZB Products</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
+      <div>GZB Products</div>
     </React.Fragment>
   );
 }
