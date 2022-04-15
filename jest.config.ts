@@ -14,13 +14,13 @@ const customJestConfig: Config.InitialOptions = {
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
   testEnvironment: 'jest-environment-jsdom',
   modulePaths: ['<rootDir>'],
-  coverageThreshold: {
-    global: {
-      statements: 100,
-      functions: 100,
-      branches: 100,
-    },
-  },
+  // coverageThreshold: {
+  //   global: {
+  //     statements: 100,
+  //     functions: 100,
+  //     branches: 100,
+  //   },
+  // },
   collectCoverageFrom: [
     'components/**/*.{ts,tsx}',
     'lib/**/*.{ts,tsx}',
