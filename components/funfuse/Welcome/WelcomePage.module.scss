@@ -1,9 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@1,300&display=swap');
 .Card {
   width: 100%;
   height: 100vh;
-  background-image: url('https://github.com/sedhha/gzb-products/blob/main/public/funfuse/bg-03.jpg?raw=true');
+  background-image: url('https://github.com/sedhha/gzb-products/blob/main/public/funfuse/mobile-bg.png?raw=true');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   backdrop-filter: opacity(20%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.LogoHeight {
+  height: 10rem;
+  width: auto;
+  padding: 0 1rem;
+}
+
+.ActionIcon {
+  font-size: 2.5rem;
+  color: #192751;
+}
+.ActionIconLarge {
+  font-size: 3rem;
+  color: #192751;
+}
+.TagLine {
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  margin-top: -1.5rem;
+  padding: 0 1rem;
+}
+
+.ButtonText {
+  font-size: 1.5rem;
+  color: #192751;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
 }
