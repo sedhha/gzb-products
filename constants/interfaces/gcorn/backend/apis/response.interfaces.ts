@@ -48,5 +48,9 @@ export enum ErrorCodes {
   PASSWORD_EXCEEDING_16_CHARACTERS = 'passwordExceeds16Char',
   GCORN_REGISTRATION_SUCCESS = 'gcorn_registration_success',
   FIREBASE_SUSPECTED_ERROR = 'firebaseGeneratedError',
+  EMPTY_REQUIRED_FIELD = 'emptyRequiredField',
+  USERNAME_ALREADY_EXISTS = 'usernameAlreadyExists',
+  FUNFUSE_REGISTRATION_SUCCESS = 'funfuse_registration_success',
+  FIREBASE_GENERATED_ERROR = 'firebaseGeneratedError',
   UNKNOWN_KEY = 'unknownKey',
 }

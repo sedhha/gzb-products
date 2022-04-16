@@ -75,6 +75,14 @@ export const isEmptyString = (name: string): IResponseDetails => {
     : getErrorDetailsFromKey(ErrorCodes.EMPTY_NAME_FIELD);
 };
 
+const mustBeDefinedKey = (
+  object: Record<string, any>,
+  keys: string[]
+): { error: boolean; key?: string } => {
+  const error = keys.some((key) => !object[key]);
+  return { error, key: error ? keys[0] : undefined };
+};
+
 export const firebaseSuspectedError = (
   errorMessage: string
 ): IResponseDetails => {
@@ -103,6 +111,7 @@ const formValidator = {
   isThirteenYearsOld,
   isValidGender,
   isValidEmail,
+  mustBeDefinedKey,
   isPasswordStrong,
 };
 

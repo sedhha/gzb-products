@@ -198,5 +198,39 @@
       "name": "Backend Database Error",
       "id": "02"
     }
+  },
+  "emptyRequiredField": {
+    "error": true,
+    "error_code": "0300",
+    "code": "EMPTY_REQUIRED_FIELD",
+    "details": "Required Fields are Empty",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Funfuse",
+      "id": "00"
+    }
+  },
+  "usernameAlreadyExists": {
+    "error": true,
+    "error_code": "0301",
+    "code": "USERNAME_ALREADY_EXISTS",
+    "details": "Username Already exists, please try another username.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Funfuse",
+      "id": "01"
+    }
+  },
+
+  "funfuse_registration_success": {
+    "error": false,
+    "error_code": "0302",
+    "code": "FUNFUSE_REGISTRATION_SUCCESS",
+    "details": "User Registered Successfully with Funfuse",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Funfuse",
+      "id": "02"
+    }
   }
 }
