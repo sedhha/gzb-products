@@ -7,6 +7,8 @@ import Auth from '@firebase-client/client.config';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { loginUser } from '@redux-slices/user';
 import { useAppDispatch } from '@redux-tools/hooks';
+import Head from 'next/head';
+
 export default function LoginPage() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -28,41 +30,46 @@ export default function LoginPage() {
   };
 
   return (
-    <div className={classes.Card}>
-      <div className={classes.LogoHeight}>
-        <WhiteLogo />
-      </div>
-      <label className={classes.TagLine}>
-        Fuse in to small business communities and grow together!
-      </label>
-      <InputBox
-        placeholder={'Email Address'}
-        type={'email'}
-        outlineColor={'#fff'}
-        className='mx-4 text-white'
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <InputBox
-        placeholder={'Password'}
-        type={'password'}
-        className='mx-4 text-white'
-        outlineColor={'#fff'}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <div className={'mt-4 text-center'}>
-        <WhiteButton
-          icon={
-            <div className={classes.LoginButton} onClick={loginHander}>
-              Login
-            </div>
-          }></WhiteButton>
-      </div>
+    <React.Fragment>
+      <Head>
+        <title>Login to Funfuse</title>
+      </Head>
+      <div className={classes.Card}>
+        <div className={classes.LogoHeight}>
+          <WhiteLogo />
+        </div>
+        <label className={classes.TagLine}>
+          Fuse in to small business communities and grow together!
+        </label>
+        <InputBox
+          placeholder={'Email Address'}
+          type={'email'}
+          outlineColor={'#fff'}
+          className='mx-4 text-white'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <InputBox
+          placeholder={'Password'}
+          type={'password'}
+          className='mx-4 text-white'
+          outlineColor={'#fff'}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <div className={'mt-4 text-center'}>
+          <WhiteButton
+            icon={
+              <div className={classes.LoginButton} onClick={loginHander}>
+                Login
+              </div>
+            }></WhiteButton>
+        </div>
 
-      <br />
-      <br />
-      <br />
-    </div>
+        <br />
+        <br />
+        <br />
+      </div>
+    </React.Fragment>
   );
 }

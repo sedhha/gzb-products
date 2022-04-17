@@ -6,6 +6,8 @@ import { applyActionCode } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import firebaseJson from '@jsons/firebase.json';
 import useAbortableEffect from '@hooks/useAbortableEffect';
+import Head from 'next/head';
+
 export default function LoginPage() {
   const { query } = useRouter();
   const [error, setError] = useState<string>('');
@@ -46,22 +48,27 @@ export default function LoginPage() {
     [query.oobCode]
   );
   return (
-    <div className={classes.Card}>
-      <div className={classes.LogoHeight}>
-        <WhiteLogo />
+    <React.Fragment>
+      <Head>
+        <title>Funfuse: Verify Email</title>
+      </Head>
+      <div className={classes.Card}>
+        <div className={classes.LogoHeight}>
+          <WhiteLogo />
+        </div>
+        {error !== '' && (
+          <label className='text-center text-red-600'>{error}</label>
+        )}
+        {success !== '' && (
+          <label className='text-center text-lime-600'>{success}</label>
+        )}
+        {success === '' && error === '' && (
+          <label className='text-center text-white'>Please Wait...</label>
+        )}
+        <br />
+        <br />
+        <br />
       </div>
-      {error !== '' && (
-        <label className='text-center text-red-600'>{error}</label>
-      )}
-      {success !== '' && (
-        <label className='text-center text-lime-600'>{success}</label>
-      )}
-      {success === '' && error === '' && (
-        <label className='text-center text-white'>Please Wait...</label>
-      )}
-      <br />
-      <br />
-      <br />
-    </div>
+    </React.Fragment>
   );
 }

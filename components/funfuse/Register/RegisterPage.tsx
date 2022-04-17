@@ -8,6 +8,8 @@ import SelectableCard from '@/components/funfuse/SelectableCard/SelectableCard';
 import { IFunFuseRegisterUser } from '@constants/interfaces/funfuse';
 import { IResponse } from '@constants/interfaces/gcorn/backend/apis/response.interfaces';
 import FunFuseSpinner from '@/components/common/Spinner/FunFuseSpinner';
+import Head from 'next/head';
+
 const genders = {
   male: 'Male',
   female: 'Female',
@@ -114,93 +116,98 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className={classes.Card}>
-      <div className={classes.LogoHeight}>
-        <WhiteLogo />
-      </div>
-      <InputBox
-        placeholder={'Name'}
-        type={'text'}
-        outlineColor={'#fff'}
-        className='mx-4 mb-1 text-white'
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <InputBox
-        placeholder={'Email Address'}
-        type={'email'}
-        outlineColor={'#fff'}
-        className='mx-4 mb-1 text-white'
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <InputBox
-        placeholder={'Unique Username'}
-        type={'email'}
-        outlineColor={'#fff'}
-        className='mx-4 mb-1 text-white'
-        value={userName}
-        onChange={(e) => setUserName(e.target.value)}
-      />
-      <InputBox
-        placeholder={'Password'}
-        type={'password'}
-        outlineColor={'#fff'}
-        className='mx-4 mb-1 text-white'
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <InputBox
-        placeholder={'Re-Enter Password'}
-        type={'password'}
-        outlineColor={'#fff'}
-        className='mx-4 mb-1 text-white'
-        value={reEnterPassword}
-        onChange={(e) => setReEnterPassword(e.target.value)}
-      />
-      <InputBox
-        placeholder={'Birth Date'}
-        type={datePickerType}
-        onFocus={() => setDatePickerType('date')}
-        onBlur={() => setDatePickerType('text')}
-        outlineColor={'#fff'}
-        className='mx-4 mb-1 text-white'
-        style={{ colorScheme: 'dark' }}
-        value={dateOfBirth}
-        onChange={(e) => setDateOfBirth(e.target.value)}
-      />
-      <div className='flex flex-row justify-center gap-2 mt-2 width-full'>
-        {genderCards.map((card) => (
-          <SelectableCard
-            isSelected={card.id === gender}
-            key={card.id}
-            icon={card.icon(setGender)}
-            description={card.description}
-          />
-        ))}
-      </div>
-      {error !== '' && (
-        <label className='text-center text-red-600'>{error}</label>
-      )}
-      {success !== '' && (
-        <label className='text-center text-lime-600'>{success}</label>
-      )}
-      {!loading ? (
-        <div className={'mt-4 text-center'}>
-          <WhiteButton
-            icon={
-              <div
-                className={classes.LoginButton}
-                onClick={userRegistrationHandler}>
-                Register
-              </div>
-            }></WhiteButton>
+    <React.Fragment>
+      <Head>
+        <title>Register with Funfuse</title>
+      </Head>
+      <div className={classes.Card}>
+        <div className={classes.LogoHeight}>
+          <WhiteLogo />
         </div>
-      ) : (
-        <FunFuseSpinner />
-      )}
+        <InputBox
+          placeholder={'Name'}
+          type={'text'}
+          outlineColor={'#fff'}
+          className='mx-4 mb-1 text-white'
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <InputBox
+          placeholder={'Email Address'}
+          type={'email'}
+          outlineColor={'#fff'}
+          className='mx-4 mb-1 text-white'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <InputBox
+          placeholder={'Unique Username'}
+          type={'email'}
+          outlineColor={'#fff'}
+          className='mx-4 mb-1 text-white'
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+        />
+        <InputBox
+          placeholder={'Password'}
+          type={'password'}
+          outlineColor={'#fff'}
+          className='mx-4 mb-1 text-white'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <InputBox
+          placeholder={'Re-Enter Password'}
+          type={'password'}
+          outlineColor={'#fff'}
+          className='mx-4 mb-1 text-white'
+          value={reEnterPassword}
+          onChange={(e) => setReEnterPassword(e.target.value)}
+        />
+        <InputBox
+          placeholder={'Birth Date'}
+          type={datePickerType}
+          onFocus={() => setDatePickerType('date')}
+          onBlur={() => setDatePickerType('text')}
+          outlineColor={'#fff'}
+          className='mx-4 mb-1 text-white'
+          style={{ colorScheme: 'dark' }}
+          value={dateOfBirth}
+          onChange={(e) => setDateOfBirth(e.target.value)}
+        />
+        <div className='flex flex-row justify-center gap-2 mt-2 width-full'>
+          {genderCards.map((card) => (
+            <SelectableCard
+              isSelected={card.id === gender}
+              key={card.id}
+              icon={card.icon(setGender)}
+              description={card.description}
+            />
+          ))}
+        </div>
+        {error !== '' && (
+          <label className='text-center text-red-600'>{error}</label>
+        )}
+        {success !== '' && (
+          <label className='text-center text-lime-600'>{success}</label>
+        )}
+        {!loading ? (
+          <div className={'mt-4 text-center'}>
+            <WhiteButton
+              icon={
+                <div
+                  className={classes.LoginButton}
+                  onClick={userRegistrationHandler}>
+                  Register
+                </div>
+              }></WhiteButton>
+          </div>
+        ) : (
+          <FunFuseSpinner />
+        )}
 
-      <br />
-    </div>
+        <br />
+      </div>
+    </React.Fragment>
   );
 }
