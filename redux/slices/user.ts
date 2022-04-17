@@ -1,7 +1,7 @@
 import { IUserState } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
 import { loginUserWithToken } from '@redux-apis/external/login';
 import { userInitial } from '@redux-constants/user';
-import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const userSlice = createSlice({
   name: 'user',
@@ -13,7 +13,6 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(loginUser.fulfilled, (state, action) => {
       const data = action.payload.data as IUserState;
-      console.log(current(state), data);
       state.isLoggedIn = data.isLoggedIn;
       state.firebaseToken = data.firebaseToken;
       state.user = data.user;

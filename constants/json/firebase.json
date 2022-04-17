@@ -60,6 +60,7 @@
     "auth/uid-already-exists": "The provided uid is already in use by an existing user. Each user must have a unique uid.",
     "auth/unauthorized-continue-uri": "The domain of the continue URL is not whitelisted. Whitelist the domain in the Firebase Console.",
     "auth/user-not-found": "There is no existing user record corresponding to the provided identifier.",
+    "auth/invalid-action-code": "The Verification Code you entered is not valid or expired.",
     "unknown-firebase-error": "Unexpected Error Happened"
   }
 }

@@ -16,6 +16,11 @@ import {
   IFunFuseUserData,
 } from '@constants/interfaces/funfuse';
 import { FirebaseError } from 'firebase-admin';
+import { performAppScriptOperations } from '@global-backend/services/appscript/appScript';
+import {
+  IAppScriptEmail,
+  operationTypes,
+} from '@constants/interfaces/appScript/AppScript.interfaces';
 const {
   isEmptyString,
   isPasswordStrong,
@@ -71,7 +76,7 @@ const registerUser = async (
 const upsertUserNameToDb = async (username: string): Promise<boolean> => {
   const usernameRef = Server.rdb.ref('funfuse-usernames');
   return usernameRef
-    .child(username)
+    .child(username.toLowerCase())
     .get()
     .then((snapshot) => {
       if (snapshot.exists()) return false;
@@ -82,10 +87,15 @@ const upsertUserNameToDb = async (username: string): Promise<boolean> => {
 };
 const addUserNameSlug = async (username: string): Promise<boolean> => {
   const usernameRef = Server.rdb.ref('funfuse-usernames');
-  await usernameRef.child(username).set(true);
+  await usernameRef.child(username.toLowerCase()).set(true);
   return true;
 };
-
+const sendVerificationEmail = async (
+  payload: IAppScriptEmail
+): Promise<boolean> =>
+  performAppScriptOperations(operationTypes.sendEmail, payload).then(
+    (data) => !data.error
+  );
 export const registerFunFuseUser = async (
   payload: IFunFuseRegisterUser
 ): Promise<IResponse> => {
@@ -100,6 +110,15 @@ export const registerFunFuseUser = async (
         displayName: payload.name,
         email: payload.email,
         password: payload.password,
+      });
+      Server.auth.generateEmailVerificationLink(payload.email).then((link) => {
+        return sendVerificationEmail({
+          to: payload.email,
+          subject: 'Verify your FunFuse Account',
+          htmlBody: `<p>Hi ${payload.name}, You're just one step far from start using FunFuse services. Kindly click on the link ${link} and get fuse in the fun world of SMBs!</p>`,
+          name: 'FunFuse Email Verification',
+          replyTo: process.env.FUNFUSE_EMAIL_HANDLER,
+        });
       });
       const userData: IFunFuseUserData = {
         name: payload.name,
