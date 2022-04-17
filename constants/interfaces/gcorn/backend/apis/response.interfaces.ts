@@ -51,6 +51,7 @@ export enum ErrorCodes {
   EMPTY_REQUIRED_FIELD = 'emptyRequiredField',
   USERNAME_ALREADY_EXISTS = 'usernameAlreadyExists',
   FUNFUSE_REGISTRATION_SUCCESS = 'funfuse_registration_success',
+  FUNFUSE_LOGIN_SUCCESS = 'funfuse_login_success',
   FIREBASE_GENERATED_ERROR = 'firebaseGeneratedError',
   UNKNOWN_KEY = 'unknownKey',
 }

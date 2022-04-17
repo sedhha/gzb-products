@@ -77,6 +77,10 @@ export default function RegisterPage() {
 
   const userRegistrationHandler = () => {
     setLoading(true);
+    if (password !== reEnterPassword) {
+      errorHandler('', 'Passwords do not match');
+      return;
+    }
     const registrationPayload: IFunFuseRegisterUser = {
       name,
       email,
@@ -85,7 +89,7 @@ export default function RegisterPage() {
       dob: dateOfBirth,
       username: userName,
     };
-    fetch('/api/funfuse/register-user', {
+    fetch('/api/funfuse/auth/register-user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

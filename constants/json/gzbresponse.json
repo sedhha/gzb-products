@@ -232,5 +232,16 @@
       "name": "Funfuse",
       "id": "02"
     }
+  },
+  "funfuse_login_success": {
+    "error": false,
+    "error_code": "0303",
+    "code": "FUNFUSE_LOGIN_SUCCESS",
+    "details": "User Logged In Successfully with Funfuse",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Funfuse",
+      "id": "03"
+    }
   }
 }

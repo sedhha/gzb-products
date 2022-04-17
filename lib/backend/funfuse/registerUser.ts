@@ -99,6 +99,7 @@ export const registerFunFuseUser = async (
       const userRecord = await Server.auth.createUser({
         displayName: payload.name,
         email: payload.email,
+        password: payload.password,
       });
       const userData: IFunFuseUserData = {
         name: payload.name,

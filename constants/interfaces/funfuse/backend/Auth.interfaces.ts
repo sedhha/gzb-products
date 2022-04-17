@@ -16,3 +16,13 @@ export interface IFunFuseUserData {
   username: string;
   role: FunFuseUserTypes;
 }
+
+export interface IUserState {
+  firebaseToken?: string;
+  isLoggedIn: boolean;
+  user?: IFunFuseUserData;
+}
+
+export interface IAuthRequest {
+  firebaseToken: string;
+}

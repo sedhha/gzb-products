@@ -1,0 +1,49 @@
+import { IUserState } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
+import { loginUserWithToken } from '@redux-apis/external/login';
+import { userInitial } from '@redux-constants/user';
+import { AppState } from '@redux-tools/store';
+import {
+  createSlice,
+  PayloadAction,
+  createAsyncThunk,
+  current,
+} from '@reduxjs/toolkit';
+
+export const userSlice = createSlice({
+  name: 'user',
+  initialState: userInitial,
+  reducers: {
+    logOut: () => userInitial,
+  },
+
+  extraReducers: (builder) => {
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      const data = action.payload.data as IUserState;
+      console.log(current(state), data);
+      state.isLoggedIn = data.isLoggedIn;
+      state.firebaseToken = data.firebaseToken;
+      state.user = data.user;
+    });
+    builder.addCase(loginUser.rejected, (state: IUserState, action) => {
+      console.log('Action Rejected = ', action);
+    });
+  },
+});
+
+export const loginUser = createAsyncThunk(
+  'userSlice/login',
+  async (firebaseToken: string) => {
+    const data = await loginUserWithToken(firebaseToken);
+    return data;
+  }
+);
+
+// export const { updateFields, resetUserState } = userSlice.actions;
+export default userSlice.reducer;
+
+/*
+
+Playing Around with Users:
+  https://firebase.google.com/docs/auth/admin/manage-users#update_a_user
+
+*/

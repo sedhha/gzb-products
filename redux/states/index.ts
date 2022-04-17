@@ -1,0 +1,1 @@
+export { userInitial } from './user';

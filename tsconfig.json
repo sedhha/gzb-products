@@ -28,7 +28,11 @@
       "@test-utils/*": ["test-utils/*"],
       "@global-backend/*": ["lib/backend/*"],
       "@jsons/*": ["constants/json/*"],
-      "@hooks/*": ["hooks/*"]
+      "@hooks/*": ["hooks/*"],
+      "@redux-slices/*": ["redux/slices/*"],
+      "@redux-constants/*": ["redux/states/*"],
+      "@redux-tools/*": ["redux/tools/*"],
+      "@redux-apis/*": ["redux/apis/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types.d.ts"],

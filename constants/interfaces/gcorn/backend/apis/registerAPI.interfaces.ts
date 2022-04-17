@@ -57,18 +57,6 @@ export type IUserRegistationForm = IRegisterPayload &
   IUserIncomingFieldGeneric &
   UserBackendInjectedVariables;
 
-interface IUserPresence {
-  online: boolean;
-  lastSeen: number;
-  lastActivelng: number;
-  lastActivelat: number;
-  lastActivegeohash: string;
-  reachScore: number; //- Number of people connected with
-  activityScore: number; // - Number of messages sent
-  engagementScore: number; // - Number of messages received
-  interestRatio: number; // - engagementScore / activityScore
-}
-
 //Registration Function Interfaces
 
 export interface IValidRegistration {
