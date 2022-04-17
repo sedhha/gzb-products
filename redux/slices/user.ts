@@ -1,13 +1,7 @@
 import { IUserState } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
 import { loginUserWithToken } from '@redux-apis/external/login';
 import { userInitial } from '@redux-constants/user';
-import { AppState } from '@redux-tools/store';
-import {
-  createSlice,
-  PayloadAction,
-  createAsyncThunk,
-  current,
-} from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
 
 export const userSlice = createSlice({
   name: 'user',
