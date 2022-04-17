@@ -14,13 +14,12 @@ export default function LoginPage() {
 
   useAbortableEffect(
     (mounted) => {
-      if (mode !== 'verifyEmail' && mounted) {
-        setSuccess('');
-        setError('Only Email Verification Supported');
-        return;
-      }
       if (oobCode) {
-        console.log('Comes in');
+        if (mode !== 'verifyEmail' && mounted) {
+          setSuccess('');
+          setError('Only Email Verification Supported');
+          return;
+        }
         applyActionCode(Auth, oobCode)
           .then(() => {
             if (mounted) {
