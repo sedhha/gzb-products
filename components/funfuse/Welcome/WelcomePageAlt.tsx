@@ -10,7 +10,6 @@ import FullWidthImage from '../FullWidthImage/FullWidthImage';
 import ThemeButton from '@/components/funfuse/Buttons/ThemeButton/ThemeButton';
 export default function WelcomePage() {
   const router = useRouter();
-  console.log('CCC');
 
   return (
     <React.Fragment>
