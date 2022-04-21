@@ -2,8 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 .image-container {
   width: 100%;
   height: 8rem;
   position: relative;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+input[data-autocompleted] {
+  background-color: transparent !important;
+}
+
+/* ==========================================================================
+   Icons Customization [moduleName-icons-iconName]
+   ========================================================================== */
+
+.funfuse-icons-email {
+  -webkit-mask: url('/funfuse/icons/funfuse-email.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-email.svg') no-repeat center;
+}
+.funfuse-icons-lock {
+  -webkit-mask: url('/funfuse/icons/funfuse-lock.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-lock.svg') no-repeat center;
+}
+.funfuse-icons-name {
+  -webkit-mask: url('/funfuse/icons/funfuse-name.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-name.svg') no-repeat center;
+}
+.funfuse-icons-lock,
+.funfuse-icons-email,
+.funfuse-icons-name {
+  height: 2rem;
+  width: 2rem;
 }

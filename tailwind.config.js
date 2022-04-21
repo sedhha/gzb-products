@@ -13,6 +13,7 @@ module.exports = {
       },
       fontFamily: {
         gcorn_f: "'Open Sans', sans-serif",
+        funfuse: "'Poppins', sans-serif",
       },
     },
   },
