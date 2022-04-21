@@ -2,7 +2,7 @@ import React from 'react';
 import ThemeLogo from '@/components/funfuse/Logos/ThemeLogo';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import FullWidthImage from '../FullWidthImage/FullWidthImage';
+import FullWidthImage from '@/components/funfuse/FullWidthImage/FullWidthImage';
 import ThemeButton from '@/components/funfuse/Buttons/ThemeButton/ThemeButton';
 export default function WelcomePage() {
   const router = useRouter();

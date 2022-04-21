@@ -18,7 +18,7 @@ export default function SelectableCard({
           isSelected ? 'border-white border-2 rounded' : ''
         }`}>
         {icon}
-        <label className={classes.labelText}>{description}</label>
+        <label className='text-center text-white'>{description}</label>
       </div>
     </React.Fragment>
   );

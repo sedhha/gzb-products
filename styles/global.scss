@@ -33,9 +33,31 @@ input[data-autocompleted] {
   -webkit-mask: url('/funfuse/icons/funfuse-name.svg') no-repeat center;
   mask: url('/funfuse/icons/funfuse-name.svg') no-repeat center;
 }
+.funfuse-icons-calendar {
+  -webkit-mask: url('/funfuse/icons/funfuse-calendar.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-calendar.svg') no-repeat center;
+}
+.funfuse-icons-man {
+  -webkit-mask: url('/funfuse/icons/funfuse-man.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-man.svg') no-repeat center;
+}
+.funfuse-icons-woman {
+  -webkit-mask: url('/funfuse/icons/funfuse-woman.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-woman.svg') no-repeat center;
+}
+
+.funfuse-icons-other {
+  -webkit-mask: url('/funfuse/icons/funfuse-other.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-other.svg') no-repeat center;
+}
+
 .funfuse-icons-lock,
 .funfuse-icons-email,
-.funfuse-icons-name {
+.funfuse-icons-name,
+.funfuse-icons-man,
+.funfuse-icons-calendar,
+.funfuse-icons-woman,
+.funfuse-icons-other {
   height: 2rem;
   width: 2rem;
 }

@@ -11,6 +11,9 @@ import ThemeButton from '../Buttons/ThemeButton/ThemeButton';
 import { firebaseErrorTranslater } from '@firebase-server/public/errorTranslator';
 import { IResponse } from '@constants/interfaces/gcorn/backend/apis/response.interfaces';
 import { IFunFuseRegisterUser } from '@constants/interfaces/funfuse';
+import ThemeDatePicker from '@/components/common/Inputs/ThemeDatePicker';
+import SelectableCardAlt from '../SelectableCard/SelectableCardAlt';
+import ThemeSpinner from '../Spinner/ThemeSpinner';
 
 const genders = {
   male: 'Male',
@@ -18,9 +21,23 @@ const genders = {
   others: 'Other',
 };
 
+const genderChoices = [
+  {
+    description: genders.male,
+    iconClass: 'funfuse-icons-man',
+  },
+  {
+    description: genders.female,
+    iconClass: 'funfuse-icons-woman',
+  },
+  {
+    description: genders.others,
+    iconClass: 'funfuse-icons-other',
+  },
+];
+
 export default function LoginPage() {
   const [gender, setGender] = useState(genders.male);
-  const [datePickerType, setDatePickerType] = useState<string>('text');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [reEnterPassword, setReEnterPassword] = useState<string>('');
@@ -87,6 +104,7 @@ export default function LoginPage() {
   };
 
   const isError = error !== '';
+  const isSuccess = success !== '';
 
   return (
     <React.Fragment>
@@ -132,12 +150,42 @@ export default function LoginPage() {
           value={reEnterPassword}
           type={'password'}
         />
+
+        <ThemeDatePicker
+          iconClass='funfuse-icons-calendar'
+          placeholder='Date of Birth'
+          onChange={(e) => setDateOfBirth(e.target.value)}
+          value={dateOfBirth}
+        />
+        <div className='flex flex-row justify-center w-full'>
+          {genderChoices.map((element) => (
+            <SelectableCardAlt
+              key={element.description}
+              iconClass={element.iconClass}
+              isSelected={element.description === gender}
+              setSelected={() => setGender(element.description)}
+              description={element.description}
+            />
+          ))}
+        </div>
         {isError ? (
           <label className='m-2 mt-4 text-red-400 font-funfuse'>{error}</label>
+        ) : isSuccess ? (
+          <label className='m-2 mt-4 text-green-400 font-funfuse'>
+            {success}
+          </label>
         ) : null}
         {loading ? (
-          <div className='w-16 h-16 mx-auto mt-8 border-b-2 rounded-full border-funfuse animate-spin' />
-        ) : null}
+          <div className='w-3/4 mx-auto'>
+            <ThemeSpinner />
+          </div>
+        ) : (
+          <ThemeButton
+            buttonText={'Register'}
+            twClass='w-3/4 mx-auto text-xl mt-2'
+            buttonCallback={userRegistrationHandler}
+          />
+        )}
       </div>
     </React.Fragment>
   );
