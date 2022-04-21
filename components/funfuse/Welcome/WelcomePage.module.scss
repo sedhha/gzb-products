@@ -31,3 +31,12 @@
   padding: 0;
   margin: 0;
 }
+
+/*------------------------------After Figma Design Classes----------------------*/
+.MobileLayout {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 920px;
+  border: 2px solid #ccc;
+}

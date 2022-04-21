@@ -1,8 +1,6 @@
-import WelcomePage from '@/components/funfuse/Welcome/WelcomePage';
+import WelcomePage from '@/components/funfuse/Welcome/WelcomePageAlt';
 import React from 'react';
 
-type Props = {};
-
-export default function Welcome({}: Props) {
+export default function index() {
   return <WelcomePage />;
 }

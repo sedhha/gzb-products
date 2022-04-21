@@ -7,11 +7,12 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 export default function WelcomePage() {
+  console.log('CCC');
   const router = useRouter();
   return (
     <React.Fragment>
       <Head>
-        <title>Welcome to Funfuse</title>
+        <title>Funfuse</title>
       </Head>
       <div className={classes.Card}>
         <div className='flex flex-row justify-center w-full p-0 m-0 text-center gap-x-4'>

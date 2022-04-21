@@ -6,7 +6,7 @@ export default function WhiteLogo() {
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       <Image
         alt='Funfuse Logo'
-        src='/funfuse/logo-white.svg'
+        src='/funfuse/logo.svg'
         layout='fill'
         objectFit='contain'
         priority={true}
