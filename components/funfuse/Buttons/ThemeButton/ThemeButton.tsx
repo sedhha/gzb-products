@@ -12,7 +12,7 @@ export default function ThemeButton({
 }: Props) {
   return (
     <button
-      className={`py-8 px-12 text-white btn bg-funfuse ${twClass ?? ''}`}
+      className={`py-2 px-4 text-white btn bg-funfuse ${twClass ?? ''}`}
       onClick={buttonCallback}>
       {buttonText}
     </button>

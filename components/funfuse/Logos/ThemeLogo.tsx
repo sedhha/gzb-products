@@ -3,10 +3,15 @@ import Image from 'next/image';
 
 export default function WhiteLogo() {
   return (
-    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        position: 'relative',
+      }}>
       <Image
         alt='Funfuse Logo'
-        src='/funfuse/logo.svg'
+        src='/funfuse/logo.png'
         layout='fill'
         objectFit='contain'
         priority={true}

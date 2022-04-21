@@ -1,45 +1,40 @@
 import React from 'react';
-import classes from './WelcomePage.module.scss';
-import WhiteLogo from '@/components/funfuse/Logos/WhiteLogo';
-import WhiteButton from '@/components/funfuse/Buttons/WhiteButton/WhiteButton';
-import { FiLogIn } from 'react-icons/fi';
-import { AiOutlinePlus } from 'react-icons/ai';
+import ThemeLogo from '@/components/funfuse/Logos/ThemeLogo';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import FullWidthImage from '../FullWidthImage/FullWidthImage';
+import ThemeButton from '@/components/funfuse/Buttons/ThemeButton/ThemeButton';
 export default function WelcomePage() {
-  console.log('CCC');
   const router = useRouter();
+
   return (
     <React.Fragment>
       <Head>
         <title>Funfuse</title>
       </Head>
-      <div className={classes.Card}>
-        <div className='flex flex-row justify-center w-full p-0 m-0 text-center gap-x-4'>
-          <WhiteButton
-            icon={
-              <FiLogIn
-                className={classes.ActionIcon}
-                onClick={() => router.push('/funfuse/login')}
-              />
-            }
-          />
-          <WhiteButton
-            icon={
-              <AiOutlinePlus
-                className={classes.ActionIconLarge}
-                onClick={() => router.push('/funfuse/register')}
-              />
-            }
+      <div className='flex flex-col justify-center w-screen h-screen p-2'>
+        <div className='h-[10rem] w-auto'>
+          <ThemeLogo />
+        </div>
+
+        <div className='h-[20rem] w-auto py-0 px-2'>
+          <FullWidthImage
+            alt='Funfuse Home'
+            priority
+            src='/funfuse/homepage.svg'
           />
         </div>
-        <div className={classes.LogoHeight}>
-          <WhiteLogo />
-        </div>
-        <label className={classes.TagLine}>
-          Fuse in to small business communities and grow together!
-        </label>
-        <br />
+
+        <ThemeButton
+          buttonText={'Register'}
+          twClass='w-3/4 mx-auto text-xl mb-3'
+          buttonCallback={() => router.push('/funfuse/register')}
+        />
+        <ThemeButton
+          buttonText={'Login'}
+          twClass='w-3/4 mx-auto text-xl'
+          buttonCallback={() => router.push('/funfuse/login')}
+        />
       </div>
     </React.Fragment>
   );
