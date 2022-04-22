@@ -1,5 +1,4 @@
 import React from 'react';
-import FullWidthImage from '@/components/funfuse/FullWidthImage/FullWidthImage';
 
 type Props = {
   iconClass: string;

@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
-import classes from './VerifyEmail.module.scss';
-import WhiteLogo from '@/components/funfuse/Logos/WhiteLogo';
+import ThemeLogo from '@/components/funfuse/Logos/ThemeLogo';
 import Auth from '@firebase-client/client.config';
 import { applyActionCode } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import firebaseJson from '@jsons/firebase.json';
 import useAbortableEffect from '@hooks/useAbortableEffect';
 import Head from 'next/head';
+import TopNavBar from '../TopNavBar/TopNavBar';
 
 export default function LoginPage() {
   const { query } = useRouter();
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
   const { oobCode, mode } = query as { mode: string; oobCode: string };
+
+  const isError = error !== '';
+  const isSuccess = success !== '';
 
   useAbortableEffect(
     (mounted) => {
@@ -52,22 +55,28 @@ export default function LoginPage() {
       <Head>
         <title>Funfuse: Verify Email</title>
       </Head>
-      <div className={classes.Card}>
-        <div className={classes.LogoHeight}>
-          <WhiteLogo />
+      <TopNavBar headerText={'Verify Email'} />
+      <div className='flex flex-col justify-center w-screen h-screen p-2'>
+        <div className='h-[10rem] w-auto'>
+          <ThemeLogo />
         </div>
-        {error !== '' && (
-          <label className='text-center text-red-600'>{error}</label>
-        )}
-        {success !== '' && (
-          <label className='text-center text-lime-600'>{success}</label>
-        )}
-        {success === '' && error === '' && (
-          <label className='text-center text-white'>Please Wait...</label>
-        )}
-        <br />
-        <br />
-        <br />
+
+        {isError ? (
+          <label className='m-2 mt-4 text-red-400 font-funfuse'>{error}</label>
+        ) : null}
+        {isSuccess ? (
+          <label className='m-2 mt-4 text-green-500 font-funfuse'>
+            {success}
+          </label>
+        ) : null}
+        {!isError && !isSuccess ? (
+          <React.Fragment>
+            <div className='w-16 h-16 mx-auto mt-8 border-b-2 rounded-full border-funfuse animate-spin' />
+            <label className='m-2 mx-auto mt-4 text-funfuse font-funfuse'>
+              Trying to Verify your Email...
+            </label>
+          </React.Fragment>
+        ) : null}
       </div>
     </React.Fragment>
   );
