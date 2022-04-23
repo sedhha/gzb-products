@@ -5,6 +5,15 @@ export const verifiedRoutes = {
   EVENTS_ROUTE: 'events',
   CONNECTS_ROUTE: 'connects',
 };
+
+export const navBarHeaders = {
+  HOME_ROUTE: 'Home',
+  MESSAGES_ROUTE: 'Messages',
+  MENTORSHIP_ROUTE: 'Mentorship',
+  EVENTS_ROUTE: 'Events',
+  CONNECTS_ROUTE: 'Connects',
+  UNKNOWN_ROUTE: '404',
+};
 export const navBarItems = {
   HOME_ROUTE: 'funfuse-icons-home',
   MESSAGES_ROUTE: 'funfuse-icons-messages',
