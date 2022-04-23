@@ -9,13 +9,13 @@ type Props = {
 
 export default function TopNavBar({ headerText, imageRef, username }: Props) {
   return (
-    <div className='flex flex-row items-center justify-between w-full px-2 py-3 bg-funfuse'>
+    <div className='fixed top-0 left-0 right-0 flex flex-row items-center justify-between w-full px-2 py-3 bg-funfuse'>
       <h2 className='p-0 m-0 text-2xl text-white font-funfuse '>
         {headerText}
       </h2>
       <div className='relative w-12 h-12'>
         <FullWidthImage
-          src='https://randomuser.me/api/portraits/women/81.jpg'
+          src={imageRef ?? '/funfuse/avatar.png'}
           alt={username ?? 'User Avatar'}
           containerDivClass='border border-gray-100 rounded-full shadow-sm overflow-hidden'
         />

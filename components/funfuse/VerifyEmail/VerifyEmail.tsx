@@ -7,6 +7,7 @@ import firebaseJson from '@jsons/firebase.json';
 import useAbortableEffect from '@hooks/useAbortableEffect';
 import Head from 'next/head';
 import TopNavBar from '../TopNavBar/TopNavBar';
+import BottomNavBar from '../BottomNavBar/BottomNavBar';
 
 export default function LoginPage() {
   const { query } = useRouter();
@@ -78,6 +79,7 @@ export default function LoginPage() {
           </React.Fragment>
         ) : null}
       </div>
+      <BottomNavBar isActive={false} />
     </React.Fragment>
   );
 }
