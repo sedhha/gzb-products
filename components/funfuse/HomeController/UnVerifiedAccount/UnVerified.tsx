@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import React from 'react';
 import AppWrapper from '../../hoc/AppWrapper';
 
@@ -9,6 +10,9 @@ export default function UnVerified({ username }: Props) {
   const isUnknownName = username === 'uv';
   return (
     <React.Fragment>
+      <Head>
+        <title>Funfuse: {username}-Unverified</title>
+      </Head>
       <AppWrapper
         topNavBarprops={{
           headerText: 'Unverified Account',
