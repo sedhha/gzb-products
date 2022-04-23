@@ -37,7 +37,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const { updateUserVerification } = userSlice.actions;
+export const { updateUserVerification, logOut } = userSlice.actions;
 export default userSlice.reducer;
 
 /*

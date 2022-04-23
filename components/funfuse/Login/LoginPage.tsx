@@ -14,6 +14,7 @@ import {
   genericRoutes,
   verifiedRoutes,
 } from '@/components/funfuse/constants/verifiedRoutes';
+import Link from 'next/link';
 
 type Props = {
   idToken: string;
@@ -104,6 +105,14 @@ export default function LoginPage({ idToken }: Props) {
             buttonCallback={loginHander}
           />
         )}
+        <label className='m-2 mt-4 text-gray-400 font-funfuse'>
+          Don&apos;t have an Account ?{' '}
+          <Link href='/funfuse/register' passHref>
+            <a className='underline cursor-pointer text-funfuse'>
+              Register Here.
+            </a>
+          </Link>
+        </label>
       </div>
     </React.Fragment>
   );

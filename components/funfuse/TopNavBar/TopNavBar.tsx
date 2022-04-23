@@ -1,18 +1,29 @@
 import React from 'react';
 import FullWidthImage from '@/components/funfuse/FullWidthImage/FullWidthImage';
 import { HeaderProps } from '@constants/interfaces/funfuse/frontend/ui-props/TopNavBar.interfaces';
-
+import Auth from '@firebase-client/client.config';
+import { logOut } from '@redux-slices/user';
+import { useAppDispatch } from '@redux-tools/hooks';
+import { useRouter } from 'next/router';
 export default function TopNavBar({
   headerText,
   imageRef,
   username,
 }: HeaderProps) {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   return (
     <div className='flex flex-row items-center justify-between w-full px-2 py-3 bg-funfuse'>
       <h2 className='p-0 m-0 text-2xl text-white font-funfuse '>
         {headerText}
       </h2>
-      <div className='relative w-12 h-12'>
+      <div
+        className='relative w-12 h-12'
+        onClick={() => {
+          Auth.signOut();
+          dispatch(logOut());
+          router.push('/funfuse/login');
+        }}>
         <FullWidthImage
           src={imageRef ?? '/funfuse/avatar.png'}
           alt={username ?? 'User Avatar'}

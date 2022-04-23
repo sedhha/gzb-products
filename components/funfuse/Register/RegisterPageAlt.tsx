@@ -14,6 +14,7 @@ import { IFunFuseRegisterUser } from '@constants/interfaces/funfuse';
 import ThemeDatePicker from '@/components/common/Inputs/ThemeDatePicker';
 import SelectableCardAlt from '../SelectableCard/SelectableCardAlt';
 import ThemeSpinner from '../Spinner/ThemeSpinner';
+import Link from 'next/link';
 
 const genders = {
   male: 'Male',
@@ -186,6 +187,12 @@ export default function LoginPage() {
             buttonCallback={userRegistrationHandler}
           />
         )}
+        <label className='m-2 mt-4 text-gray-400 font-funfuse'>
+          Already have an account ?{' '}
+          <Link href='/funfuse/login' passHref>
+            <a className='underline cursor-pointer text-funfuse'>Login Here.</a>
+          </Link>
+        </label>
       </div>
     </React.Fragment>
   );
