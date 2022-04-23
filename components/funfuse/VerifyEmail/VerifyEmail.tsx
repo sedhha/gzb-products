@@ -7,6 +7,7 @@ import firebaseJson from '@jsons/firebase.json';
 import useAbortableEffect from '@hooks/useAbortableEffect';
 import Head from 'next/head';
 import AppWrapper from '../hoc/AppWrapper';
+import Link from 'next/link';
 
 export default function LoginPage() {
   const { query } = useRouter();
@@ -29,7 +30,7 @@ export default function LoginPage() {
           .then(() => {
             if (mounted) {
               console.log('Success');
-              setSuccess('Email Verified Successfully Go Back to Login Page');
+              setSuccess('Email Verified Successfully. ');
               setError('');
               return;
             }
@@ -71,6 +72,12 @@ export default function LoginPage() {
             {isSuccess ? (
               <label className='m-2 mt-4 text-green-500 font-funfuse'>
                 {success}
+
+                <Link href='/funfuse/login' passHref>
+                  <a className='underline cursor-pointer text-funfuse'>
+                    Login Here.
+                  </a>
+                </Link>
               </label>
             ) : null}
             {!isError && !isSuccess ? (
