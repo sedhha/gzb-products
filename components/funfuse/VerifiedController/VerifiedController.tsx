@@ -7,6 +7,7 @@ import {
 } from '@/components/funfuse/constants/verifiedRoutes';
 import VerifiedComponents from '@/components/funfuse/VerifiedController/VerifiedPages';
 import AppWrapper from '@/components/funfuse/hoc/AppWrapper';
+import Head from 'next/head';
 
 export default function VerifiedController() {
   const user = useAppSelector((state) => state.user);
@@ -59,9 +60,14 @@ export default function VerifiedController() {
     }
   }
   return (
-    <AppWrapper
-      topNavBarprops={{ headerText: navBarHeader }}
-      childComponent={RenderComponent}
-    />
+    <React.Fragment>
+      <Head>
+        <title>Funfuse: {user?.user?.username ?? 'Guest'}</title>
+      </Head>
+      <AppWrapper
+        topNavBarprops={{ headerText: navBarHeader }}
+        childComponent={RenderComponent}
+      />
+    </React.Fragment>
   );
 }
