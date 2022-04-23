@@ -1,7 +1,7 @@
 import React from 'react';
 
 type Props = {
-  activeNavBar: string;
+  activeNavBar?: string;
 };
 
 const navBarItems = [

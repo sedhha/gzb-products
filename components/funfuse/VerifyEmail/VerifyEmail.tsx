@@ -79,7 +79,7 @@ export default function LoginPage() {
           </React.Fragment>
         ) : null}
       </div>
-      <BottomNavBar isActive={false} />
+      <BottomNavBar />
     </React.Fragment>
   );
 }
