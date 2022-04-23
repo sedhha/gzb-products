@@ -111,15 +111,17 @@ export const registerFunFuseUser = async (
         email: payload.email,
         password: payload.password,
       });
-      Server.auth.generateEmailVerificationLink(payload.email).then((link) => {
-        return sendVerificationEmail({
-          to: payload.email,
-          subject: 'Verify your FunFuse Account',
-          htmlBody: `<p>Hi ${payload.name}, You're just one step far from start using FunFuse services. Kindly click on the link ${link} and get fuse in the fun world of SMBs!</p>`,
-          name: 'FunFuse Email Verification',
-          replyTo: process.env.FUNFUSE_EMAIL_HANDLER,
+      await Server.auth
+        .generateEmailVerificationLink(payload.email)
+        .then((link) => {
+          return sendVerificationEmail({
+            to: payload.email,
+            subject: 'Verify your FunFuse Account',
+            htmlBody: `<p>Hi ${payload.name}, You're just one step far from start using FunFuse services. Kindly click on the link ${link} and get fuse in the fun world of SMBs!</p>`,
+            name: 'FunFuse Email Verification',
+            replyTo: process.env.FUNFUSE_EMAIL_HANDLER,
+          });
         });
-      });
       const userData: IFunFuseUserData = {
         name: payload.name,
         email: payload.email,
