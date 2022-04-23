@@ -20,6 +20,7 @@ export interface IFunFuseUserData {
 export interface IUserState {
   firebaseToken?: string;
   isLoggedIn: boolean;
+  isUserVerified?: boolean;
   user?: IFunFuseUserData;
 }
 

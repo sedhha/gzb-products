@@ -76,18 +76,7 @@ input[data-autocompleted] {
   mask: url('/funfuse/icons/funfuse-connects.svg') no-repeat center;
 }
 
-.funfuse-icons-lock,
-.funfuse-icons-email,
-.funfuse-icons-name,
-.funfuse-icons-man,
-.funfuse-icons-calendar,
-.funfuse-icons-woman,
-.funfuse-icons-other,
-.funfuse-icons-home,
-.funfuse-icons-messages,
-.funfuse-icons-mentorship,
-.funfuse-icons-events,
-.funfuse-icons-connects {
-  height: 2rem;
-  width: 2rem;
+.funfuse-icons-warning {
+  -webkit-mask: url('/funfuse/icons/funfuse-warning.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-warning.svg') no-repeat center;
 }

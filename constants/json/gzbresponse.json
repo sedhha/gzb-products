@@ -221,6 +221,17 @@
       "id": "01"
     }
   },
+  "userNameTooShort": {
+    "error": true,
+    "error_code": "0304",
+    "code": "USERNAME_TOO_SHORT",
+    "details": "Username must be more than 3 characters long.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Funfuse",
+      "id": "04"
+    }
+  },
 
   "funfuse_registration_success": {
     "error": false,

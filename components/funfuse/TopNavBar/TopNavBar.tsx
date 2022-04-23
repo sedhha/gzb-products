@@ -1,15 +1,14 @@
 import React from 'react';
 import FullWidthImage from '@/components/funfuse/FullWidthImage/FullWidthImage';
+import { HeaderProps } from '@constants/interfaces/funfuse/frontend/ui-props/TopNavBar.interfaces';
 
-type Props = {
-  headerText: string;
-  imageRef?: string;
-  username?: string;
-};
-
-export default function TopNavBar({ headerText, imageRef, username }: Props) {
+export default function TopNavBar({
+  headerText,
+  imageRef,
+  username,
+}: HeaderProps) {
   return (
-    <div className='fixed top-0 left-0 right-0 flex flex-row items-center justify-between w-full px-2 py-3 bg-funfuse'>
+    <div className='flex flex-row items-center justify-between w-full px-2 py-3 bg-funfuse'>
       <h2 className='p-0 m-0 text-2xl text-white font-funfuse '>
         {headerText}
       </h2>

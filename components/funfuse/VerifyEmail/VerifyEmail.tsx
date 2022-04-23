@@ -6,8 +6,7 @@ import { useRouter } from 'next/router';
 import firebaseJson from '@jsons/firebase.json';
 import useAbortableEffect from '@hooks/useAbortableEffect';
 import Head from 'next/head';
-import TopNavBar from '../TopNavBar/TopNavBar';
-import BottomNavBar from '../BottomNavBar/BottomNavBar';
+import AppWrapper from '../hoc/AppWrapper';
 
 export default function LoginPage() {
   const { query } = useRouter();
@@ -56,30 +55,35 @@ export default function LoginPage() {
       <Head>
         <title>Funfuse: Verify Email</title>
       </Head>
-      <TopNavBar headerText={'Verify Email'} />
-      <div className='flex flex-col justify-center w-screen h-screen p-2'>
-        <div className='h-[10rem] w-auto'>
-          <ThemeLogo />
-        </div>
+      <AppWrapper
+        topNavBarprops={{ headerText: 'Verify Email' }}
+        childComponent={
+          <div className='flex flex-col justify-center w-screen h-screen p-2'>
+            <div className='h-[10rem] w-auto'>
+              <ThemeLogo />
+            </div>
 
-        {isError ? (
-          <label className='m-2 mt-4 text-red-400 font-funfuse'>{error}</label>
-        ) : null}
-        {isSuccess ? (
-          <label className='m-2 mt-4 text-green-500 font-funfuse'>
-            {success}
-          </label>
-        ) : null}
-        {!isError && !isSuccess ? (
-          <React.Fragment>
-            <div className='w-16 h-16 mx-auto mt-8 border-b-2 rounded-full border-funfuse animate-spin' />
-            <label className='m-2 mx-auto mt-4 text-funfuse font-funfuse'>
-              Trying to Verify your Email...
-            </label>
-          </React.Fragment>
-        ) : null}
-      </div>
-      <BottomNavBar />
+            {isError ? (
+              <label className='m-2 mt-4 text-red-400 font-funfuse'>
+                {error}
+              </label>
+            ) : null}
+            {isSuccess ? (
+              <label className='m-2 mt-4 text-green-500 font-funfuse'>
+                {success}
+              </label>
+            ) : null}
+            {!isError && !isSuccess ? (
+              <React.Fragment>
+                <div className='w-16 h-16 mx-auto mt-8 border-b-2 rounded-full border-funfuse animate-spin' />
+                <label className='m-2 mx-auto mt-4 text-funfuse font-funfuse'>
+                  Trying to Verify your Email...
+                </label>
+              </React.Fragment>
+            ) : null}
+          </div>
+        }
+      />
     </React.Fragment>
   );
 }

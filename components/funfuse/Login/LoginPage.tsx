@@ -1,21 +1,31 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Auth from '@firebase-client/client.config';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { loginUser } from '@redux-slices/user';
-import { useAppDispatch } from '@redux-tools/hooks';
+import { useAppDispatch, useAppSelector } from '@redux-tools/hooks';
 import Head from 'next/head';
 import ThemeLogo from '@/components/funfuse/Logos/ThemeLogo';
 import ThemeInputBox from '@/components/common/Inputs/ThemeInputBox';
 import { FirebaseError } from 'firebase/app';
 import ThemeButton from '../Buttons/ThemeButton/ThemeButton';
 import { firebaseErrorTranslater } from '@firebase-server/public/errorTranslator';
+import { useRouter } from 'next/router';
+import {
+  genericRoutes,
+  verifiedRoutes,
+} from '@/components/funfuse/constants/verifiedRoutes';
 
-export default function LoginPage() {
+type Props = {
+  idToken: string;
+};
+export default function LoginPage({ idToken }: Props) {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const { user, isUserVerified } = useAppSelector((state) => state.user);
 
   const errorHandler = (error: FirebaseError) => {
     console.log('Error while logging in = ', error);
@@ -24,11 +34,29 @@ export default function LoginPage() {
     setLoading(false);
   };
 
-  const successHandler = (token: string) => {
-    dispatch(loginUser(token));
-    setError('');
-    setLoading(false);
-  };
+  const successHandler = useCallback(
+    (token: string) => {
+      dispatch(loginUser(token));
+      setError('');
+      setLoading(false);
+    },
+    [dispatch]
+  );
+
+  useEffect(() => {
+    if (idToken !== '') {
+      setLoading(true);
+      successHandler(idToken);
+    }
+  }, [idToken, successHandler]);
+
+  useEffect(() => {
+    if (user?.username) {
+      if (isUserVerified)
+        router.push(`/funfuse/${user.username}/${verifiedRoutes.HOME_ROUTE}`);
+      else router.push(`/funfuse/${genericRoutes.UNVERIFIED}`);
+    }
+  }, [user?.username, router, isUserVerified]);
 
   const loginHander = () => {
     setLoading(true);

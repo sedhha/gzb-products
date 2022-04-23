@@ -1,13 +1,19 @@
 import { IUserState } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
 import { loginUserWithToken } from '@redux-apis/external/login';
 import { userInitial } from '@redux-constants/user';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 export const userSlice = createSlice({
   name: 'user',
   initialState: userInitial,
   reducers: {
     logOut: () => userInitial,
+    updateUserVerification: (
+      state: IUserState,
+      action: PayloadAction<boolean>
+    ) => {
+      state.isUserVerified = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -31,7 +37,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// export const { updateFields, resetUserState } = userSlice.actions;
+export const { updateUserVerification } = userSlice.actions;
 export default userSlice.reducer;
 
 /*

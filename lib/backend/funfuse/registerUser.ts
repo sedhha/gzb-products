@@ -103,6 +103,11 @@ export const registerFunFuseUser = async (
   if (response.error) {
     return errorResponse({ opsDetails: response });
   }
+  if (payload.username.length < 3) {
+    return errorResponse({
+      opsDetails: getErrorDetailsFromKey(ErrorCodes.USERNAME_TOO_SHORT),
+    });
+  }
   const details = await upsertUserNameToDb(payload.username);
   if (details) {
     try {
