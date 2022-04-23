@@ -85,9 +85,12 @@ const upsertUserNameToDb = async (username: string): Promise<boolean> => {
       }
     });
 };
-const addUserNameSlug = async (username: string): Promise<boolean> => {
+const addUserNameSlug = async (
+  username: string,
+  uid: string
+): Promise<boolean> => {
   const usernameRef = Server.rdb.ref('funfuse-usernames');
-  await usernameRef.child(username.toLowerCase()).set(true);
+  await usernameRef.child(username.toLowerCase()).set(uid);
   return true;
 };
 const sendVerificationEmail = async (
@@ -141,7 +144,7 @@ export const registerFunFuseUser = async (
         Server.db
           .doc(`${firebasePaths.funfuse_users}/${userRecord.uid}`)
           .set(userData, { merge: true }),
-        addUserNameSlug(payload.username),
+        addUserNameSlug(payload.username, userRecord.uid),
       ]);
       return genericResponse({ opsDetails: response });
     } catch (error) {
