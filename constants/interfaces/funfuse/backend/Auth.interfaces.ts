@@ -15,6 +15,7 @@ export interface IFunFuseUserData {
   gender: string;
   username: string;
   role: FunFuseUserTypes;
+  bio?: string;
 }
 
 export interface IUserState {

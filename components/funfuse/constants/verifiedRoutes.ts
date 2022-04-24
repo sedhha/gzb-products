@@ -13,6 +13,7 @@ export const navBarHeaders = {
   EVENTS_ROUTE: 'Events',
   CONNECTS_ROUTE: 'Connects',
   UNKNOWN_ROUTE: '404',
+  PROFILE_ROUTE: 'Profile',
 };
 export const navBarItems = {
   HOME_ROUTE: 'funfuse-icons-home',
@@ -24,4 +25,5 @@ export const navBarItems = {
 
 export const genericRoutes = {
   UNVERIFIED: 'unverified-profile',
+  PROFILE_ROUTE: 'profile',
 };

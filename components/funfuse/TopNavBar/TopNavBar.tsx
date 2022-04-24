@@ -5,6 +5,7 @@ import Auth from '@firebase-client/client.config';
 import { logOut } from '@redux-slices/user';
 import { useAppDispatch } from '@redux-tools/hooks';
 import { useRouter } from 'next/router';
+import { genericRoutes } from '@/components/funfuse/constants/verifiedRoutes';
 export default function TopNavBar({
   headerText,
   imageRef,
@@ -20,9 +21,7 @@ export default function TopNavBar({
       <div
         className='relative w-12 h-12'
         onClick={() => {
-          Auth.signOut();
-          dispatch(logOut());
-          router.push('/funfuse/login');
+          router.push(`/funfuse/${username}/${genericRoutes.PROFILE_ROUTE}`);
         }}>
         <FullWidthImage
           src={imageRef ?? '/funfuse/avatar.png'}
@@ -34,3 +33,9 @@ export default function TopNavBar({
     </div>
   );
 }
+
+/*
+Auth.signOut();
+          dispatch(logOut());
+          router.push('/funfuse/login');
+*/

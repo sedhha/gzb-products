@@ -2,6 +2,7 @@ import { useAppSelector } from '@redux-tools/hooks';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import {
+  genericRoutes,
   navBarHeaders,
   verifiedRoutes,
 } from '@/components/funfuse/constants/verifiedRoutes';
@@ -50,6 +51,12 @@ export default function VerifiedController() {
       const EventsPage = VerifiedComponents.Events;
       RenderComponent = <EventsPage />;
       navBarHeader = navBarHeaders.EVENTS_ROUTE;
+      break;
+    }
+    case genericRoutes.PROFILE_ROUTE: {
+      const ProfilePage = VerifiedComponents.Profile;
+      RenderComponent = <ProfilePage />;
+      navBarHeader = navBarHeaders.PROFILE_ROUTE;
       break;
     }
     default: {
