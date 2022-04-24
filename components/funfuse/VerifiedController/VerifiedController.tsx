@@ -72,7 +72,10 @@ export default function VerifiedController() {
         <title>Funfuse: {user?.user?.username ?? 'Guest'}</title>
       </Head>
       <AppWrapper
-        topNavBarprops={{ headerText: navBarHeader }}
+        topNavBarprops={{
+          headerText: navBarHeader,
+          username: user?.user?.username,
+        }}
         childComponent={RenderComponent}
       />
     </React.Fragment>

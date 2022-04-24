@@ -8,6 +8,10 @@ export interface IFunFuseRegisterUser {
 }
 export type FunFuseUserTypes = 'User' | 'Moderator' | 'Admin';
 
+export interface IFunFuseSelectInterface {
+  label: string;
+  value: string;
+}
 export interface IFunFuseUserData {
   name: string;
   email: string;
@@ -16,6 +20,7 @@ export interface IFunFuseUserData {
   username: string;
   role: FunFuseUserTypes;
   bio?: string;
+  skills?: IFunFuseSelectInterface[];
 }
 
 export interface IUserState {
