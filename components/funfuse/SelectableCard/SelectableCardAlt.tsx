@@ -19,7 +19,7 @@ export default function SelectableCardAlt({
         isSelected ? 'shadow-lg shadow-indigo-500/50' : ''
       }`}
       onClick={() => setSelected()}>
-      <div className={`${iconClass} mx-auto bg-indigo-400`} />
+      <div className={`${iconClass} mx-auto bg-indigo-400 h-[2rem] w-[2rem]`} />
       <label className='text-center text-indigo-800'>{description}</label>
     </div>
   );
