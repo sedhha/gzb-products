@@ -1,4 +1,5 @@
 import ThemeInputTextArea from '@/components/common/Inputs/ThemeInputTextArea';
+import ThemeButton from '@/components/funfuse/Buttons/ThemeButton/ThemeButton';
 import ToggleButton from '@/components/funfuse/Buttons/ToggleButton/ToggleButton';
 import FullWidthImage from '@/components/funfuse/FullWidthImage/FullWidthImage';
 import { useAppSelector } from '@redux-tools/hooks';
@@ -203,7 +204,8 @@ export default function Profile() {
         <FullWidthImage
           src={'/funfuse/avatar.png'}
           alt={'User Avatar'}
-          containerDivClass='rounded-full overflow-hidden'
+          dimensionSpec
+          containerDivClass='rounded-full overflow-hidden h-[10rem] w-[10rem]'
         />
         <div className='absolute top-0 left-0 w-full h-full bg-black rounded-full shadow-lg cursor-pointer gap-x-2 shadow-indigo-500/50 opacity-60'>
           <div
@@ -250,6 +252,16 @@ export default function Profile() {
         Let&apos;s other users discover you.
       </label>
       <ToggleButton />
+      <ThemeButton
+        buttonText={'Update Changes'}
+        buttonCallback={() => null}
+        twClass='rounded-md mt-2'
+      />
+      <ThemeButton
+        buttonText={'Log Out'}
+        buttonCallback={() => null}
+        twClass='rounded-md mt-2'
+      />
     </div>
   );
 }

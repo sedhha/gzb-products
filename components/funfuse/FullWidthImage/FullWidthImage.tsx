@@ -6,13 +6,19 @@ type Props = {
   alt?: string;
   priority?: boolean;
   containerDivClass?: string;
+  dimensionSpec?: boolean;
 };
 
 export default function FullWidthImage(props: Props) {
+  const minClasses = `${props.dimensionSpec ? '' : 'w-full h-full'}`;
   return (
     <div
-      style={{ width: '100%', height: '100%', position: 'relative' }}
-      className={props.containerDivClass ? props.containerDivClass : ''}>
+      style={{ position: 'relative' }}
+      className={
+        props.containerDivClass
+          ? `${minClasses} ${props.containerDivClass}`
+          : minClasses
+      }>
       <Image
         alt={props.alt ?? 'Funfuse Logo'}
         src={props.src}
