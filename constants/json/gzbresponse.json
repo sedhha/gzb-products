@@ -207,7 +207,7 @@
     "api_version": "v1",
     "product-specs": {
       "name": "Funfuse",
-      "id": "00"
+      "id": "03"
     }
   },
   "usernameAlreadyExists": {
@@ -218,7 +218,7 @@
     "api_version": "v1",
     "product-specs": {
       "name": "Funfuse",
-      "id": "01"
+      "id": "03"
     }
   },
   "userNameTooShort": {
@@ -229,7 +229,7 @@
     "api_version": "v1",
     "product-specs": {
       "name": "Funfuse",
-      "id": "04"
+      "id": "03"
     }
   },
 
@@ -241,7 +241,7 @@
     "api_version": "v1",
     "product-specs": {
       "name": "Funfuse",
-      "id": "02"
+      "id": "03"
     }
   },
   "funfuse_login_success": {
@@ -253,6 +253,50 @@
     "product-specs": {
       "name": "Funfuse",
       "id": "03"
+    }
+  },
+  "invalidOrCorruptedfileType": {
+    "error": true,
+    "error_code": "0304",
+    "code": "INVALID_OR_CORRUPTED_FILE_TYPE",
+    "details": "Invalid or Corrupted File Type",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Funfuse",
+      "id": "03"
+    }
+  },
+  "funfuseProfileUpdateSuccess": {
+    "error": false,
+    "error_code": "0305",
+    "code": "FUNFUSE_PROFILE_UPDATE_SUCCESS",
+    "details": "Profile Update was Successful",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Funfuse",
+      "id": "03"
+    }
+  },
+  "unexpectedErrorWhenAuthenticating": {
+    "error": false,
+    "error_code": "0306",
+    "code": "UEXPECTED_ERROR_WHEN_AUTHENTICATING",
+    "details": "Unexpected Error When Authenticating User with Credentials",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Funfuse",
+      "id": "03"
+    }
+  },
+  "unauthorizedUser": {
+    "error": false,
+    "error_code": "0202",
+    "code": "UNAUTHORIZED_USER",
+    "details": "Unauthorized User",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Backend Database Error",
+      "id": "02"
     }
   }
 }

@@ -53,6 +53,10 @@ export enum ErrorCodes {
   USERNAME_TOO_SHORT = 'userNameTooShort',
   FUNFUSE_REGISTRATION_SUCCESS = 'funfuse_registration_success',
   FUNFUSE_LOGIN_SUCCESS = 'funfuse_login_success',
+  FUNFUSE_PROFILE_UPDATE_SUCESS = 'funfuseProfileUpdateSuccess',
   FIREBASE_GENERATED_ERROR = 'firebaseGeneratedError',
+  INVALID_OR_CORRUPTED_FILE = 'invalidOrCorruptedfileType',
+  UEXPECTED_ERROR_WHEN_AUTHENTICATING = 'unexpectedErrorWhenAuthenticating',
+  UNAUTHORIZED_USER = 'unauthorizedUser',
   UNKNOWN_KEY = 'unknownKey',
 }

@@ -1,18 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import FullWidthImage from '@/components/funfuse/FullWidthImage/FullWidthImage';
 import { HeaderProps } from '@constants/interfaces/funfuse/frontend/ui-props/TopNavBar.interfaces';
-import Auth from '@firebase-client/client.config';
-import { logOut } from '@redux-slices/user';
-import { useAppDispatch } from '@redux-tools/hooks';
+import { useAppDispatch, useAppSelector } from '@redux-tools/hooks';
 import { useRouter } from 'next/router';
 import { genericRoutes } from '@/components/funfuse/constants/verifiedRoutes';
+import { ref, getDownloadURL } from 'firebase/storage';
+import { storage } from '@firebase-client/client.config';
+import { updateDp } from '@redux-slices/user';
 export default function TopNavBar({
   headerText,
   imageRef,
   username,
 }: HeaderProps) {
+  const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const [displayImage, setDisplayImage] = useState(
+    imageRef ?? '/funfuse/avatar.png'
+  );
+  useEffect(() => {
+    console.log(user);
+    if (user?.imageLoc) {
+      const storageRef = ref(storage, user.imageLoc);
+      getDownloadURL(storageRef).then((url) => {
+        dispatch(updateDp(url));
+        setDisplayImage(url);
+      });
+    }
+  }, [user, dispatch]);
   return (
     <div className='flex flex-row items-center justify-between w-full px-2 py-3 bg-funfuse'>
       <h2 className='p-0 m-0 text-2xl text-white font-funfuse '>
@@ -24,7 +39,7 @@ export default function TopNavBar({
           router.push(`/funfuse/${username}/${genericRoutes.PROFILE_ROUTE}`);
         }}>
         <FullWidthImage
-          src={imageRef ?? '/funfuse/avatar.png'}
+          src={displayImage}
           alt={username ?? 'User Avatar'}
           containerDivClass='border border-gray-100 rounded-full shadow-sm overflow-hidden'
         />

@@ -137,6 +137,10 @@ export const registerFunFuseUser = async (
         gender: payload.gender,
         username: payload.username,
         role: 'User',
+        bio: '',
+        skills: [],
+        discoverability: true,
+        uid: userRecord.uid,
       };
 
       await Promise.all([

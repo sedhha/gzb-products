@@ -16,11 +16,14 @@ export interface IFunFuseUserData {
   name: string;
   email: string;
   dob: string;
+  uid: string;
   gender: string;
   username: string;
   role: FunFuseUserTypes;
-  bio?: string;
-  skills?: IFunFuseSelectInterface[];
+  discoverability: boolean;
+  bio: string;
+  skills: IFunFuseSelectInterface[];
+  imageLoc?: string;
 }
 
 export interface IUserState {
@@ -28,8 +31,13 @@ export interface IUserState {
   isLoggedIn: boolean;
   isUserVerified?: boolean;
   user?: IFunFuseUserData;
+  displayPicture?: string;
 }
 
 export interface IAuthRequest {
   firebaseToken: string;
+}
+
+export interface IProfilePicture {
+  userDetails: IFunFuseUserData;
 }

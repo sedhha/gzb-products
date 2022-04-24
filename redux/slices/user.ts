@@ -14,6 +14,9 @@ export const userSlice = createSlice({
     ) => {
       state.isUserVerified = action.payload;
     },
+    updateDp: (state: IUserState, action: PayloadAction<string>) => {
+      state.displayPicture = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -37,7 +40,7 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const { updateUserVerification, logOut } = userSlice.actions;
+export const { updateUserVerification, logOut, updateDp } = userSlice.actions;
 export default userSlice.reducer;
 
 /*

@@ -26,3 +26,7 @@ export interface IFirebaseError {
   error: boolean;
 }
 export type IFirebaseUser = IFirebaseUserMinimal & IFirebaseUserRest;
+
+export interface IProtectedRoute {
+  firebaseToken: string;
+}
