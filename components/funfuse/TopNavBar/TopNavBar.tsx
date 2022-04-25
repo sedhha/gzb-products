@@ -12,14 +12,13 @@ export default function TopNavBar({
   imageRef,
   username,
 }: HeaderProps) {
-  const { user } = useAppSelector((state) => state.user);
+  const { user, displayPicture } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [displayImage, setDisplayImage] = useState(
     imageRef ?? '/funfuse/avatar.png'
   );
   useEffect(() => {
-    console.log(user);
     if (user?.imageLoc) {
       const storageRef = ref(storage, user.imageLoc);
       getDownloadURL(storageRef).then((url) => {
@@ -28,6 +27,10 @@ export default function TopNavBar({
       });
     }
   }, [user, dispatch]);
+
+  useEffect(() => {
+    if (displayPicture) setDisplayImage(displayPicture);
+  }, [displayPicture]);
   return (
     <div className='flex flex-row items-center justify-between w-full px-2 py-3 bg-funfuse'>
       <h2 className='p-0 m-0 text-2xl text-white font-funfuse '>

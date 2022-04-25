@@ -4,6 +4,7 @@ import {
   IResponse,
 } from '@constants/interfaces/gcorn/backend/apis/response.interfaces';
 import Server from '@firebase-server/server.config';
+import { mergeCustomClaims } from '@firebase-server/utils/mergeCustomClaims';
 import {
   errorResponse,
   genericResponse,
@@ -20,7 +21,7 @@ export const updateImageLoc = async (
       Server.db
         .doc(documentPath)
         .set({ imageLoc: storagePath }, { merge: true }),
-      Server.auth.setCustomUserClaims(uid, { imageLoc: storagePath }),
+      mergeCustomClaims(uid, { imageLoc: storagePath }),
     ];
     await Promise.all(promises);
     return {

@@ -12,7 +12,7 @@ import { storage } from '@firebase-client/client.config';
 import Spinner from '@/components/common/Spinner/FunFuseSpinner';
 import { IResponse } from '@constants/interfaces/gcorn/backend/apis/response.interfaces';
 import Auth from '@firebase-client/client.config';
-import { logOut } from '@redux-slices/user';
+import { logOut, updateDp } from '@redux-slices/user';
 import { useRouter } from 'next/router';
 
 const animatedComponents = makeAnimated();
@@ -201,12 +201,14 @@ const customStyles: StylesConfig = {
 type OptionType = { label: string; value: string };
 
 export default function Profile() {
-  const { user, firebaseToken } = useAppSelector((state) => state.user);
+  const { user, firebaseToken, displayPicture } = useAppSelector(
+    (state) => state.user
+  );
   const [bio, setBio] = useState(user?.bio ?? '');
   const [error, setError] = useState(false);
   const [file, setFile] = React.useState({
     file: null,
-    preview: '/funfuse/avatar.png',
+    preview: displayPicture ?? '/funfuse/avatar.png',
   });
   const [imageUploaded, setImageUploaded] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -277,13 +279,13 @@ export default function Profile() {
                   } else {
                     updateSuccessEffects();
                     getDownloadURL(storageRef)
-                      .then((url) => console.log('Public Url = ', url))
-                      .catch((error) =>
-                        console.log(
-                          'Error while trying to get public url = ',
-                          error
-                        )
-                      );
+                      .then((url) => {
+                        dispatch(updateDp(url));
+                      })
+                      .catch((error) => {
+                        setError(true);
+                        setErrorMessage(error.message);
+                      });
                   }
                 })
                 .catch((error) => {

@@ -52,6 +52,7 @@ export default function LoginPage({ idToken }: Props) {
   }, [idToken, successHandler]);
 
   useEffect(() => {
+    console.log('User = ', user?.username);
     if (user?.username) {
       if (isUserVerified)
         router.push(`/funfuse/${user.username}/${verifiedRoutes.HOME_ROUTE}`);

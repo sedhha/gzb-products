@@ -12,6 +12,6 @@ module.exports = withPWA({
     disable: process.env.NODE_ENV === 'development',
   },
   images: {
-    domains: ['randomuser.me'],
+    domains: ['randomuser.me', 'firebasestorage.googleapis.com'],
   },
 });
