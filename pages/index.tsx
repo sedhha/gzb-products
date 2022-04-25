@@ -1,17 +1,20 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function Home() {
+  const router = useRouter();
+  useEffect(() => {
+    router.push('/funfuse');
+  }, [router]);
   return (
     <React.Fragment>
       <Head>
         <title>GZB Products</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <div>GZB Products</div>
-      <Link href='/funfuse'>FunFuse</Link>
     </React.Fragment>
   );
 }
