@@ -15,12 +15,25 @@ const updateDpHandler: NextApiHandler = async (
   response: NextApiResponse<IResponse>
 ) => {
   const payload = req.body as IProfilePicture;
+  const skills = payload.userDetails.skills.map((element) => ({
+    label: element,
+    value: element,
+  }));
+  const interests = payload.userDetails.interests.map((element) => ({
+    label: element,
+    value: element,
+  }));
+  const newPayload = {
+    ...payload.userDetails,
+    skills: [...skills],
+    interests: [...interests],
+  };
   response.status(200).json(
     genericResponse({
       opsDetails: getErrorDetailsFromKey(
         ErrorCodes.FUNFUSE_RESOURCE_FETCH_SUCCESS
       ),
-      data: payload.userDetails,
+      data: newPayload,
     })
   );
 };

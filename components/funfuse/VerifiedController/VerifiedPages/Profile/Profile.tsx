@@ -14,7 +14,10 @@ import { IResponse } from '@constants/interfaces/gcorn/backend/apis/response.int
 import Auth from '@firebase-client/client.config';
 import { getFireStoreUser, logOut, updateDp } from '@redux-slices/user';
 import { useRouter } from 'next/router';
-import { IFunFuseProfileUpdate } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
+import {
+  IFunFuseProfileUpdate,
+  IFunFuseSelectInterface,
+} from '@constants/interfaces/funfuse/backend/Auth.interfaces';
 import { updateFireStoreProfile } from '@redux-apis/external/firestoreProfile';
 import ThemeSpinner from '@/components/funfuse/Spinner/ThemeSpinner';
 
@@ -227,8 +230,26 @@ export default function Profile() {
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [skills, setSkills] = useState<OptionType[]>([]);
+  const [interests, setInterests] = useState<OptionType[]>([]);
   const dispatch = useAppDispatch();
   const router = useRouter();
+
+  const skillString = JSON.stringify(firestoreUser?.skills ?? '[]');
+  const interestString = JSON.stringify(firestoreUser?.interests ?? '[]');
+
+  useEffect(() => {
+    setBio(firestoreUser?.bio ?? '');
+    setDiscoverability(firestoreUser?.discoverability ?? true);
+    setSkills(firestoreUser?.skills ?? []);
+    setInterests(firestoreUser?.interests ?? []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    firestoreUser?.discoverability,
+    firestoreUser?.bio,
+    skillString,
+    interestString,
+  ]);
 
   const onFormSubmitHandler = () => {
     //TODO: Handle linearifying in backend
@@ -288,13 +309,6 @@ export default function Profile() {
     dispatch(logOut());
     router.push('/funfuse/login');
   };
-
-  const [skills, setSkills] = useState<OptionType[]>(
-    firestoreUser?.skills ?? []
-  );
-  const [interests, setInterests] = useState<OptionType[]>(
-    firestoreUser?.interests ?? []
-  );
 
   const onDrop = useCallback((acceptedFiles, fileRejections) => {
     if (fileRejections.length > 0) {
@@ -433,7 +447,7 @@ export default function Profile() {
       <Select
         closeMenuOnSelect={false}
         components={animatedComponents}
-        defaultValue={skills}
+        value={skills}
         isMulti
         options={skillFields}
         className='w-full'
@@ -445,7 +459,7 @@ export default function Profile() {
       <Select
         closeMenuOnSelect={false}
         components={animatedComponents}
-        defaultValue={interests}
+        value={interests}
         isMulti
         options={interestFields}
         className='w-full'

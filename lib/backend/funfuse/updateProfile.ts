@@ -19,18 +19,19 @@ export const updateFireStoreProfile = async (
   data: IFunFuseProfileUpdate
 ): Promise<IResponse> => {
   const docPath = `${firebasePaths.funfuse_users}/${uid}`;
-
-  const keys = ['bio', 'skills', 'interests', 'discoverability'];
-  const areKeysValid = formValidator.mustBeDefinedKey(data, keys);
-  if (areKeysValid.error) {
-    return errorResponse({
-      opsDetails: getErrorDetailsFromKey(ErrorCodes.UNKNOWN_KEY),
-    });
-  }
-  const { skills, interests, discoverability } = data;
   const customError = getErrorDetailsFromKey(
     ErrorCodes.CUSTOM_FORM_FIELD_ERROR
   );
+  const keys = ['bio', 'skills', 'interests', 'discoverability'];
+  const areKeysValid = formValidator.mustBeDefinedKey(data, keys);
+  if (areKeysValid.error) {
+    customError.details = `${areKeysValid.key} is not valid`;
+    return errorResponse({
+      opsDetails: customError,
+    });
+  }
+  const { skills, interests, discoverability } = data;
+
   if (typeof data.bio !== 'string') {
     customError.details = 'Invalid Bio';
     return errorResponse({

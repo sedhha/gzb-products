@@ -79,7 +79,7 @@ const mustBeDefinedKey = (
   object: Record<string, any>,
   keys: string[]
 ): { error: boolean; key?: string } => {
-  const error = keys.some((key) => !object[key]);
+  const error = keys.some((key) => object[key] === undefined);
   return { error, key: error ? keys[0] : undefined };
 };
 
