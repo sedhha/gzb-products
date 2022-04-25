@@ -21,6 +21,7 @@ export const loginUser = async (idToken: string): Promise<IResponse> => {
       isLoggedIn: true,
       firebaseToken: idToken,
       user: decodedToken as unknown as IFunFuseUserData,
+      loading: false,
     };
     const opsDetails = getErrorDetailsFromKey(ErrorCodes.FUNFUSE_LOGIN_SUCCESS);
     return genericResponse({
