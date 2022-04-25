@@ -8,7 +8,9 @@ export default function ToggleButton(props: Props) {
   const [toggle, setToggle] = useState(false);
   const handleToggle = () => setToggle((prev) => !prev);
   const toggleColor = toggle
-    ? `bg-${props.activeColor ?? '[#4DD163]'}`
+    ? props.activeColor
+      ? `bg-${props.activeColor}`
+      : 'bg-[#4DD163]'
     : 'bg-gray-300';
   const buttonPlacement = `${
     toggle

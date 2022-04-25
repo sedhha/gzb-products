@@ -6,7 +6,6 @@ const useAbortableState = <T,>(initialValue: T): [T, (value: T) => void] => {
 
   useEffect(() => {
     return () => {
-      console.log('Undone mounted changes');
       setMounted(false);
     };
   }, []);
