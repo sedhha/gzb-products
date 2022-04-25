@@ -3,7 +3,7 @@ import ThemeButton from '@/components/funfuse/Buttons/ThemeButton/ThemeButton';
 import ToggleButton from '@/components/funfuse/Buttons/ToggleButton/ToggleButton';
 import FullWidthImage from '@/components/funfuse/FullWidthImage/FullWidthImage';
 import { useAppDispatch, useAppSelector } from '@redux-tools/hooks';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Select, { StylesConfig } from 'react-select';
 import makeAnimated from 'react-select/animated';
 import { useDropzone } from 'react-dropzone';
@@ -12,7 +12,7 @@ import { storage } from '@firebase-client/client.config';
 import Spinner from '@/components/common/Spinner/FunFuseSpinner';
 import { IResponse } from '@constants/interfaces/gcorn/backend/apis/response.interfaces';
 import Auth from '@firebase-client/client.config';
-import { logOut, updateDp } from '@redux-slices/user';
+import { getFireStoreUser, logOut, updateDp } from '@redux-slices/user';
 import { useRouter } from 'next/router';
 
 const animatedComponents = makeAnimated();
@@ -201,11 +201,15 @@ const customStyles: StylesConfig = {
 type OptionType = { label: string; value: string };
 
 export default function Profile() {
-  const { user, firebaseToken, displayPicture } = useAppSelector(
+  const { user, firebaseToken, displayPicture, firestoreUser } = useAppSelector(
     (state) => state.user
   );
-  const [bio, setBio] = useState(user?.bio ?? '');
+  const [bio, setBio] = useState(firestoreUser?.bio ?? '');
   const [error, setError] = useState(false);
+  const [discoverability, setDiscoverability] = useState(
+    firestoreUser?.discoverability ?? true
+  );
+  const toggleDiscoverability = () => setDiscoverability((prev) => !prev);
   const [file, setFile] = React.useState({
     file: null,
     preview: displayPicture ?? '/funfuse/avatar.png',
@@ -216,6 +220,12 @@ export default function Profile() {
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
+
+  useEffect(() => {
+    if (firebaseToken) {
+      dispatch(getFireStoreUser(firebaseToken));
+    }
+  }, [firebaseToken, dispatch]);
   const updateSuccessEffects = () => {
     setLoading(false);
     setError(false);
@@ -231,7 +241,13 @@ export default function Profile() {
     router.push('/funfuse/login');
   };
 
-  const [skills, setSkills] = useState<OptionType[]>(user?.skills ?? []);
+  const [skills, setSkills] = useState<OptionType[]>(
+    firestoreUser?.skills ?? []
+  );
+  const [interests, setInterests] = useState<OptionType[]>(
+    firestoreUser?.interests ?? []
+  );
+
   const onDrop = useCallback((acceptedFiles, fileRejections) => {
     if (fileRejections.length > 0) {
       console.log(fileRejections);
@@ -381,19 +397,22 @@ export default function Profile() {
       <Select
         closeMenuOnSelect={false}
         components={animatedComponents}
-        defaultValue={skills}
+        defaultValue={interests}
         isMulti
         options={skillFields}
         className='w-full'
         maxMenuHeight={55}
         styles={customStyles}
-        onChange={(newSkills) => setSkills(newSkills as OptionType[])}
+        onChange={(newInterests) => setInterests(newInterests as OptionType[])}
       />
       <label className='w-full p-0 mt-2 text-xl'>Discoverability</label>
       <label className='w-full text-gray-500 text-md'>
         Let&apos;s other users discover you.
       </label>
-      <ToggleButton />
+      <ToggleButton
+        toggle={discoverability}
+        setToggle={toggleDiscoverability}
+      />
       <ThemeButton
         buttonText={'Update Changes'}
         buttonCallback={() => null}

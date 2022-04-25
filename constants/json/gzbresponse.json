@@ -277,6 +277,28 @@
       "id": "03"
     }
   },
+  "successfullyFetchedFunfuseResource": {
+    "error": false,
+    "error_code": "0306",
+    "code": "FUNFUSE_RESOURCE_FETCH_SUCCESSFUL",
+    "details": "Successfully Fetched FunFuse Resource",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Funfuse",
+      "id": "03"
+    }
+  },
+  "successfullyCompletedFunfuseOperation": {
+    "error": false,
+    "error_code": "0307",
+    "code": "FUNFUSE_OPERATION_SUCCESSFUL",
+    "details": "Successfully Completed FunFuse Operation",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Funfuse",
+      "id": "07"
+    }
+  },
   "unexpectedErrorWhenAuthenticating": {
     "error": false,
     "error_code": "0306",

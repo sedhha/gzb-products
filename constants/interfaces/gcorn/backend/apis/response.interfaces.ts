@@ -59,4 +59,6 @@ export enum ErrorCodes {
   UEXPECTED_ERROR_WHEN_AUTHENTICATING = 'unexpectedErrorWhenAuthenticating',
   UNAUTHORIZED_USER = 'unauthorizedUser',
   UNKNOWN_KEY = 'unknownKey',
+  FUNFUSE_RESOURCE_FETCH_SUCCESS = 'successfullyFetchedFunfuseResource',
+  FUNFUSE_ACTION_SUCCESS = 'successfullyCompletedFunfuseOperation',
 }

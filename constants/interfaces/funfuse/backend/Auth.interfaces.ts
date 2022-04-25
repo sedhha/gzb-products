@@ -23,7 +23,13 @@ export interface IFunFuseUserData {
   discoverability: boolean;
   bio: string;
   skills: IFunFuseSelectInterface[];
+  interests: IFunFuseSelectInterface[];
   imageLoc?: string;
+}
+
+export interface IErrorNotificationSlice {
+  error: boolean;
+  message: string;
 }
 
 export interface IUserState {
@@ -32,6 +38,9 @@ export interface IUserState {
   isUserVerified?: boolean;
   user?: IFunFuseUserData;
   displayPicture?: string;
+  firestoreUser?: IFunFuseUserData;
+  loading: boolean;
+  errorNotifications?: IErrorNotificationSlice;
 }
 
 export interface IAuthRequest {

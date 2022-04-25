@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 
 type Props = {
   activeColor?: string;
+  toggle: boolean;
+  setToggle: () => void;
 };
 
 export default function ToggleButton(props: Props) {
-  const [toggle, setToggle] = useState(false);
-  const handleToggle = () => setToggle((prev) => !prev);
+  const { toggle, setToggle } = props;
+  const handleToggle = () => setToggle();
   const toggleColor = toggle
     ? props.activeColor
       ? `bg-${props.activeColor}`

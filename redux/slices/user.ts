@@ -1,4 +1,8 @@
-import { IUserState } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
+import {
+  IUserState,
+  IFunFuseUserData,
+} from '@constants/interfaces/funfuse/backend/Auth.interfaces';
+import { firestoreProfile } from '@redux-apis/external/firestoreProfile';
 import { loginUserWithToken } from '@redux-apis/external/login';
 import { userInitial } from '@redux-constants/user';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
@@ -29,6 +33,26 @@ export const userSlice = createSlice({
     builder.addCase(loginUser.rejected, (state: IUserState, action) => {
       console.log('Action Rejected = ', action);
     });
+    builder.addCase(getFireStoreUser.pending, (state: IUserState) => {
+      state.loading = true;
+    });
+    builder.addCase(getFireStoreUser.fulfilled, (state: IUserState, action) => {
+      const payload = action.payload as {
+        error: boolean;
+        message: string;
+        data: IFunFuseUserData;
+      };
+      if (payload.error) {
+        state.errorNotifications = { error: true, message: payload.message };
+        state.loading = false;
+      } else {
+        state.firestoreUser = payload.data;
+        state.loading = false;
+      }
+    });
+    builder.addCase(getFireStoreUser.rejected, (_: IUserState, action) => {
+      console.log('Get Firestore Action Rejected = ', action);
+    });
   },
 });
 
@@ -36,6 +60,14 @@ export const loginUser = createAsyncThunk(
   'userSlice/login',
   async (firebaseToken: string) => {
     const data = await loginUserWithToken(firebaseToken);
+    return data;
+  }
+);
+
+export const getFireStoreUser = createAsyncThunk(
+  'userSlice/firestoreUser',
+  async (firebaseToken: string) => {
+    const data = await firestoreProfile(firebaseToken);
     return data;
   }
 );
