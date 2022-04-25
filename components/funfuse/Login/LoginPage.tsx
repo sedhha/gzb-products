@@ -15,6 +15,7 @@ import {
   verifiedRoutes,
 } from '@/components/funfuse/constants/verifiedRoutes';
 import Link from 'next/link';
+import useAbortableState from '@hooks/useAbortableState';
 
 type Props = {
   idToken: string;
@@ -24,24 +25,33 @@ export default function LoginPage({ idToken }: Props) {
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const [mounted, setMounted] = useState<boolean>(true);
+
+  useEffect(() => {
+    return () => {
+      setMounted(false);
+    };
+  }, []);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { user, isUserVerified } = useAppSelector((state) => state.user);
 
   const errorHandler = (error: FirebaseError) => {
     console.log('Error while logging in = ', error);
-    if (error.code !== undefined) setError(firebaseErrorTranslater(error.code));
-    else setError('Unexpected Error Occured. Try Again');
-    setLoading(false);
+    if (error.code !== undefined && mounted)
+      setError(firebaseErrorTranslater(error.code));
+    else mounted && setError('Unexpected Error Occured. Try Again');
+    if (mounted) setLoading(false);
   };
 
   const successHandler = useCallback(
     (token: string) => {
       dispatch(loginUser(token));
-      setError('');
-      setLoading(false);
+      mounted && setError('');
+      mounted && setLoading(false);
     },
-    [dispatch]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [dispatch, setError, setLoading]
   );
 
   useEffect(() => {
@@ -49,10 +59,9 @@ export default function LoginPage({ idToken }: Props) {
       setLoading(true);
       successHandler(idToken);
     }
-  }, [idToken, successHandler]);
+  }, [idToken, successHandler, setLoading]);
 
   useEffect(() => {
-    console.log('User = ', user?.username);
     if (user?.username) {
       if (isUserVerified)
         router.push(`/funfuse/${user.username}/${verifiedRoutes.HOME_ROUTE}`);
