@@ -27,6 +27,13 @@ export interface IFunFuseUserData {
   imageLoc?: string;
 }
 
+export interface IFunFuseProfileUpdate {
+  bio: string;
+  skills: string[];
+  interests: string[];
+  discoverability: boolean;
+}
+
 export interface IErrorNotificationSlice {
   error: boolean;
   message: string;

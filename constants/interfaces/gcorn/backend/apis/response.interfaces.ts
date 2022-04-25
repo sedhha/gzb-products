@@ -61,4 +61,5 @@ export enum ErrorCodes {
   UNKNOWN_KEY = 'unknownKey',
   FUNFUSE_RESOURCE_FETCH_SUCCESS = 'successfullyFetchedFunfuseResource',
   FUNFUSE_ACTION_SUCCESS = 'successfullyCompletedFunfuseOperation',
+  CUSTOM_FORM_FIELD_ERROR = 'customFormFieldError',
 }

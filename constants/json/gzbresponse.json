@@ -300,10 +300,21 @@
     }
   },
   "unexpectedErrorWhenAuthenticating": {
-    "error": false,
+    "error": true,
     "error_code": "0306",
     "code": "UEXPECTED_ERROR_WHEN_AUTHENTICATING",
     "details": "Unexpected Error When Authenticating User with Credentials",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Funfuse",
+      "id": "03"
+    }
+  },
+  "customFormFieldError": {
+    "error": true,
+    "error_code": "0308",
+    "code": "CUSTOM_FORM_FIELD_ERROR",
+    "details": "Form Field Error",
     "api_version": "v1",
     "product-specs": {
       "name": "Funfuse",

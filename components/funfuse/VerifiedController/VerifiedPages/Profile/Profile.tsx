@@ -14,6 +14,9 @@ import { IResponse } from '@constants/interfaces/gcorn/backend/apis/response.int
 import Auth from '@firebase-client/client.config';
 import { getFireStoreUser, logOut, updateDp } from '@redux-slices/user';
 import { useRouter } from 'next/router';
+import { IFunFuseProfileUpdate } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
+import { updateFireStoreProfile } from '@redux-apis/external/firestoreProfile';
+import ThemeSpinner from '@/components/funfuse/Spinner/ThemeSpinner';
 
 const animatedComponents = makeAnimated();
 const skillFields = [
@@ -174,6 +177,12 @@ const skillFields = [
     value: 'Other',
   },
 ];
+const interestFields = [
+  { label: 'Education', value: 'Education' },
+  { label: 'Healthcare', value: 'Healthcare' },
+  { label: 'Hospitality', value: 'Hospitality' },
+  { label: 'Human Resources', value: 'Human Resources' },
+];
 
 const customStyles: StylesConfig = {
   control: (base) => ({
@@ -220,6 +229,45 @@ export default function Profile() {
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
+
+  const onFormSubmitHandler = () => {
+    //TODO: Handle linearifying in backend
+    setLoading(true);
+    const profileForm: IFunFuseProfileUpdate = {
+      bio,
+      discoverability,
+      skills: skills.map((element) => element.value),
+      interests: interests.map((element) => element.value),
+    };
+    if (firebaseToken) {
+      updateFireStoreProfile(firebaseToken, profileForm)
+        .then((data) => {
+          if (data.error) {
+            setError(true);
+            setErrorMessage(
+              data.message ?? 'Unexpected Error Happened. Please try again'
+            );
+            setLoading(false);
+          } else {
+            setError(false);
+            setLoading(false);
+            setUploadSuccess(true);
+            setTimeout(() => {
+              setUploadSuccess(false);
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          setError(true);
+          setErrorMessage(error.message);
+          setLoading(false);
+        });
+    } else {
+      setError(true);
+      setErrorMessage('User is not Logged In');
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (firebaseToken) {
@@ -339,7 +387,7 @@ export default function Profile() {
       )}
       {uploadSuccess && (
         <label className='mb-1 text-lime-500 font-funfuse'>
-          Upload was Successful
+          Profile Update was Successful!
         </label>
       )}
       <div className='relative h-[10rem] w-[10rem]'>
@@ -399,7 +447,7 @@ export default function Profile() {
         components={animatedComponents}
         defaultValue={interests}
         isMulti
-        options={skillFields}
+        options={interestFields}
         className='w-full'
         maxMenuHeight={55}
         styles={customStyles}
@@ -413,11 +461,23 @@ export default function Profile() {
         toggle={discoverability}
         setToggle={toggleDiscoverability}
       />
-      <ThemeButton
-        buttonText={'Update Changes'}
-        buttonCallback={() => null}
-        twClass='rounded-md mt-2'
-      />
+      {error && (
+        <label className='mb-1 text-red-600 font-funfuse'>{errorMessage}</label>
+      )}
+      {uploadSuccess && (
+        <label className='mb-1 text-lime-500 font-funfuse'>
+          Profile Update was Successful!
+        </label>
+      )}
+      {loading ? (
+        <ThemeSpinner />
+      ) : (
+        <ThemeButton
+          buttonText={'Update Changes'}
+          buttonCallback={onFormSubmitHandler}
+          twClass='rounded-md mt-2'
+        />
+      )}
       <ThemeButton
         buttonText={'Log Out'}
         buttonCallback={signOut}
