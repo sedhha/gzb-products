@@ -139,6 +139,7 @@ export const registerFunFuseUser = async (
         role: 'User',
         bio: '',
         skills: [],
+        interests: [],
         discoverability: true,
         uid: userRecord.uid,
       };
