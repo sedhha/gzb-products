@@ -9,6 +9,7 @@ import {
 import VerifiedComponents from '@/components/funfuse/VerifiedController/VerifiedPages';
 import AppWrapper from '@/components/funfuse/hoc/AppWrapper';
 import Head from 'next/head';
+import { disconnectFireStoreUser } from '@redux-apis/external/login';
 
 export default function VerifiedController() {
   const user = useAppSelector((state) => state.user);
@@ -16,6 +17,20 @@ export default function VerifiedController() {
   const pageRoute = router.query?.urlSlug?.[1] ?? verifiedRoutes.HOME_ROUTE;
   const isVerifiedUser = user?.isUserVerified ?? false;
   let navBarHeader = navBarHeaders.HOME_ROUTE;
+
+  const setUserOffline = React.useCallback(() => {
+    if (user.isLoggedIn && user.firebaseToken)
+      disconnectFireStoreUser(user.firebaseToken);
+  }, [user.isLoggedIn, user.firebaseToken]);
+
+  useEffect(() => {
+    if (window) {
+      window.addEventListener('beforeunload', setUserOffline);
+    }
+    return () => window.removeEventListener('beforeunload', setUserOffline);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     if (router && !isVerifiedUser) {
       router.push('/funfuse/login');

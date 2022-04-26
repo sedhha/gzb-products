@@ -3,7 +3,6 @@ import Auth from '@firebase-client/client.config';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { loginUser } from '@redux-slices/user';
 import { useAppDispatch, useAppSelector } from '@redux-tools/hooks';
-import Head from 'next/head';
 import ThemeLogo from '@/components/funfuse/Logos/ThemeLogo';
 import ThemeInputBox from '@/components/common/Inputs/ThemeInputBox';
 import { FirebaseError } from 'firebase/app';
@@ -15,7 +14,6 @@ import {
   verifiedRoutes,
 } from '@/components/funfuse/constants/verifiedRoutes';
 import Link from 'next/link';
-import useAbortableState from '@hooks/useAbortableState';
 
 type Props = {
   idToken: string;
@@ -82,9 +80,6 @@ export default function LoginPage({ idToken }: Props) {
 
   return (
     <React.Fragment>
-      <Head>
-        <title>Login to Funfuse</title>
-      </Head>
       <div className='flex flex-col justify-center w-screen h-screen p-2'>
         <div className='h-[10rem] w-auto'>
           <ThemeLogo />

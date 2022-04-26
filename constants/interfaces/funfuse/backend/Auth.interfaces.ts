@@ -25,6 +25,7 @@ export interface IFunFuseUserData {
   skills: IFunFuseSelectInterface[];
   interests: IFunFuseSelectInterface[];
   imageLoc?: string;
+  online?: boolean;
 }
 
 export interface IFunFuseProfileUpdate {

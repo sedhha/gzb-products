@@ -46,7 +46,7 @@ export default function TopNavBar({
           alt={username ?? 'User Avatar'}
           containerDivClass='border border-gray-100 rounded-full shadow-sm overflow-hidden'
         />
-        {/* {<div className='absolute top-0 right-0 w-3 h-3 my-1 bg-green-400 border-2 border-white rounded-full z-2'></div>} */}
+        <div className='absolute top-0 right-0 w-3 h-3 my-1 bg-green-400 border-2 border-white rounded-full z-2'></div>
       </div>
     </div>
   );

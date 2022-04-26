@@ -1,3 +1,4 @@
+import { firebasePaths } from '@constants/firebase/paths';
 import {
   IUserState,
   IFunFuseUserData,
@@ -17,6 +18,7 @@ import { FirebaseError } from 'firebase-admin';
 export const loginUser = async (idToken: string): Promise<IResponse> => {
   try {
     const decodedToken = await Server.auth.verifyIdToken(idToken);
+    await setUserActivity(decodedToken.uid, true);
     const payload: IUserState = {
       isLoggedIn: true,
       firebaseToken: idToken,
@@ -36,4 +38,9 @@ export const loginUser = async (idToken: string): Promise<IResponse> => {
       message: (e as FirebaseError).message,
     });
   }
+};
+
+export const setUserActivity = async (uid: string, status: boolean) => {
+  const userDoc = Server.db.doc(`${firebasePaths.funfuse_users}/${uid}`);
+  await userDoc.set({ online: status }, { merge: true });
 };

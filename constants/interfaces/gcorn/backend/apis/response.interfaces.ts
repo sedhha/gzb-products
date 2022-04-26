@@ -62,4 +62,5 @@ export enum ErrorCodes {
   FUNFUSE_RESOURCE_FETCH_SUCCESS = 'successfullyFetchedFunfuseResource',
   FUNFUSE_ACTION_SUCCESS = 'successfullyCompletedFunfuseOperation',
   CUSTOM_FORM_FIELD_ERROR = 'customFormFieldError',
+  FIREBASE_OPERATION_SUCESS = 'firebaseOperationSuccess',
 }
