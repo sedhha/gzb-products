@@ -42,5 +42,8 @@ export const loginUser = async (idToken: string): Promise<IResponse> => {
 
 export const setUserActivity = async (uid: string, status: boolean) => {
   const userDoc = Server.db.doc(`${firebasePaths.funfuse_users}/${uid}`);
-  await userDoc.set({ online: status }, { merge: true });
+  await userDoc.set(
+    { online: status, lastLoggedIn: new Date().getTime() },
+    { merge: true }
+  );
 };
