@@ -135,7 +135,7 @@ export const registerFunFuseUser = async (
         email: payload.email,
         dob: payload.dob,
         gender: payload.gender,
-        username: payload.username,
+        username: payload.username.toLowerCase(),
         role: 'User',
         bio: '',
         skills: [],

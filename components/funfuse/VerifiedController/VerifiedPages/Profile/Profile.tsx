@@ -4,8 +4,6 @@ import ToggleButton from '@/components/funfuse/Buttons/ToggleButton/ToggleButton
 import FullWidthImage from '@/components/funfuse/FullWidthImage/FullWidthImage';
 import { useAppDispatch, useAppSelector } from '@redux-tools/hooks';
 import React, { useCallback, useEffect, useState } from 'react';
-import Select, { StylesConfig } from 'react-select';
-import makeAnimated from 'react-select/animated';
 import { useDropzone } from 'react-dropzone';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '@firebase-client/client.config';
@@ -14,15 +12,12 @@ import { IResponse } from '@constants/interfaces/gcorn/backend/apis/response.int
 import Auth from '@firebase-client/client.config';
 import { getFireStoreUser, logOut, updateDp } from '@redux-slices/user';
 import { useRouter } from 'next/router';
-import {
-  IFunFuseProfileUpdate,
-  IFunFuseSelectInterface,
-} from '@constants/interfaces/funfuse/backend/Auth.interfaces';
+import { IFunFuseProfileUpdate } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
 import { updateFireStoreProfile } from '@redux-apis/external/firestoreProfile';
 import ThemeSpinner from '@/components/funfuse/Spinner/ThemeSpinner';
+import ThemeDropDown from '@/components/funfuse/ThemeDropDown/ThemeDropDown';
 
-const animatedComponents = makeAnimated();
-const skillFields = [
+export const skillFields = [
   {
     label: 'Web',
     value: 'Web',
@@ -180,35 +175,12 @@ const skillFields = [
     value: 'Other',
   },
 ];
-const interestFields = [
+export const interestFields = [
   { label: 'Education', value: 'Education' },
   { label: 'Healthcare', value: 'Healthcare' },
   { label: 'Hospitality', value: 'Hospitality' },
   { label: 'Human Resources', value: 'Human Resources' },
 ];
-
-const customStyles: StylesConfig = {
-  control: (base) => ({
-    ...base,
-  }),
-  menu: (base) => ({
-    ...base,
-  }),
-  menuList: (base) => ({
-    ...base,
-    maxHeight: '8rem',
-  }),
-  multiValue: (style) => ({
-    ...style,
-    color: '#fff',
-    background: '#5B3FFF',
-  }),
-  multiValueLabel: (style) => ({
-    ...style,
-    color: '#fff',
-    background: '#5B3FFF',
-  }),
-};
 
 type OptionType = { label: string; value: string };
 
@@ -444,28 +416,21 @@ export default function Profile() {
         className={'w-full mt-1 p-4'}
       />
       <label className='w-full p-0 mt-2 text-xl'>Skills</label>
-      <Select
-        closeMenuOnSelect={false}
-        components={animatedComponents}
-        value={skills}
-        isMulti
+      <ThemeDropDown
+        selections={skills}
+        setSelections={setSkills}
         options={skillFields}
         className='w-full'
         maxMenuHeight={55}
-        styles={customStyles}
-        onChange={(newSkills) => setSkills(newSkills as OptionType[])}
       />
+
       <label className='w-full p-0 mt-2 text-xl'>Interests</label>
-      <Select
-        closeMenuOnSelect={false}
-        components={animatedComponents}
-        value={interests}
-        isMulti
+      <ThemeDropDown
+        selections={interests}
+        setSelections={setInterests}
         options={interestFields}
         className='w-full'
         maxMenuHeight={55}
-        styles={customStyles}
-        onChange={(newInterests) => setInterests(newInterests as OptionType[])}
       />
       <label className='w-full p-0 mt-2 text-xl'>Discoverability</label>
       <label className='w-full text-gray-500 text-md'>

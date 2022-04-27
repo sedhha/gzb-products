@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^1.8.1",
     "firebase": "^9.6.9",
     "firebase-admin": "^10.0.2",
+    "framer-motion": "^6.3.2",
     "fs": "^0.0.1-security",
     "geofire-common": "^5.2.0",
     "multiparty": "^4.2.3",

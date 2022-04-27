@@ -96,6 +96,11 @@ input[data-autocompleted] {
   mask: url('/funfuse/icons/funfuse-down.svg') no-repeat center;
 }
 
+.funfuse-icons-search {
+  -webkit-mask: url('/funfuse/icons/funfuse-search.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-search.svg') no-repeat center;
+}
+
 /* ------------------------Custom Scrollbar------------------------ */
 funfuseScrollbar::-webkit-scrollbar {
   width: 0.5rem;
