@@ -29,7 +29,7 @@ export default function HomePage() {
 
   return (
     <div className='flex flex-col items-center justify-around w-full h-full gap-3'>
-      <div className='relative flex flex-col items-center justify-center p-2 m-2 overflow-x-hidden overflow-y-auto border-2 border-indigo-300 rounded-md flex-7'>
+      <div className='relative flex flex-col items-center justify-center flex-auto p-2 m-2 overflow-x-hidden overflow-y-auto border-2 border-indigo-300 rounded-md'>
         <div className='relative'>
           <Image
             src='/funfuse/avatar-02.jpg'
@@ -59,7 +59,7 @@ export default function HomePage() {
         <ComponentDisplay
           showFullDisplay={showAllInterests}
           elements={interests}
-          displayLabel={'Likes'}
+          displayLabel={'Interests'}
           updateDisplay={modifyShowAllInterests}
         />
       </div>
@@ -67,12 +67,12 @@ export default function HomePage() {
         <ThemeButton
           buttonText={'Connect'}
           buttonCallback={() => null}
-          twClass='rounded-md flex-1'
+          twClass='rounded-md flex-1 p-0'
         />
         <ThemeButton
           buttonText={'Skip'}
           buttonCallback={() => null}
-          twClass='bg-funfuse_red rounded-md flex-1'
+          twClass='bg-funfuse_red rounded-md flex-1 p-0'
         />
       </div>
     </div>

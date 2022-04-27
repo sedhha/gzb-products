@@ -69,7 +69,7 @@ export default function LoginPage({ idToken }: Props) {
 
   const loginHander = () => {
     setLoading(true);
-    signInWithEmailAndPassword(Auth, email, password)
+    signInWithEmailAndPassword(Auth, email.split(' ').join(''), password)
       .then((userRecord) => {
         userRecord.user.getIdToken().then(successHandler).catch(errorHandler);
       })
