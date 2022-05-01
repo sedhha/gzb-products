@@ -11,7 +11,9 @@ export const getFunFuseUser = async (
     const data = await Server.db
       .doc(
         `${
-          verified ? firebasePaths.verified_users : firebasePaths.funfuse_users
+          verified
+            ? firebasePaths.funfuse_verified_users
+            : firebasePaths.funfuse_users
         }/${uid}`
       )
       .get();

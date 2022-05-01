@@ -18,7 +18,11 @@ import { FirebaseError } from 'firebase-admin';
 export const loginUser = async (idToken: string): Promise<IResponse> => {
   try {
     const decodedToken = await Server.auth.verifyIdToken(idToken);
-    await setUserActivity(decodedToken.uid, true);
+    await setUserActivity(
+      decodedToken.uid,
+      true,
+      decodedToken.email_verified ?? false
+    );
     const payload: IUserState = {
       isLoggedIn: true,
       firebaseToken: idToken,
@@ -40,8 +44,18 @@ export const loginUser = async (idToken: string): Promise<IResponse> => {
   }
 };
 
-export const setUserActivity = async (uid: string, status: boolean) => {
-  const userDoc = Server.db.doc(`${firebasePaths.funfuse_users}/${uid}`);
+export const setUserActivity = async (
+  uid: string,
+  status: boolean,
+  verifiedUser: boolean
+) => {
+  const userDoc = Server.db.doc(
+    `${
+      verifiedUser
+        ? firebasePaths.funfuse_verified_users
+        : firebasePaths.funfuse_users
+    }/${uid}`
+  );
   await userDoc.set(
     { online: status, lastLoggedIn: new Date().getTime() },
     { merge: true }
@@ -53,7 +67,9 @@ export const moveToVerifiedUsers = async (uid: string): Promise<boolean> => {
   const record = await recordRef.get();
   if (record.exists) {
     const data = record.data() as IFunFuseUserData;
-    const newLocation = Server.db.doc(`${firebasePaths.verified_users}/${uid}`);
+    const newLocation = Server.db.doc(
+      `${firebasePaths.funfuse_verified_users}/${uid}`
+    );
     await newLocation.set(data, { merge: true });
     await recordRef.delete();
     return true;
@@ -62,7 +78,9 @@ export const moveToVerifiedUsers = async (uid: string): Promise<boolean> => {
 };
 
 export const moveToUnVerifiedUsers = async (uid: string): Promise<boolean> => {
-  const recordRef = Server.db.doc(`${firebasePaths.verified_users}/${uid}`);
+  const recordRef = Server.db.doc(
+    `${firebasePaths.funfuse_verified_users}/${uid}`
+  );
   const record = await recordRef.get();
   if (record.exists) {
     const data = record.data() as IFunFuseUserData;

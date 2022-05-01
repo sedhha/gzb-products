@@ -1,10 +1,15 @@
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import ComponentDisplay from '@/components/funfuse/VerifiedController/VerifiedPages/HomePage/ComponentDisplay/ComponentDisplay';
 import ThemeButton from '@/components/funfuse/Buttons/ThemeButton/ThemeButton';
 import NotificationModal from '@/components/funfuse/NotificationModal/NotificationModal';
 import dynamic from 'next/dynamic';
 import SwapIcon from './SwapIcon/SwapIcon';
+import {
+  initState,
+  reducer,
+  ACTIONTYPES,
+} from '@immediate-states/funfuse/homepage.state';
 const skills = [
   'Supply Chain',
   'Finance',
@@ -31,12 +36,14 @@ const PreferencesComponent = dynamic(
 );
 
 export default function HomePage() {
-  const [showAllSKills, setShowAllSkills] = useState(false);
-  const [showAllInterests, setShowAllInterests] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [state, dispatch] = useReducer(reducer, initState);
+  const modifyShowAllSkills = (show: boolean) =>
+    dispatch({ type: ACTIONTYPES.SHOW_SKILLS_MODIFY, payload: show });
+  const modifyShowAllInterests = (show: boolean) =>
+    dispatch({ type: ACTIONTYPES.SHOW_INTERESTS_MODIFY, payload: show });
+  const setShowModal = (show: boolean) =>
+    dispatch({ type: ACTIONTYPES.MODAL_MODIFY, payload: show });
   const closeModal = () => setShowModal(false);
-  const modifyShowAllSkills = (show: boolean) => setShowAllSkills(show);
-  const modifyShowAllInterests = (show: boolean) => setShowAllInterests(show);
 
   return (
     <div className='flex flex-col items-center justify-around w-full h-full gap-1'>
@@ -62,13 +69,13 @@ export default function HomePage() {
           Developers and Digital Marketers to scale our Business.
         </label>
         <ComponentDisplay
-          showFullDisplay={showAllSKills}
+          showFullDisplay={state.showAllSkills}
           elements={skills}
           displayLabel={'Knows'}
           updateDisplay={modifyShowAllSkills}
         />
         <ComponentDisplay
-          showFullDisplay={showAllInterests}
+          showFullDisplay={state.showAllInterests}
           elements={interests}
           displayLabel={'Interests'}
           updateDisplay={modifyShowAllInterests}
@@ -95,7 +102,7 @@ export default function HomePage() {
           twClass='rounded-md flex-1 p-0'
         />
       </div>
-      {showModal ? (
+      {state.showModal ? (
         <NotificationModal
           ModalBody={<PreferencesComponent closeModal={closeModal} />}
           closeModal={closeModal}

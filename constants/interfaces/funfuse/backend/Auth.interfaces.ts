@@ -26,6 +26,7 @@ export interface IFunFuseUserData {
   interests: IFunFuseSelectInterface[];
   imageLoc?: string;
   online?: boolean;
+  lastLoggedIn?: number;
 }
 
 export interface IFunFuseFbData {
@@ -50,6 +51,8 @@ export interface IFunfuseDiscoverUserData {
   bio: string;
   skills: string[];
   interests: string[];
+  imageLoc: string;
+  isImageAvailable: boolean;
 }
 
 export interface IFunFuseProfileUpdate {
@@ -79,6 +82,10 @@ export interface IAuthRequest {
   firebaseToken: string;
 }
 
+export interface IDecodedIdToken {
+  email_verified: boolean;
+}
 export interface IProfilePicture {
   userDetails: IFunFuseUserData;
+  decodedToken: IDecodedIdToken;
 }

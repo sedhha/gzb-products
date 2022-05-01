@@ -32,7 +32,8 @@
       "@redux-slices/*": ["redux/slices/*"],
       "@redux-constants/*": ["redux/states/*"],
       "@redux-tools/*": ["redux/tools/*"],
-      "@redux-apis/*": ["redux/apis/*"]
+      "@redux-apis/*": ["redux/apis/*"],
+      "@immediate-states/funfuse/*": ["lib/frontend/immediate-states/funfuse/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types.d.ts"],

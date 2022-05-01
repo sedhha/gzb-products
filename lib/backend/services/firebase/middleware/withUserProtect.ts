@@ -33,6 +33,7 @@ export const withUserProtect = (handler: NextApiHandler) => {
       try {
         if (userRecord.data) userRecord.data.uid = uid;
         request.body.userDetails = userRecord.data;
+        request.body.decodedToken = decodedToken;
         return handler(request, response);
       } catch (e) {
         const opsDetails = getErrorDetailsFromKey(

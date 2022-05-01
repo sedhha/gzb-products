@@ -146,6 +146,7 @@ export const registerFunFuseUser = async (
         interests: [],
         discoverability: true,
         uid: userRecord.uid,
+        lastLoggedIn: new Date().getTime(),
       };
 
       await Promise.all([

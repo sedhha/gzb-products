@@ -19,7 +19,11 @@ const disconnectUser: NextApiHandler = async (
 ) => {
   const payload = req.body as IProfilePicture;
   try {
-    await setUserActivity(payload.userDetails.uid, false);
+    await setUserActivity(
+      payload.userDetails.uid,
+      false,
+      payload.decodedToken.email_verified ?? false
+    );
     return response.status(201).json(
       genericResponse({
         opsDetails: getErrorDetailsFromKey(
