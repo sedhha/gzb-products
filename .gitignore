@@ -46,3 +46,4 @@ notes/*
 **/public/worker-*.js.map
 .vercel
 caveats.txt
+api-calls/*
