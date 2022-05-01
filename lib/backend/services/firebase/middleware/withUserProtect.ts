@@ -43,7 +43,7 @@ export const withUserProtect = (handler: NextApiHandler) => {
         return response.status(500).json(errorResponse({ opsDetails }));
       }
     } catch (e) {
-      console.log('Error = ', e);
+      console.log('Auth Error = ', e);
       return response.status(401).json(
         errorResponse({
           opsDetails: getErrorDetailsFromKey(ErrorCodes.UNAUTHORIZED_USER),

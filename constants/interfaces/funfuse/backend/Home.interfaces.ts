@@ -9,3 +9,9 @@ export interface IFunFuseDiscoverUsers {
   userDetails: IFunFuseUserData; // Coming From Middleware
   decodedToken: IDecodedIdToken; // Coming From Middleware
 }
+
+export interface IFunFuseConnectRequest {
+  userDetails: IFunFuseUserData;
+  decodedToken: IDecodedIdToken;
+  recieverUid: string;
+}

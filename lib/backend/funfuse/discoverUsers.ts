@@ -81,7 +81,7 @@ export const getConnectedUsers = async (uid: string): Promise<string[]> => {
     .catch(errorHandler);
 };
 
-export const getRequestedUsers = async (uid: string): Promise<string[]> => {
+const getRequestedUsers = async (uid: string): Promise<string[]> => {
   return await Server.rdb
     .ref(`${rdb_paths.funfuse_requested_users}`)
     .child(uid)
@@ -90,9 +90,7 @@ export const getRequestedUsers = async (uid: string): Promise<string[]> => {
     .catch(errorHandler);
 };
 
-export const getIncomingRequestedUsers = async (
-  uid: string
-): Promise<string[]> => {
+const getIncomingRequestedUsers = async (uid: string): Promise<string[]> => {
   return await Server.rdb
     .ref(`${rdb_paths.funfuse_requests_users}`)
     .child(uid)
@@ -114,8 +112,10 @@ const addToRequestedUsers = async (
   requestorUid: string,
   approverUid: string
 ) => {
+  const data = await getRequestedUsers(requestorUid);
+  if (data.includes(approverUid)) return;
   await Server.rdb
-    .ref(`${rdb_paths.funfuse_requested_users}`)
+    .ref(rdb_paths.funfuse_requested_users)
     .child(requestorUid)
     .push(approverUid);
 };
@@ -124,13 +124,15 @@ const addToRequestingUser = async (
   requestorUid: string,
   approverUid: string
 ) => {
+  const data = await getIncomingRequestedUsers(approverUid);
+  if (data.includes(requestorUid)) return;
   await Server.rdb
     .ref(`${rdb_paths.funfuse_requests_users}`)
     .child(approverUid)
     .push(requestorUid);
 };
 
-export const converSnapShotIntoArray = (snapshot: DataSnapshot): string[] => {
+const converSnapShotIntoArray = (snapshot: DataSnapshot): string[] => {
   if (snapshot.exists()) {
     const result = [] as string[];
     snapshot.forEach((element) => {

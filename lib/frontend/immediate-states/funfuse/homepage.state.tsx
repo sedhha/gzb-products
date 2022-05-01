@@ -22,11 +22,14 @@ export const ACTIONTYPES = {
   SHOW_INTERESTS_MODIFY: 'SHOW_INTERESTS_MODIFY',
   MODAL_MODIFY: 'MODAL_MODIFY',
   SET_USERS: 'SET_USERS',
+  GO_NEXT: 'GO_NEXT',
 } as const;
+
+type ExpectedPayload = boolean | IFunfuseFrontendUser[];
 
 type ReducerAction = {
   type: keyof typeof ACTIONTYPES;
-  payload: boolean | IFunfuseFrontendUser[];
+  payload?: ExpectedPayload;
 };
 
 export const reducer = (
@@ -44,6 +47,14 @@ export const reducer = (
       return {
         ...state,
         users: [...(action.payload as IFunfuseFrontendUser[])],
+      };
+    case ACTIONTYPES.GO_NEXT:
+      return {
+        ...state,
+        activeIndex: state.activeIndex + 1,
+        showModal: false,
+        showAllInterests: false,
+        showAllSkills: false,
       };
     default:
       return state;

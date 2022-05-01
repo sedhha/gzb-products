@@ -8,18 +8,17 @@ import {
   genericResponse,
   getErrorDetailsFromKey,
 } from '@global-backend/utils/api/responseSynthesizer';
-import { IFunFuseDiscoverUsers } from '@constants/interfaces/funfuse/backend/Home.interfaces';
-import { discoverUsers } from '@global-backend/funfuse/discoverUsers';
+import { IFunFuseConnectRequest } from '@constants/interfaces/funfuse/backend/Home.interfaces';
+import { handleOnConnect } from '@global-backend/funfuse/discoverUsers';
 
 const discoverUserHandler: NextApiHandler = async (
   req: NextApiRequest,
   response: NextApiResponse<IResponse>
 ) => {
-  const payload = req.body as IFunFuseDiscoverUsers;
-  const users = await discoverUsers(
-    payload.userDetails.uid,
-    payload.startIndex,
-    payload.endIndex
+  const payload = req.body as IFunFuseConnectRequest;
+  const users = await handleOnConnect(
+    req.body.userDetails.uid,
+    payload.recieverUid
   );
 
   response.status(200).json(

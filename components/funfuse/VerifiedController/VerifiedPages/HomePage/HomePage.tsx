@@ -9,7 +9,10 @@ import {
   ACTIONTYPES,
 } from '@immediate-states/funfuse/homepage.state';
 import { useAppSelector } from '@redux-tools/hooks';
-import { discoverFirebaseUsers } from '@redux-apis/external/firestoreProfile';
+import {
+  connectToFunFuseUser,
+  discoverFirebaseUsers,
+} from '@redux-apis/external/firestoreProfile';
 import UserCard from '@/components/funfuse/VerifiedController/VerifiedPages/HomePage/UserCard/UserCard';
 import Image from 'next/image';
 
@@ -32,15 +35,32 @@ export default function HomePage() {
 
   const { firebaseToken, isLoggedIn } = useAppSelector((state) => state.user);
 
+  const onProfileNextHandler = () => {
+    if (state.activeIndex >= state.users.length) return;
+    if (firebaseToken) {
+      const uid = state.users[state.activeIndex].uid;
+      connectToFunFuseUser(firebaseToken, uid).then((response) => {
+        console.log('Response = ', response);
+        if (response) {
+          dispatch({ type: ACTIONTYPES.GO_NEXT });
+        }
+      });
+    }
+  };
+  const onSkipHandler = () => {
+    if (state.activeIndex >= state.users.length) return;
+    dispatch({ type: ACTIONTYPES.GO_NEXT });
+  };
+
   useEffect(() => {
     if (isLoggedIn && firebaseToken) {
       discoverFirebaseUsers(firebaseToken, 0, 20).then((data) => {
-        console.log('Data = ', data);
         dispatch({ type: ACTIONTYPES.SET_USERS, payload: data });
       });
     }
   }, [firebaseToken, isLoggedIn]);
 
+  const user = state.users[state.activeIndex];
   return (
     <div className='flex flex-col items-center justify-around w-full h-full gap-1'>
       {state.users.length > 0 && state.activeIndex < state.users.length && (
@@ -49,7 +69,7 @@ export default function HomePage() {
           showAllInterests={state.showAllInterests}
           modifyShowAllSkills={modifyShowAllSkills}
           modifyShowAllInterests={modifyShowAllInterests}
-          user={state.users[state.activeIndex]}
+          user={user}
         />
       )}
       {state.activeIndex >= state.users.length ? (
@@ -75,7 +95,7 @@ export default function HomePage() {
       <div className='flex flex-row items-center justify-around flex-1 w-full gap-2 px-2'>
         <ThemeButton
           buttonText={'Skip'}
-          buttonCallback={() => null}
+          buttonCallback={onSkipHandler}
           twClass='bg-funfuse_red rounded-md flex-1 p-0'
         />
 
@@ -84,7 +104,7 @@ export default function HomePage() {
         </div>
         <ThemeButton
           buttonText={'Connect'}
-          buttonCallback={() => null}
+          buttonCallback={onProfileNextHandler}
           twClass='rounded-md flex-1 p-0'
         />
       </div>

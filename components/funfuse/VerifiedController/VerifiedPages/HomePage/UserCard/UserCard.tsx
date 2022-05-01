@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import ComponentDisplay from '@/components/funfuse/VerifiedController/VerifiedPages/HomePage/ComponentDisplay/ComponentDisplay';
 import Image from 'next/image';
 import { IFunfuseFrontendUser } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
+import { ref, getDownloadURL } from 'firebase/storage';
+import { storage } from '@firebase-client/client.config';
 type Props = {
   showAllSkills: boolean;
   modifyShowAllSkills: (show: boolean) => void;
@@ -17,11 +19,19 @@ export default function UserCard({
   modifyShowAllInterests,
   user,
 }: Props) {
+  console.log('UU = ', user);
   const [iUri, setIUri] = useState('/funfuse/avatar-02.jpg');
   useEffect(() => {
-    setIUri(user.imageLoc);
+    if (user.imageLoc.startsWith('h') || user.imageLoc.startsWith('/'))
+      setIUri(user.imageLoc);
+    else {
+      const storageRef = ref(storage, user.imageLoc);
+      getDownloadURL(storageRef).then((url) => {
+        setIUri(url);
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user.imageLoc]);
   return (
     <div
       aria-label='funfuse-user-card'

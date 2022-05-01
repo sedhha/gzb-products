@@ -121,7 +121,40 @@ export const discoverFirebaseUsers = async (
   return result;
 };
 
-export const connectToFunFuseUser = async (uid: string) => {};
+export const connectToFunFuseUser = async (
+  firebaseToken: string,
+  recieverUid: string
+) => {
+  return fetch('/api/funfuse/ops/connect-user', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': firebaseToken,
+    },
+    body: JSON.stringify({
+      recieverUid,
+    }),
+  })
+    .then((response) =>
+      response
+        .json()
+        .then((data) => {
+          if (data.error) {
+            errorHandler(data);
+            return false;
+          }
+          return true;
+        })
+        .catch((error) => {
+          errorHandler(error);
+          return false;
+        })
+    )
+    .catch((error) => {
+      errorHandler(error);
+      return false;
+    });
+};
 
 const errorHandler = (error: any) => {
   console.log('Error = ', error);
