@@ -1,7 +1,12 @@
-import { IFunFuseProfileUpdate } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
+import {
+  IFunfuseFrontendUser,
+  IFunFuseProfileUpdate,
+} from '@constants/interfaces/funfuse/backend/Auth.interfaces';
 import { IFunFuseUserData } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
 import { IResponse } from '@constants/interfaces/gcorn/backend/apis/response.interfaces';
 import { FirebaseError } from 'firebase/app';
+import { ref, getDownloadURL } from 'firebase/storage';
+import { storage } from '@firebase-client/client.config';
 
 export const firestoreProfile = async (
   token: string
@@ -70,4 +75,53 @@ export const updateFireStoreProfile = async (
         .catch((error) => ({ error: true, message: error.message }))
     )
     .catch((error) => ({ error: true, message: error.message }));
+};
+
+export const discoverFirebaseUsers = async (
+  firebaseToken: string,
+  startIndex: number,
+  endIndex: number
+): Promise<IFunfuseFrontendUser[]> => {
+  const data = await fetch('/api/funfuse/ops/discover-user', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': firebaseToken,
+    },
+    body: JSON.stringify({
+      startIndex,
+      endIndex,
+    }),
+  })
+    .then((response) =>
+      response
+        .json()
+        .then((payload: IResponse) => {
+          if (!payload.error) return payload.data as IFunfuseFrontendUser[];
+          else return errorHandler(payload);
+        })
+        .catch(errorHandler)
+    )
+    .catch(errorHandler);
+  const imageUrlPromises = data.map(
+    (element) =>
+      new Promise((resolve) => {
+        if (element.isImageAvailable) {
+          const storageRef = ref(storage, element.imageLoc);
+          getDownloadURL(storageRef).then((url) => {
+            element.imageLoc = url;
+          });
+        }
+        resolve(element);
+      })
+  );
+  const result = await Promise.all(imageUrlPromises).then(
+    (data) => data as IFunfuseFrontendUser[]
+  );
+  return result;
+};
+
+const errorHandler = (error: any) => {
+  console.log('Error = ', error);
+  return [];
 };

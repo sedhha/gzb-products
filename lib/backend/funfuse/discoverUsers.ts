@@ -1,7 +1,7 @@
 import { rdb_paths, firebasePaths } from '@constants/firebase/paths';
 import {
-  IFunfuseDiscoverUserData,
   IFunFuseFbData,
+  IFunfuseFrontendUser,
 } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
 import Server from '@firebase-server/server.config';
 import { FirebaseError } from 'firebase-admin';
@@ -9,7 +9,7 @@ export const discoverUsers = async (
   uid: string,
   startIndex: number,
   endIndex: number
-): Promise<IFunfuseDiscoverUserData[]> => {
+): Promise<IFunfuseFrontendUser[]> => {
   const notToIncludeAccounts = await prepareDiscoveryUsers(uid);
   if (notToIncludeAccounts.length === 0) return [];
   const bulkRequest = endIndex - startIndex > 20;

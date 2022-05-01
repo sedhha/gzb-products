@@ -21,7 +21,7 @@ export default function VerifiedController() {
   const setUserOffline = React.useCallback(() => {
     if (user.isLoggedIn && user.firebaseToken)
       disconnectFireStoreUser(user.firebaseToken);
-  }, [user.isLoggedIn, user.firebaseToken]);
+  }, [user?.isLoggedIn, user?.firebaseToken]);
 
   useEffect(() => {
     if (window) {

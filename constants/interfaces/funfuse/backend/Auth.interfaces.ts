@@ -55,6 +55,16 @@ export interface IFunfuseDiscoverUserData {
   isImageAvailable: boolean;
 }
 
+export interface IFunfuseFrontendUser {
+  name: string;
+  online: boolean;
+  bio: string;
+  skills: string[];
+  interests: string[];
+  imageLoc: string;
+  isImageAvailable: boolean;
+}
+
 export interface IFunFuseProfileUpdate {
   bio: string;
   skills: string[];
