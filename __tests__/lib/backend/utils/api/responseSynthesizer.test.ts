@@ -70,7 +70,7 @@ describe('Response API Formats', () => {
     expect(gR.opsDetails).toStrictEqual({
       api_version: gzbResponses.unknwon.api_version,
       code: gzbResponses.unknwon.code,
-      details: gzbResponses.unknwon.details,
+      details: 'Generic Custom',
       error: gzbResponses.unknwon.error,
     });
   });
@@ -88,7 +88,7 @@ describe('Response API Formats', () => {
     expect(eR.opsDetails).toStrictEqual({
       api_version: gzbResponses.unknwon.api_version,
       code: gzbResponses.unknwon.code,
-      details: gzbResponses.unknwon.details,
+      details: 'Error Custom',
       error: gzbResponses.unknwon.error,
     });
   });

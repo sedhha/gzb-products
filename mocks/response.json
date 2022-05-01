@@ -34,7 +34,7 @@
     "opsDetails": {
       "error": true,
       "code": "UNEXPECTED_OPERATION_FROM_SERVER",
-      "details": "No description available for this operation.",
+      "details": "Success Custom",
       "api_version": "v1"
     }
   },
@@ -47,7 +47,7 @@
     "opsDetails": {
       "error": true,
       "code": "UNEXPECTED_OPERATION_FROM_SERVER",
-      "details": "No description available for this operation.",
+      "details": "Error Custom",
       "api_version": "v1"
     }
   }
