@@ -121,6 +121,8 @@ export const discoverFirebaseUsers = async (
   return result;
 };
 
+export const connectToFunFuseUser = async (uid: string) => {};
+
 const errorHandler = (error: any) => {
   console.log('Error = ', error);
   return [];

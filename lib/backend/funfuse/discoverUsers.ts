@@ -5,6 +5,7 @@ import {
 } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
 import Server from '@firebase-server/server.config';
 import { FirebaseError } from 'firebase-admin';
+import { DataSnapshot } from 'firebase/database';
 export const discoverUsers = async (
   uid: string,
   startIndex: number,
@@ -43,6 +44,7 @@ export const discoverUsers = async (
       interests: completeData.interests,
       imageLoc: completeData.imageLoc ?? '/funfuse/avatar-02.jpg',
       isImageAvailable: completeData.imageLoc ? true : false,
+      uid: completeData.uid,
     };
   });
   return result;
@@ -70,29 +72,71 @@ const prepareDiscoveryUsers = async (uid: string) => {
   return allUsers;
 };
 
-const getConnectedUsers = async (uid: string): Promise<string[]> => {
+export const getConnectedUsers = async (uid: string): Promise<string[]> => {
   return await Server.rdb
     .ref(`${rdb_paths.funfuse_connected_users}`)
     .child(uid)
-    .get()
-    .then((snapshot) => (snapshot.exists() ? snapshot.val() : []) as string[])
+    .get() //@ts-ignore
+    .then(converSnapShotIntoArray)
     .catch(errorHandler);
 };
 
-const getRequestedUsers = async (uid: string): Promise<string[]> => {
+export const getRequestedUsers = async (uid: string): Promise<string[]> => {
   return await Server.rdb
     .ref(`${rdb_paths.funfuse_requested_users}`)
     .child(uid)
-    .get()
-    .then((snapshot) => (snapshot.exists() ? snapshot.val() : []) as string[])
+    .get() //@ts-ignore
+    .then(converSnapShotIntoArray)
     .catch(errorHandler);
 };
 
-const getIncomingRequestedUsers = async (uid: string): Promise<string[]> => {
+export const getIncomingRequestedUsers = async (
+  uid: string
+): Promise<string[]> => {
   return await Server.rdb
     .ref(`${rdb_paths.funfuse_requests_users}`)
     .child(uid)
-    .get()
-    .then((snapshot) => (snapshot.exists() ? snapshot.val() : []) as string[])
+    .get() //@ts-ignore
+    .then(converSnapShotIntoArray)
     .catch(errorHandler);
+};
+
+export const handleOnConnect = async (
+  requestorUid: string,
+  approverUid: string
+): Promise<boolean> => {
+  await addToRequestedUsers(requestorUid, approverUid);
+  await addToRequestingUser(requestorUid, approverUid);
+  return true;
+};
+
+const addToRequestedUsers = async (
+  requestorUid: string,
+  approverUid: string
+) => {
+  await Server.rdb
+    .ref(`${rdb_paths.funfuse_requested_users}`)
+    .child(requestorUid)
+    .push(approverUid);
+};
+
+const addToRequestingUser = async (
+  requestorUid: string,
+  approverUid: string
+) => {
+  await Server.rdb
+    .ref(`${rdb_paths.funfuse_requests_users}`)
+    .child(approverUid)
+    .push(requestorUid);
+};
+
+export const converSnapShotIntoArray = (snapshot: DataSnapshot): string[] => {
+  if (snapshot.exists()) {
+    const result = [] as string[];
+    snapshot.forEach((element) => {
+      result.push(element.val());
+    });
+    return result;
+  }
+  return [];
 };

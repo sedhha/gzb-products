@@ -59,6 +59,7 @@ export interface IFunfuseFrontendUser {
   name: string;
   online: boolean;
   bio: string;
+  uid: string;
   skills: string[];
   interests: string[];
   imageLoc: string;
