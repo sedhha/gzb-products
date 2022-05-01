@@ -1,0 +1,6 @@
+POST http://localhost:3000/api/dev-route
+Content-Type: application/json
+
+{
+    "uid":"I1wZIbz6yAPBGYdovVCZzZetLDI3"
+}

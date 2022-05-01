@@ -8,12 +8,18 @@ import useAbortableEffect from '@hooks/useAbortableEffect';
 import Head from 'next/head';
 import AppWrapper from '../hoc/AppWrapper';
 import Link from 'next/link';
+import { IResponse } from '@constants/interfaces/gcorn/backend/apis/response.interfaces';
 
 export default function LoginPage() {
   const { query } = useRouter();
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
-  const { oobCode, mode } = query as { mode: string; oobCode: string };
+  const { oobCode, mode, uid } = query as {
+    mode: string;
+    oobCode: string;
+    uid: string;
+  };
+  console.log(query);
 
   const isError = error !== '';
   const isSuccess = success !== '';
@@ -29,10 +35,39 @@ export default function LoginPage() {
         applyActionCode(Auth, oobCode)
           .then(() => {
             if (mounted) {
-              console.log('Success');
-              setSuccess('Email Verified Successfully. ');
-              setError('');
-              return;
+              fetch('/api/funfuse/auth/verify-user', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  uid,
+                }),
+              }).then((response) =>
+                response
+                  .json()
+                  .then((data: IResponse) => {
+                    if (data.error) {
+                      setError(data.opsDetails.details);
+                      console.log('Unable to Verify Email = ', data);
+                    } else {
+                      console.log('Success');
+                      setSuccess('Email Verified Successfully. ');
+                      setError('');
+                      return;
+                    }
+                  })
+                  .catch((error) => {
+                    console.log('Error = ', error);
+                    setError(
+                      'Unable to verify Email. Failed to decode Server Response'
+                    );
+                  })
+                  .catch((error) => {
+                    setError('Unable to verify Email. Internal Server Error');
+                    console.log('Error = ', error);
+                  })
+              );
             }
           })
           .catch((error) => {

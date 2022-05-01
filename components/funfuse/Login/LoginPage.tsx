@@ -54,9 +54,10 @@ export default function LoginPage({ idToken }: Props) {
 
   useEffect(() => {
     if (idToken !== '') {
-      setLoading(true);
-      successHandler(idToken);
+      mounted && setLoading(true);
+      mounted && successHandler(idToken);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idToken, successHandler, setLoading]);
 
   useEffect(() => {
@@ -68,7 +69,7 @@ export default function LoginPage({ idToken }: Props) {
   }, [user?.username, router, isUserVerified]);
 
   const loginHander = () => {
-    setLoading(true);
+    mounted && setLoading(true);
     signInWithEmailAndPassword(Auth, email.split(' ').join(''), password)
       .then((userRecord) => {
         userRecord.user.getIdToken().then(successHandler).catch(errorHandler);

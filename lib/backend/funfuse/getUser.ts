@@ -4,11 +4,16 @@ import Server from '@firebase-server/server.config';
 import { FirebaseError } from 'firebase-admin';
 
 export const getFunFuseUser = async (
-  uid: string
+  uid: string,
+  verified: boolean
 ): Promise<{ error: boolean; data?: IFunFuseUserData; message?: string }> => {
   try {
     const data = await Server.db
-      .doc(`${firebasePaths.funfuse_users}/${uid}`)
+      .doc(
+        `${
+          verified ? firebasePaths.verified_users : firebasePaths.funfuse_users
+        }/${uid}`
+      )
       .get();
     if (data.exists) {
       return { error: false, data: data.data() as IFunFuseUserData };

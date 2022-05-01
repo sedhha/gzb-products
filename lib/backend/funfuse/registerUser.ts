@@ -125,7 +125,11 @@ export const registerFunFuseUser = async (
           return sendVerificationEmail({
             to: payload.email,
             subject: 'Verify your FunFuse Account',
-            htmlBody: `<p>Hi ${payload.name}, You're just one step far from start using FunFuse services. Kindly click on the link ${link} and get fuse in the fun world of SMBs!</p>`,
+            htmlBody: `<p>Hi ${
+              payload.name
+            }, You're just one step far from start using FunFuse services. Kindly click on the link ${
+              link + '&uid=' + userRecord.uid
+            } and get fuse in the fun world of SMBs!</p>`,
             name: 'FunFuse Email Verification',
             replyTo: process.env.FUNFUSE_EMAIL_HANDLER,
           });

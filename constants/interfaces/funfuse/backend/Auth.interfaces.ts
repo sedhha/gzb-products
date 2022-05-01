@@ -28,6 +28,30 @@ export interface IFunFuseUserData {
   online?: boolean;
 }
 
+export interface IFunFuseFbData {
+  name: string;
+  email: string;
+  dob: string;
+  uid: string;
+  gender: string;
+  username: string;
+  role: FunFuseUserTypes;
+  discoverability: boolean;
+  bio: string;
+  skills: string[];
+  interests: string[];
+  imageLoc?: string;
+  online?: boolean;
+}
+
+export interface IFunfuseDiscoverUserData {
+  name: string;
+  online: boolean;
+  bio: string;
+  skills: string[];
+  interests: string[];
+}
+
 export interface IFunFuseProfileUpdate {
   bio: string;
   skills: string[];

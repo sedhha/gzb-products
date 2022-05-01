@@ -35,7 +35,10 @@ export const genericResponse = (payload: IResponseCook): IResponse => ({
   opsDetails: {
     error: payload.opsDetails?.error ?? gzbResponses['unknwon'].error,
     code: payload.opsDetails?.code ?? gzbResponses['unknwon'].code,
-    details: payload.opsDetails?.details ?? gzbResponses['unknwon'].details,
+    details:
+      payload.message ??
+      payload.opsDetails?.details ??
+      gzbResponses['unknwon'].details,
     api_version:
       payload.opsDetails?.api_version ?? gzbResponses['unknwon'].api_version,
   },
@@ -50,7 +53,10 @@ export const errorResponse = (payload: IResponseCook): IResponse => ({
   opsDetails: {
     error: payload.opsDetails?.error ?? gzbResponses['unknwon'].error,
     code: payload.opsDetails?.code ?? gzbResponses['unknwon'].code,
-    details: payload.opsDetails?.details ?? gzbResponses['unknwon'].details,
+    details:
+      payload.message ??
+      payload.opsDetails?.details ??
+      gzbResponses['unknwon'].details,
     api_version:
       payload.opsDetails?.api_version ?? gzbResponses['unknwon'].api_version,
   },

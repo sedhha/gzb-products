@@ -14,7 +14,10 @@ export const withUserProtect = (handler: NextApiHandler) => {
     try {
       const decodedToken = await Server.auth.verifyIdToken(firebaseToken);
       const uid = decodedToken.uid;
-      const userRecord = await getFunFuseUser(uid);
+      const userRecord = await getFunFuseUser(
+        uid,
+        decodedToken.email_verified ?? false
+      );
       const opsDetails = getErrorDetailsFromKey(
         ErrorCodes.FIREBASE_GENERATED_ERROR
       );

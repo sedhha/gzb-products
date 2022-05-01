@@ -47,3 +47,29 @@ export const setUserActivity = async (uid: string, status: boolean) => {
     { merge: true }
   );
 };
+
+export const moveToVerifiedUsers = async (uid: string): Promise<boolean> => {
+  const recordRef = Server.db.doc(`${firebasePaths.funfuse_users}/${uid}`);
+  const record = await recordRef.get();
+  if (record.exists) {
+    const data = record.data() as IFunFuseUserData;
+    const newLocation = Server.db.doc(`${firebasePaths.verified_users}/${uid}`);
+    await newLocation.set(data, { merge: true });
+    await recordRef.delete();
+    return true;
+  }
+  return false;
+};
+
+export const moveToUnVerifiedUsers = async (uid: string): Promise<boolean> => {
+  const recordRef = Server.db.doc(`${firebasePaths.verified_users}/${uid}`);
+  const record = await recordRef.get();
+  if (record.exists) {
+    const data = record.data() as IFunFuseUserData;
+    const newLocation = Server.db.doc(`${firebasePaths.funfuse_users}/${uid}`);
+    await newLocation.set(data, { merge: true });
+    await recordRef.delete();
+    return true;
+  }
+  return false;
+};

@@ -1,5 +1,34 @@
-import Image from 'next/image';
 import React from 'react';
+import MessageBox from './MessageBox';
+
+const messages = [
+  {
+    senderName: 'John Doe',
+    imageUrl: '/funfuse/avatar-02.jpg',
+    newMessageCount: 0,
+    latestMessage: 'Hello, how are you?',
+  },
+  {
+    senderName: 'John Doe',
+    imageUrl: '/funfuse/avatar-02.jpg',
+    newMessageCount: 4,
+    latestMessage:
+      'Hello, how are you doing? I was wondering if you could help me with a problem I had.',
+  },
+  {
+    senderName: 'John Doe',
+    imageUrl: '/funfuse/avatar-02.jpg',
+    newMessageCount: 0,
+    latestMessage: 'Hello, how are you?',
+  },
+  {
+    senderName: 'John Doe',
+    imageUrl: '/funfuse/avatar-02.jpg',
+    newMessageCount: 4,
+    latestMessage:
+      'Hello, how are you doing? I was wondering if you could help me with a problem I had.',
+  },
+];
 
 export default function HomePage() {
   return (
@@ -12,23 +41,10 @@ export default function HomePage() {
           <div className='funfuse-icons-search h-[1rem] w-[1rem] bg-white' />
         </div>
       </div>
-      <div className='flex flex-col items-center gap-2 mt-2'>
-        <div className='flex gap-2 border border-red-400'>
-          <div className='h-[5rem] w-[5rem] border border-black'></div>
-          <div aria-label='Message Container' className='flex flex-col'>
-            <div className='flex flex-row items-center gap-1'>
-              <h3 className='text-xl font-bold text-black font-funfuse'>
-                John Doe
-              </h3>
-              <div className='w-[1.5rem] h-[1.5rem] rounded-full bg-funfuse flex justify-center items-center'>
-                <label className='p-0 m-0 text-sm text-white'>5</label>
-              </div>
-            </div>
-            <label>
-              We have 12 text messages from John Doe. Click here to reply
-            </label>
-          </div>
-        </div>
+      <div className='flex flex-col items-center gap-2 mt-4'>
+        {messages.map((message, index) => (
+          <MessageBox key={index} {...message} />
+        ))}
       </div>
     </div>
   );
