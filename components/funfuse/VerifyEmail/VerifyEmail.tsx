@@ -77,6 +77,7 @@ export default function LoginPage() {
                 ]
               );
               setSuccess('');
+              Auth.signOut();
               return;
             }
           });
