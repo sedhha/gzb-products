@@ -4,15 +4,27 @@ import {
   initState,
   ConnectNavModes,
   ACTIONTYPES,
+  navModes,
 } from '@immediate-states/funfuse/connects.state';
 import TopNavBar from '@/components/funfuse/VerifiedController/VerifiedPages/Connects/TopNavBar/TopNavBar';
 import ExistingConnections from '@/components/funfuse/VerifiedController/VerifiedPages/Connects/ExistingConnections/ExistingConnections';
-
+import RequestedConnections from '@/components/funfuse/VerifiedController/VerifiedPages/Connects/NewRequests/Requests';
 export default function HomePage() {
   const [state, dispatch] = useReducer(reducer, initState);
   const { mode } = state;
   const onModeChange = (mode: ConnectNavModes) =>
     dispatch({ type: ACTIONTYPES.TOGGLE_MODE, payload: mode });
+
+  let ResultComponent = <ExistingConnections />;
+  switch (mode) {
+    case navModes.VIEW_REQUESTS: {
+      console.log('Comes in');
+      ResultComponent = <RequestedConnections />;
+      break;
+    }
+    default: {
+    }
+  }
 
   return (
     <div className='relative block h-full min-w-0 p-2 m-2'>
@@ -25,7 +37,7 @@ export default function HomePage() {
           <div className='funfuse-icons-search h-[1rem] w-[1rem] bg-white' />
         </div>
       </div>
-      <ExistingConnections />
+      {ResultComponent}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { IFunfuseFrontendUser } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
 
-const navModes = {
+export const navModes = {
   VIEW_CONNECTIONS: 'VIEW_CONNECTIONS',
   VIEW_REQUESTS: 'VIEW_REQUESTS',
 } as const;

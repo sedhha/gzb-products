@@ -21,7 +21,7 @@ export default function ConnectionBox({
         <img
           alt='Message Image'
           src={imageUrl ?? '/funfuse/avatar-02.jpg'}
-          className='flex-1 rounded-full shadow-lg shadow-indigo-500/50 min-h-[5rem] min-w-[5rem] max-h-[5rem] max-w-[5rem]'
+          className={`flex-1 rounded-full shadow-lg shadow-indigo-500/50 min-h-[5rem] min-w-[5rem] max-h-[5rem] max-w-[5rem]`}
         />
         <div className='flex flex-col flex-auto w-full'>
           <div
@@ -35,10 +35,11 @@ export default function ConnectionBox({
             aria-label='Funfuse-Message-Body'
             className='flex items-center justify-between w-full'>
             <label className='text-sm text-gray-400'>{newMsgValue}</label>
-            <div className='p-1 rounded-sm bg-funfuse'>
-              <div className='w-4 h-4 bg-white funfuse-icons-send hover:scale-95' />
-            </div>
           </div>
+        </div>
+        <div className='flex gap-2 mx-2 mt-auto'>
+          <div className='w-6 h-6 border rounded-sm bg-funfuse_green funfuse-icons-check hover:scale-95' />
+          <div className='w-6 h-6 border rounded-sm bg-funfuse_red funfuse-icons-cross hover:scale-95' />
         </div>
       </div>
       <div className='w-full px-2 h-[0.02rem] bg-gray-500 my-2' />

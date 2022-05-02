@@ -96,6 +96,21 @@
   mask: url('/funfuse/icons/funfuse-send.svg') no-repeat center;
 }
 
+.funfuse-icons-check {
+  -webkit-mask: url('/funfuse/icons/funfuse-check.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-check.svg') no-repeat center;
+}
+
+.funfuse-icons-cross {
+  -webkit-mask: url('/funfuse/icons/funfuse-cross.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-cross.svg') no-repeat center;
+}
+
+.funfuse-icons-glass-view {
+  -webkit-mask: url('/funfuse/icons/funfuse-glass-view.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-glass-view.svg') no-repeat center;
+}
+
 /* ------------------------Custom Scrollbar------------------------ */
 funfuseScrollbar::-webkit-scrollbar {
   width: 0.5rem;
