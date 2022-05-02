@@ -21,7 +21,7 @@ export const checkIfEmailExists = async (email: string): Promise<boolean> => {
 export const registerWithGZB = async (
   data: IFirebaseUserMinimal
 ): Promise<IResponse> => {
-  const { email } = data;
+  const { email, gender } = data;
   const doesEmailExist = await checkIfEmailExists(email);
   if (doesEmailExist) {
     return errorResponse({
