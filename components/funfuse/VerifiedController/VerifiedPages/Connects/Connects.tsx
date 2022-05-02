@@ -15,7 +15,7 @@ export default function HomePage() {
     dispatch({ type: ACTIONTYPES.TOGGLE_MODE, payload: mode });
 
   return (
-    <div className='block h-full min-w-0 p-2 m-2'>
+    <div className='relative block h-full min-w-0 p-2 m-2'>
       <TopNavBar currentMode={mode} onModeChange={onModeChange} />
       <div className='flex flex-row items-center justify-around gap-2 overflow-hidden'>
         <div className='flex-auto drop-shadow-xl'>

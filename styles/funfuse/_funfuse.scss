@@ -91,6 +91,10 @@
   -webkit-mask: url('/funfuse/icons/funfuse-list.svg') no-repeat center;
   mask: url('/funfuse/icons/funfuse-list.svg') no-repeat center;
 }
+.funfuse-icons-send {
+  -webkit-mask: url('/funfuse/icons/funfuse-send.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-send.svg') no-repeat center;
+}
 
 /* ------------------------Custom Scrollbar------------------------ */
 funfuseScrollbar::-webkit-scrollbar {

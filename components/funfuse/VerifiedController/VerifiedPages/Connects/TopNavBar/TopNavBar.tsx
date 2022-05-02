@@ -11,7 +11,7 @@ type Props = {
 
 export default function TopNavBar({ onModeChange, currentMode }: Props) {
   return (
-    <div className='flex items-center justify-around w-full p-1'>
+    <div className='flex items-center justify-around w-full px-1 mb-1'>
       {Object.keys(navModeToIconMap).map((navClass) => {
         const value =
           navModeToIconMap[navClass as keyof typeof navModeToIconMap];
