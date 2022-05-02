@@ -24,9 +24,10 @@ export const discoverUsers = async (
       : 20;
   const docRef = Server.db
     .collection(firebasePaths.funfuse_verified_users)
+    .orderBy('uid')
     .where('uid', 'not-in', notToIncludeAccounts)
-    .orderBy('uid', 'desc')
-    .offset(startAt)
+    .orderBy('lastLoggedIn', 'desc')
+    .startAt(startAt)
     .limit(limit);
 
   const data = await docRef.get();
