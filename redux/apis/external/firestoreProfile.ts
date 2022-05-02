@@ -103,22 +103,7 @@ export const discoverFirebaseUsers = async (
         .catch(errorHandler)
     )
     .catch(errorHandler);
-  const imageUrlPromises = data.map(
-    (element) =>
-      new Promise((resolve) => {
-        if (element.isImageAvailable) {
-          const storageRef = ref(storage, element.imageLoc);
-          getDownloadURL(storageRef).then((url) => {
-            element.imageLoc = url;
-          });
-        }
-        resolve(element);
-      })
-  );
-  const result = await Promise.all(imageUrlPromises).then(
-    (data) => data as IFunfuseFrontendUser[]
-  );
-  return result;
+  return data;
 };
 
 export const connectToFunFuseUser = async (
