@@ -20,3 +20,9 @@ export interface IFunFuseConnections {
   userDetails: IFunFuseUserData;
   decodedToken: IDecodedIdToken;
 }
+
+export interface IFunFuseAcceptFriendRequest {
+  userDetails: IFunFuseUserData;
+  decodedToken: IDecodedIdToken;
+  requestorUid: string;
+}

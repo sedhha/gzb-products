@@ -5,8 +5,6 @@ import {
 import { IFunFuseUserData } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
 import { IResponse } from '@constants/interfaces/gcorn/backend/apis/response.interfaces';
 import { FirebaseError } from 'firebase/app';
-import { ref, getDownloadURL } from 'firebase/storage';
-import { storage } from '@firebase-client/client.config';
 
 export const firestoreProfile = async (
   token: string
