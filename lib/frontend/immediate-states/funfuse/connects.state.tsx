@@ -13,14 +13,13 @@ export const navModeToIconMap = {
 export type ConnectNavModes = keyof typeof navModes;
 export interface IConnectsState {
   mode: ConnectNavModes;
-  newRequests: boolean;
+  newRequests?: ConnectNavModes;
   loading: boolean;
   connections: IFunfuseFrontendUser[];
   reqUsers: IFunfuseFrontendUser[];
 }
 export const initState: IConnectsState = {
   mode: navModes.VIEW_CONNECTIONS,
-  newRequests: false,
   loading: false,
   connections: [],
   reqUsers: [],
@@ -29,7 +28,9 @@ export const initState: IConnectsState = {
 export const ACTIONTYPES = {
   TOGGLE_MODE: 'TOGGLE_MODE',
   SET_CONNECTIONS: 'SET_CONNECTIONS',
+  SET_REQUESTS: 'SET_REQUESTS',
   SET_LOADING: 'SET_LOADING',
+  SET_NEW_REQUESTS: 'SET_NEW_REQUESTS',
 } as const;
 
 type ExpectedPayload = ConnectNavModes | IFunfuseFrontendUser[] | boolean;
@@ -55,6 +56,16 @@ export const reducer = (
       return {
         ...state,
         loading: action.payload as boolean,
+      };
+    case ACTIONTYPES.SET_REQUESTS:
+      return {
+        ...state,
+        reqUsers: action.payload as IFunfuseFrontendUser[],
+      };
+    case ACTIONTYPES.SET_NEW_REQUESTS:
+      return {
+        ...state,
+        newRequests: action.payload as ConnectNavModes,
       };
     default:
       return state;

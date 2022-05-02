@@ -96,7 +96,9 @@ const getRequestedUsers = async (uid: string): Promise<string[]> => {
     .catch(errorHandler);
 };
 
-const getIncomingRequestedUsers = async (uid: string): Promise<string[]> => {
+export const getIncomingRequestedUsers = async (
+  uid: string
+): Promise<string[]> => {
   return await Server.rdb
     .ref(`${rdb_paths.funfuse_requests_users}`)
     .child(uid)

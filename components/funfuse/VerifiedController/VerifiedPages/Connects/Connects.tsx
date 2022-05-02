@@ -13,22 +13,36 @@ import { useAppSelector } from '@redux-tools/hooks';
 import { rdb } from '@firebase-client/client.config';
 import { ref, onValue, off } from 'firebase/database';
 import { rdb_paths } from '@constants/firebase/paths';
-import { getFunFuseUserConnections } from '@redux-apis/external/firestoreProfile';
+import {
+  getFunFuseUserConnections,
+  getFunFuseUserRequests,
+} from '@redux-apis/external/firestoreProfile';
 import ResizeSpinner from '@/components/funfuse/Spinner/ResizeSpinner';
 
 export default function HomePage() {
   const [state, dispatch] = useReducer(reducer, initState);
-  const { mode } = state;
-  const onModeChange = (mode: ConnectNavModes) =>
+  const { mode, newRequests } = state;
+  const onModeChange = (mode: ConnectNavModes) => {
+    if (mode === navModes.VIEW_REQUESTS)
+      dispatch({
+        type: ACTIONTYPES.SET_NEW_REQUESTS,
+      });
     dispatch({ type: ACTIONTYPES.TOGGLE_MODE, payload: mode });
+  };
 
   const { firebaseToken, isLoggedIn, user } = useAppSelector(
     (state) => state.user
   );
   useEffect(() => {
     if (isLoggedIn && firebaseToken !== '') {
-      const path = `${rdb_paths.funfuse_connected_users}/${user?.uid ?? ''}`;
-      const connectionsRef = ref(rdb, path);
+      const connectionsPath = `${rdb_paths.funfuse_connected_users}/${
+        user?.uid ?? ''
+      }`;
+      const requestsPath = `${rdb_paths.funfuse_requests_users}/${
+        user?.uid ?? ''
+      }`;
+      const connectionsRef = ref(rdb, connectionsPath);
+      const requestsRef = ref(rdb, requestsPath);
 
       onValue(connectionsRef, (snapshot) => {
         if (snapshot.exists()) {
@@ -52,8 +66,37 @@ export default function HomePage() {
           }
         }
       });
+      onValue(requestsRef, (snapshot) => {
+        if (snapshot.exists()) {
+          if (firebaseToken) {
+            dispatch({ type: ACTIONTYPES.SET_LOADING, payload: true });
+            getFunFuseUserRequests(firebaseToken)
+              .then((data) => {
+                if (data.length) {
+                  dispatch({
+                    type: ACTIONTYPES.SET_NEW_REQUESTS,
+                    payload: navModes.VIEW_REQUESTS,
+                  });
+                }
+                dispatch({
+                  type: ACTIONTYPES.SET_REQUESTS,
+                  payload: data,
+                });
+                dispatch({ type: ACTIONTYPES.SET_LOADING, payload: false });
+              })
+              .catch((error) => {
+                console.log(
+                  'Error Happened while updating connections = ',
+                  error
+                );
+                dispatch({ type: ACTIONTYPES.SET_LOADING, payload: false });
+              });
+          }
+        }
+      });
       return () => {
         off(connectionsRef);
+        off(requestsRef);
       };
     }
   }, [firebaseToken, isLoggedIn, user?.uid]);
@@ -80,7 +123,11 @@ export default function HomePage() {
 
   return (
     <div className='relative block h-full min-w-0 p-2 m-2'>
-      <TopNavBar currentMode={mode} onModeChange={onModeChange} />
+      <TopNavBar
+        currentMode={mode}
+        onModeChange={onModeChange}
+        showNotifMode={newRequests}
+      />
       {state.loading ? (
         <ResizeSpinner />
       ) : (
