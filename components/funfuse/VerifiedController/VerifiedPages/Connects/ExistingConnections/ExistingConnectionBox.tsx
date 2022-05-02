@@ -6,7 +6,7 @@ type Props = {
   latestMessage: string;
 };
 
-export default function MessageBox({
+export default function ConnectionBox({
   imageUrl,
   senderName,
   newMessageCount,
