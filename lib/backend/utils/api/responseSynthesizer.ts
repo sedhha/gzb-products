@@ -27,12 +27,6 @@ export const getErrorMessageFromKey = (key: string): string =>
   gzbResponses['unknwon'].details;
 
 export const genericResponse = (payload: IResponseCook): IResponse => {
-  console.debug(
-    'r = ',
-    payload.message ??
-      payload.opsDetails?.details ??
-      gzbResponses['unknwon'].details
-  );
   return {
     status_code: payload.status_code ?? 200,
     data: payload.data ?? {},
@@ -53,7 +47,6 @@ export const genericResponse = (payload: IResponseCook): IResponse => {
 };
 
 export const errorResponse = (payload: IResponseCook): IResponse => {
-  console.debug('Message = ', payload.message);
   return {
     status_code: payload.status_code ?? 401,
     data: payload.data ?? {},

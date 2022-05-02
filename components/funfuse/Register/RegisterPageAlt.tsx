@@ -95,7 +95,6 @@ export default function LoginPage() {
               errorHandler(data.opsDetails, data.opsDetails.details);
               return;
             } else {
-              console.log('here');
               successHandler();
             }
           })

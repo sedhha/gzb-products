@@ -1,17 +1,28 @@
 import * as React from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 
-const SwapIcon = () => {
+interface IDragHandlerProps {
+  onLeftDragHandler: () => void;
+  onRightDragHandler: () => void;
+  minDragMagnitude: number;
+}
+const SwapIcon = ({
+  onLeftDragHandler,
+  onRightDragHandler,
+  minDragMagnitude,
+}: IDragHandlerProps) => {
   const x = useMotionValue(0);
-  const [start, setStart] = React.useState(0);
-  const [end, setEnd] = React.useState(0);
+
+  const dragHandler = () => {
+    const dragX = x.get();
+    if (dragX < minDragMagnitude) {
+      onLeftDragHandler && onLeftDragHandler();
+    } else if (dragX > minDragMagnitude) {
+      onRightDragHandler && onRightDragHandler();
+    }
+  };
 
   const xInput = [-100, 0, 100];
-  //   const background = useTransform(x, xInput, [
-  //     'linear-gradient(180deg, #ff008c 0%, rgb(211, 9, 225) 100%)',
-  //     'linear-gradient(180deg, #7700ff 0%, rgb(68, 0, 255) 100%)',
-  //     'linear-gradient(180deg, rgb(230, 255, 0) 0%, rgb(3, 209, 0) 100%)',
-  //   ]);
   const color = useTransform(x, xInput, [
     'rgb(255, 0, 0)',
     'rgb(68, 0, 255)',
@@ -27,7 +38,8 @@ const SwapIcon = () => {
         className='box'
         style={{ x }}
         drag='x'
-        dragConstraints={{ left: 0, right: 0 }}>
+        dragConstraints={{ left: 0, right: 0 }}
+        onDragEnd={dragHandler}>
         <svg className='progress-icon' viewBox='0 0 50 50'>
           <motion.path
             fill='none'

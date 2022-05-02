@@ -19,7 +19,6 @@ export default function LoginPage() {
     oobCode: string;
     uid: string;
   };
-  console.log(query);
 
   const isError = error !== '';
   const isSuccess = success !== '';
@@ -51,7 +50,6 @@ export default function LoginPage() {
                       setError(data.opsDetails.details);
                       console.log('Unable to Verify Email = ', data);
                     } else {
-                      console.log('Success');
                       setSuccess('Email Verified Successfully. ');
                       setError('');
                       return;

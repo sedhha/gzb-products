@@ -40,7 +40,6 @@ const getUserByEmail = (email: string) =>
 
 const createUser = async (payload: IFirebaseCreation): Promise<void> => {
   const { email } = payload;
-  if (payload.photoURL.includes('female')) console.log('triggered');
   try {
     await getUserByEmail(email);
     return;

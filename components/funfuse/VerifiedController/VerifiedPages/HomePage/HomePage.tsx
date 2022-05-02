@@ -40,7 +40,6 @@ export default function HomePage() {
     if (firebaseToken) {
       const uid = state.users[state.activeIndex].uid;
       connectToFunFuseUser(firebaseToken, uid).then((response) => {
-        console.log('Response = ', response);
         if (response) {
           dispatch({ type: ACTIONTYPES.GO_NEXT });
         }
@@ -73,7 +72,7 @@ export default function HomePage() {
         />
       )}
       {state.activeIndex >= state.users.length ? (
-        <div className='flex flex-col justify-center items-center p-4 flex-auto'>
+        <div className='flex flex-col items-center justify-center flex-auto p-4'>
           <Image
             src='/funfuse/no-profiles.svg'
             alt='End of the road'
@@ -81,7 +80,7 @@ export default function HomePage() {
             height={200}
             width={200}
           />
-          <label className='text-funfuse text-center font-md font-semibold font-funfuse'>
+          <label className='font-semibold text-center text-funfuse font-md font-funfuse'>
             That&apos;s all for now! Check back later for more funfused
             community!
           </label>
@@ -100,7 +99,11 @@ export default function HomePage() {
         />
 
         <div className='h-[4rem] w-[4rem]'>
-          <SwapIcon />
+          <SwapIcon
+            onLeftDragHandler={onSkipHandler}
+            onRightDragHandler={onProfileNextHandler}
+            minDragMagnitude={80}
+          />
         </div>
         <ThemeButton
           buttonText={'Connect'}
