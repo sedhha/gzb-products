@@ -70,6 +70,7 @@ const prepareDiscoveryUsers = async (uid: string) => {
   const allUsers = allUserData.reduce((acc, curr) => {
     return [...acc, ...curr];
   }, [] as string[]);
+  allUsers.push(uid);
   return allUsers;
 };
 

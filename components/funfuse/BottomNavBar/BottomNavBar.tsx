@@ -23,7 +23,7 @@ export default function BottomNavBar() {
               router.push(`${username}/${value}`);
             }}
             className={`${iconValue} h-[3rem] w-[3rem] ${
-              value === currentRoute ? 'bg-indigo-400' : 'bg-gray-300'
+              value === currentRoute ? 'bg-funfuse' : 'bg-gray-300'
             }`}
           />
         );

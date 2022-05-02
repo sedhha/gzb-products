@@ -1,0 +1,113 @@
+/* ==========================================================================
+   Icons Customization [moduleName-icons-iconName]
+   ========================================================================== */
+
+.funfuse-icons-email {
+  -webkit-mask: url('/funfuse/icons/funfuse-email.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-email.svg') no-repeat center;
+}
+.funfuse-icons-lock {
+  -webkit-mask: url('/funfuse/icons/funfuse-lock.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-lock.svg') no-repeat center;
+}
+.funfuse-icons-name {
+  -webkit-mask: url('/funfuse/icons/funfuse-name.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-name.svg') no-repeat center;
+}
+.funfuse-icons-calendar {
+  -webkit-mask: url('/funfuse/icons/funfuse-calendar.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-calendar.svg') no-repeat center;
+}
+.funfuse-icons-man {
+  -webkit-mask: url('/funfuse/icons/funfuse-man.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-man.svg') no-repeat center;
+}
+.funfuse-icons-woman {
+  -webkit-mask: url('/funfuse/icons/funfuse-woman.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-woman.svg') no-repeat center;
+}
+
+.funfuse-icons-other {
+  -webkit-mask: url('/funfuse/icons/funfuse-other.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-other.svg') no-repeat center;
+}
+
+.funfuse-icons-home {
+  -webkit-mask: url('/funfuse/icons/funfuse-home.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-home.svg') no-repeat center;
+}
+
+.funfuse-icons-messages {
+  -webkit-mask: url('/funfuse/icons/funfuse-messages.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-messages.svg') no-repeat center;
+}
+
+.funfuse-icons-mentorship {
+  -webkit-mask: url('/funfuse/icons/funfuse-mentorship.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-mentorship.svg') no-repeat center;
+}
+
+.funfuse-icons-events {
+  -webkit-mask: url('/funfuse/icons/funfuse-events.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-events.svg') no-repeat center;
+}
+
+.funfuse-icons-connects {
+  -webkit-mask: url('/funfuse/icons/funfuse-connects.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-connects.svg') no-repeat center;
+}
+
+.funfuse-icons-warning {
+  -webkit-mask: url('/funfuse/icons/funfuse-warning.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-warning.svg') no-repeat center;
+}
+
+.funfuse-icons-edit {
+  -webkit-mask: url('/funfuse/icons/funfuse-edit.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-edit.svg') no-repeat center;
+}
+
+.funfuse-icons-cross {
+  -webkit-mask: url('/funfuse/icons/funfuse-cross.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-cross.svg') no-repeat center;
+}
+
+.funfuse-icons-down {
+  -webkit-mask: url('/funfuse/icons/funfuse-down.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-down.svg') no-repeat center;
+}
+
+.funfuse-icons-search {
+  -webkit-mask: url('/funfuse/icons/funfuse-search.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-search.svg') no-repeat center;
+}
+
+.funfuse-icons-find {
+  -webkit-mask: url('/funfuse/icons/funfuse-find.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-find.svg') no-repeat center;
+}
+
+.funfuse-icons-list {
+  -webkit-mask: url('/funfuse/icons/funfuse-list.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-list.svg') no-repeat center;
+}
+
+/* ------------------------Custom Scrollbar------------------------ */
+funfuseScrollbar::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+funfuseScrollbar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0.4rem rgba(0, 0, 0, 0.3);
+}
+
+funfuseScrollbar::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+/* -----------------------Toggle Button--------------------------- */
+.funfuseToggleButtonClass input:checked ~ .dot {
+  transform: translateX(100%);
+  // background-color: #48bb78;
+}

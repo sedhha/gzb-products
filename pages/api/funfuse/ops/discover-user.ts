@@ -21,7 +21,6 @@ const discoverUserHandler: NextApiHandler = async (
     payload.startIndex,
     payload.endIndex
   );
-
   response.status(200).json(
     genericResponse({
       opsDetails: getErrorDetailsFromKey(
