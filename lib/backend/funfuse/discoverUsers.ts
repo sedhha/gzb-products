@@ -37,21 +37,25 @@ export const discoverUsers = async (
   }
   const result = data.docs.map((doc) => {
     const completeData = doc.data() as IFunFuseFbData;
-    return {
-      name: completeData.name,
-      online: completeData.online ?? false,
-      bio: completeData.bio,
-      skills: completeData.skills,
-      interests: completeData.interests,
-      imageLoc: completeData.imageLoc ?? '/funfuse/avatar-02.jpg',
-      isImageAvailable: completeData.imageLoc ? true : false,
-      uid: completeData.uid,
-    };
+    return convertFbToFrontend(completeData);
   });
   return result;
 };
 
-const errorHandler = (error: FirebaseError) => {
+export const convertFbToFrontend = (
+  completeData: IFunFuseFbData
+): IFunfuseFrontendUser => ({
+  name: completeData.name,
+  online: completeData.online ?? false,
+  bio: completeData.bio,
+  skills: completeData.skills,
+  interests: completeData.interests,
+  imageLoc: completeData.imageLoc ?? '/funfuse/avatar-02.jpg',
+  isImageAvailable: completeData.imageLoc ? true : false,
+  uid: completeData.uid,
+});
+
+export const errorHandler = (error: FirebaseError) => {
   console.log(
     'Error Occured While running Discover Users:- ',
     error.code,

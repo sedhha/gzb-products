@@ -28,9 +28,11 @@ export const initState: IConnectsState = {
 
 export const ACTIONTYPES = {
   TOGGLE_MODE: 'TOGGLE_MODE',
+  SET_CONNECTIONS: 'SET_CONNECTIONS',
+  SET_LOADING: 'SET_LOADING',
 } as const;
 
-type ExpectedPayload = ConnectNavModes;
+type ExpectedPayload = ConnectNavModes | IFunfuseFrontendUser[] | boolean;
 
 type ReducerAction = {
   type: keyof typeof ACTIONTYPES;
@@ -44,6 +46,16 @@ export const reducer = (
   switch (action.type) {
     case ACTIONTYPES.TOGGLE_MODE:
       return { ...state, mode: action.payload as keyof typeof navModes };
+    case ACTIONTYPES.SET_CONNECTIONS:
+      return {
+        ...state,
+        connections: action.payload as IFunfuseFrontendUser[],
+      };
+    case ACTIONTYPES.SET_LOADING:
+      return {
+        ...state,
+        loading: action.payload as boolean,
+      };
     default:
       return state;
   }

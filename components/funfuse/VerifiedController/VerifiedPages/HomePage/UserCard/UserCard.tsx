@@ -20,7 +20,6 @@ export default function UserCard({
   modifyShowAllInterests,
   user,
 }: Props) {
-  console.log('UU = ', user);
   const [iUri, setIUri] = useState('/funfuse/avatar-02.jpg');
   const [imageReady, setImageReady] = useState(false);
   useEffect(() => {

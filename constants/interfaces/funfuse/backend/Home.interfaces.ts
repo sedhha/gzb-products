@@ -15,3 +15,8 @@ export interface IFunFuseConnectRequest {
   decodedToken: IDecodedIdToken;
   recieverUid: string;
 }
+
+export interface IFunFuseConnections {
+  userDetails: IFunFuseUserData;
+  decodedToken: IDecodedIdToken;
+}

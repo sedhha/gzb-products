@@ -141,6 +141,28 @@ export const connectToFunFuseUser = async (
     });
 };
 
+export const getFunFuseUserConnections = async (
+  firebaseToken: string
+): Promise<IFunfuseFrontendUser[]> =>
+  fetch('/api/funfuse/ops/get-connections', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': firebaseToken,
+    },
+  }).then((response) =>
+    response
+      .json()
+      .then((data) => {
+        if (data.error) {
+          errorHandler(data);
+          return [];
+        }
+        return data.data as IFunfuseFrontendUser[];
+      })
+      .catch(errorHandler)
+  );
+
 const errorHandler = (error: any) => {
   console.log('Error = ', error);
   return [];
