@@ -1,34 +1,24 @@
+import ImageCard from '@/components/funfuse/ImageCard/ImageCard';
 import React from 'react';
+
 type Props = {
   imageUrl?: string;
-  senderName: string;
-  latestMessage: string;
+  userName: string;
+  bio: string;
 };
 
-export default function ConnectionBox({
-  imageUrl,
-  senderName,
-  latestMessage,
-}: Props) {
-  const newMsgValue =
-    latestMessage.length > 60
-      ? `${latestMessage.slice(0, 60)}...`
-      : latestMessage;
+export default function ConnectionBox({ imageUrl, userName, bio }: Props) {
+  const newMsgValue = bio.length > 60 ? `${bio.slice(0, 60)}...` : bio;
   return (
     <React.Fragment>
       <div className='flex w-full gap-2' aria-label='Funfuse-Message-Container'>
-        {/*eslint-disable-next-line @next/next/no-img-element*/}
-        <img
-          alt='Message Image'
-          src={imageUrl ?? '/funfuse/avatar-02.jpg'}
-          className='flex-1 rounded-full shadow-lg shadow-indigo-500/50 min-h-[5rem] min-w-[5rem] max-h-[5rem] max-w-[5rem]'
-        />
+        <ImageCard imageUrl={imageUrl} />
         <div className='flex flex-col flex-auto w-full'>
           <div
             aria-label='Funfuse-Message-Header'
             className='flex flex-row items-center gap-2 mt-1'>
             <h2 className='px-1 text-xl text-black'>
-              {senderName ?? 'John Doe'}
+              {userName ?? 'John Doe'}
             </h2>
           </div>
           <div

@@ -15,6 +15,7 @@ import {
 } from '@redux-apis/external/firestoreProfile';
 import UserCard from '@/components/funfuse/VerifiedController/VerifiedPages/HomePage/UserCard/UserCard';
 import Image from 'next/image';
+import ResizeSpinner from '@/components/funfuse/Spinner/ResizeSpinner';
 
 const PreferencesComponent = dynamic(
   () =>
@@ -62,15 +63,19 @@ export default function HomePage() {
   const user = state.users[state.activeIndex];
   return (
     <div className='flex flex-col items-center justify-around w-full h-full gap-1'>
-      {state.users.length > 0 && state.activeIndex < state.users.length && (
-        <UserCard
-          showAllSkills={state.showAllSkills}
-          showAllInterests={state.showAllInterests}
-          modifyShowAllSkills={modifyShowAllSkills}
-          modifyShowAllInterests={modifyShowAllInterests}
-          user={user}
-        />
-      )}
+      {state.users.length > 0 &&
+        state.activeIndex < state.users.length &&
+        (state.isLoading ? (
+          <ResizeSpinner />
+        ) : (
+          <UserCard
+            showAllSkills={state.showAllSkills}
+            showAllInterests={state.showAllInterests}
+            modifyShowAllSkills={modifyShowAllSkills}
+            modifyShowAllInterests={modifyShowAllInterests}
+            user={user}
+          />
+        ))}
       {state.activeIndex >= state.users.length ? (
         <div className='flex flex-col items-center justify-center flex-auto p-4'>
           <Image

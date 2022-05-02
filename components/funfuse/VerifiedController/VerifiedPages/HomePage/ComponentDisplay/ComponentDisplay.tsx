@@ -31,7 +31,7 @@ export default function ComponentDisplay({
             key={skill}
             className={`${getColorClass(index)} ${
               index > 2 ? (showFullDisplay ? '' : 'hidden') : ''
-            } px-2 py-1 text-white font-funfuse text-xs rounded roundex-sm`}>
+            } px-2 py-1 text-white font-funfuse text-xs rounded roundex-sm flex justify-center items-center`}>
             {skill}
           </div>
         ))}

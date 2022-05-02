@@ -24,7 +24,7 @@ export default function UserCard({
   const [iUri, setIUri] = useState('/funfuse/avatar-02.jpg');
   const [imageReady, setImageReady] = useState(false);
   useEffect(() => {
-    if (user.imageLoc.startsWith('h') || user.imageLoc.startsWith('/')) {
+    if (user.imageLoc.startsWith('/')) {
       setIUri(user.imageLoc);
       setImageReady(true);
     } else {

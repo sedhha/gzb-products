@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import {
   reducer,
   initState,
@@ -9,17 +9,37 @@ import {
 import TopNavBar from '@/components/funfuse/VerifiedController/VerifiedPages/Connects/TopNavBar/TopNavBar';
 import ExistingConnections from '@/components/funfuse/VerifiedController/VerifiedPages/Connects/ExistingConnections/ExistingConnections';
 import RequestedConnections from '@/components/funfuse/VerifiedController/VerifiedPages/Connects/NewRequests/Requests';
+import { useAppSelector } from '@redux-tools/hooks';
 export default function HomePage() {
   const [state, dispatch] = useReducer(reducer, initState);
   const { mode } = state;
   const onModeChange = (mode: ConnectNavModes) =>
     dispatch({ type: ACTIONTYPES.TOGGLE_MODE, payload: mode });
 
-  let ResultComponent = <ExistingConnections />;
+  const { firebaseToken, isLoggedIn, user } = useAppSelector(
+    (state) => state.user
+  );
+
+  // useEffect(() => {
+  //   if(isLoggedIn && firebaseToken !== '') {
+
+  //   }
+  // },[]);
+
+  let ResultComponent = (
+    <ExistingConnections
+      connections={state.connections}
+      username={user?.username}
+    />
+  );
   switch (mode) {
     case navModes.VIEW_REQUESTS: {
-      console.log('Comes in');
-      ResultComponent = <RequestedConnections />;
+      ResultComponent = (
+        <RequestedConnections
+          requests={state.reqUsers}
+          username={user?.username}
+        />
+      );
       break;
     }
     default: {
