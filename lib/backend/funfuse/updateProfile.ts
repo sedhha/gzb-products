@@ -18,7 +18,7 @@ export const updateFireStoreProfile = async (
   uid: string,
   data: IFunFuseProfileUpdate
 ): Promise<IResponse> => {
-  const docPath = `${firebasePaths.funfuse_users}/${uid}`;
+  const docPath = `${firebasePaths.funfuse_verified_users}/${uid}`;
   const customError = getErrorDetailsFromKey(
     ErrorCodes.CUSTOM_FORM_FIELD_ERROR
   );

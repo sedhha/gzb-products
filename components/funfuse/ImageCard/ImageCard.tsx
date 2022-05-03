@@ -6,12 +6,19 @@ import ResizeSpinner from '@/components/funfuse/Spinner/ResizeSpinner';
 type Props = {
   imageUrl?: string;
   altString?: string;
+  imgDimension?: string;
 };
 
-export default function ImageCard({ imageUrl, altString }: Props) {
+export default function ImageCard({
+  imageUrl,
+  altString,
+  imgDimension,
+}: Props) {
   const [uri, setUri] = useState('');
   const [imageReady, setImageReady] = useState(false);
   const [mounted, setMounted] = useState(true);
+  const imDim = imgDimension ?? '5rem';
+  const styleDim = imgDimension ? { height: imDim, width: imDim } : {};
   useEffect(() => {
     return () => {
       setMounted(false);
@@ -48,7 +55,8 @@ export default function ImageCard({ imageUrl, altString }: Props) {
     <img
       alt={altString ?? 'Message Image'}
       src={uri ?? '/funfuse/avatar-02.jpg'}
-      className='flex-1 rounded-full shadow-lg shadow-indigo-500/50 min-h-[5rem] min-w-[5rem] max-h-[5rem] max-w-[5rem]'
+      style={styleDim}
+      className={`flex-1 rounded-full shadow-lg shadow-indigo-500/50 h-[${imDim}] w-[${imDim}] min-h-[${imDim}] min-w-[${imDim}] max-h-[${imDim}] max-w-[${imDim}]`}
     />
   ) : (
     <ResizeSpinner />
