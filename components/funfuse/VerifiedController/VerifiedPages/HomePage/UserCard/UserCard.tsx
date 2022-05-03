@@ -38,7 +38,7 @@ export default function UserCard({
   return (
     <div
       aria-label='funfuse-user-card'
-      className='relative flex flex-col items-center flex-auto p-2 m-2 my-auto overflow-x-hidden overflow-y-auto border-2 border-indigo-300 rounded-md'>
+      className='relative flex flex-col items-center flex-auto w-4/5 p-2 m-2 my-auto overflow-x-hidden overflow-y-auto border-2 border-indigo-300 rounded-md'>
       <div className='relative'>
         {imageReady ? (
           <Image

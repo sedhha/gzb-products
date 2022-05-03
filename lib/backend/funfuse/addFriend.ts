@@ -1,13 +1,26 @@
 import { rdb_paths } from '@constants/firebase/paths';
+import {
+  ErrorCodes,
+  IResponse,
+} from '@constants/interfaces/gcorn/backend/apis/response.interfaces';
 import Server from '@firebase-server/server.config';
 import { getRequestedUsers } from '@global-backend/funfuse/discoverUsers';
+import {
+  errorResponse,
+  genericResponse,
+  getErrorDetailsFromKey,
+} from '@global-backend/utils/api/responseSynthesizer';
+import { FirebaseError } from 'firebase-admin';
 
 export const acceptFriendRequest = async (
   uid: string,
   requestorUid: string
-): Promise<{ error: boolean; message: string }> => {
+): Promise<IResponse> => {
   const data = await getRequestedUsers(requestorUid);
-  if (!data.includes(uid)) return { error: true, message: 'Invalid request' };
+  if (!data.includes(uid))
+    return errorResponse({
+      opsDetails: getErrorDetailsFromKey(ErrorCodes.INVALID_FRIEND_REQUEST),
+    });
 
   const allPromises = [
     // Add to Requestor Connections
@@ -32,8 +45,17 @@ export const acceptFriendRequest = async (
     ),
   ];
 
-  await Promise.all(allPromises);
-  return { error: false, message: 'Successfully Added to Friends' };
+  try {
+    await Promise.all(allPromises);
+    return genericResponse({
+      opsDetails: getErrorDetailsFromKey(ErrorCodes.FUNFUSE_ACTION_SUCCESS),
+    });
+  } catch (error) {
+    return errorResponse({
+      opsDetails: getErrorDetailsFromKey(ErrorCodes.FIREBASE_GENERATED_ERROR),
+      message: (error as { message: string } | FirebaseError).message,
+    });
+  }
 };
 
 const deleteAnEntryFromRDB = (path: string, entry: string) => {

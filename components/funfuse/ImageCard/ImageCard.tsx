@@ -11,22 +11,32 @@ type Props = {
 export default function ImageCard({ imageUrl, altString }: Props) {
   const [uri, setUri] = useState('');
   const [imageReady, setImageReady] = useState(false);
+  const [mounted, setMounted] = useState(true);
   useEffect(() => {
-    if (!imageUrl) setUri('/funfuse/avatar-02.jpg');
+    return () => {
+      setMounted(false);
+    };
+  }, []);
+  useEffect(() => {
+    if (!imageUrl && mounted) setUri('/funfuse/avatar-02.jpg');
     else {
-      if (imageUrl.startsWith('/')) {
+      if (imageUrl && mounted && imageUrl.startsWith('/')) {
         setUri(imageUrl);
         setImageReady(true);
       } else {
         const storageRef = ref(storage, imageUrl);
         getDownloadURL(storageRef)
           .then((url) => {
-            setUri(url);
-            setImageReady(true);
+            if (mounted) {
+              setUri(url);
+              setImageReady(true);
+            }
           })
           .catch((error) => {
-            setUri('/funfuse/avatar.png');
-            setImageReady(true);
+            if (mounted) {
+              setUri('/funfuse/avatar.png');
+              setImageReady(true);
+            }
             console.log('Error Loading Image from Storage: ', error);
           });
       }

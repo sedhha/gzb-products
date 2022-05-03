@@ -15,6 +15,7 @@ export interface IConnectsState {
   mode: ConnectNavModes;
   newRequests?: ConnectNavModes;
   loading: boolean;
+  error: string;
   connections: IFunfuseFrontendUser[];
   reqUsers: IFunfuseFrontendUser[];
 }
@@ -23,6 +24,7 @@ export const initState: IConnectsState = {
   loading: false,
   connections: [],
   reqUsers: [],
+  error: '',
 };
 
 export const ACTIONTYPES = {
@@ -31,9 +33,14 @@ export const ACTIONTYPES = {
   SET_REQUESTS: 'SET_REQUESTS',
   SET_LOADING: 'SET_LOADING',
   SET_NEW_REQUESTS: 'SET_NEW_REQUESTS',
+  SET_ERROR: 'SET_ERROR',
 } as const;
 
-type ExpectedPayload = ConnectNavModes | IFunfuseFrontendUser[] | boolean;
+type ExpectedPayload =
+  | ConnectNavModes
+  | IFunfuseFrontendUser[]
+  | boolean
+  | string;
 
 type ReducerAction = {
   type: keyof typeof ACTIONTYPES;
@@ -67,6 +74,8 @@ export const reducer = (
         ...state,
         newRequests: action.payload as ConnectNavModes,
       };
+    case ACTIONTYPES.SET_ERROR:
+      return { ...state, error: action.payload as string };
     default:
       return state;
   }

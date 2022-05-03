@@ -183,7 +183,39 @@ export const getFunFuseUserRequests = async (
       .catch(errorHandler)
   );
 
+export const addFriendinFunFuse = async (
+  firebaseToken: string,
+  requestorUid: string
+): Promise<{ error: boolean; message?: string }> =>
+  fetch('/api/funfuse/ops/add-friend', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': firebaseToken,
+    },
+    body: JSON.stringify({
+      requestorUid,
+    }),
+  })
+    .then((response) =>
+      response
+        .json()
+        .then((data: IResponse) => {
+          if (data.error)
+            return { error: true, message: data.opsDetails.details };
+          return { error: false };
+        })
+        .catch(booleanErrorHandler)
+    )
+    .catch(booleanErrorHandler);
+
 const errorHandler = (error: any) => {
   console.log('Error = ', error);
   return [];
+};
+const booleanErrorHandler = (
+  error: any
+): { error: boolean; message: string } => {
+  console.log('Error = ', error);
+  return { error: true, message: error.message };
 };

@@ -14,14 +14,16 @@ import { rdb } from '@firebase-client/client.config';
 import { ref, onValue, off } from 'firebase/database';
 import { rdb_paths } from '@constants/firebase/paths';
 import {
+  addFriendinFunFuse,
   getFunFuseUserConnections,
   getFunFuseUserRequests,
 } from '@redux-apis/external/firestoreProfile';
 import ResizeSpinner from '@/components/funfuse/Spinner/ResizeSpinner';
+import { IResponse } from '@constants/interfaces/gcorn/backend/apis/response.interfaces';
 
 export default function HomePage() {
   const [state, dispatch] = useReducer(reducer, initState);
-  const { mode, newRequests } = state;
+  const { mode, newRequests, error } = state;
   const onModeChange = (mode: ConnectNavModes) => {
     if (mode === navModes.VIEW_REQUESTS)
       dispatch({
@@ -63,7 +65,7 @@ export default function HomePage() {
                 );
                 dispatch({ type: ACTIONTYPES.SET_LOADING, payload: false });
               });
-          }
+          } else dispatch({ type: ACTIONTYPES.SET_CONNECTIONS, payload: [] });
         }
       });
       onValue(requestsRef, (snapshot) => {
@@ -92,7 +94,7 @@ export default function HomePage() {
                 dispatch({ type: ACTIONTYPES.SET_LOADING, payload: false });
               });
           }
-        }
+        } else dispatch({ type: ACTIONTYPES.SET_REQUESTS, payload: [] });
       });
       return () => {
         off(connectionsRef);
@@ -100,6 +102,29 @@ export default function HomePage() {
       };
     }
   }, [firebaseToken, isLoggedIn, user?.uid]);
+
+  const errorHandler = (error: any) => {
+    console.log('Error Happened in Managing Connects = ', error);
+    dispatch({ type: ACTIONTYPES.SET_LOADING, payload: false });
+    dispatch({ type: ACTIONTYPES.SET_ERROR, payload: error.message });
+  };
+  const thenHandler = (response: { error: boolean; message?: string }) => {
+    if (response.error) errorHandler(response);
+    else {
+      dispatch({ type: ACTIONTYPES.SET_LOADING, payload: false });
+      dispatch({ type: ACTIONTYPES.SET_ERROR, payload: '' });
+    }
+  };
+
+  const onAcceptFriendRequst = (senderUid: string) => {
+    if (firebaseToken) {
+      dispatch({ type: ACTIONTYPES.SET_LOADING, payload: true });
+      addFriendinFunFuse(firebaseToken, senderUid)
+        .then(thenHandler)
+        .catch(errorHandler);
+    }
+  };
+  const isError = error !== '';
 
   let ResultComponent = (
     <ExistingConnections
@@ -113,6 +138,7 @@ export default function HomePage() {
         <RequestedConnections
           requests={state.reqUsers}
           username={user?.username}
+          onAcceptFriendRequst={onAcceptFriendRequst}
         />
       );
       break;
@@ -123,6 +149,9 @@ export default function HomePage() {
 
   return (
     <div className='relative block h-full min-w-0 p-2 m-2'>
+      {isError ? (
+        <label className='m-2 mt-4 text-red-400 font-funfuse'>{error}</label>
+      ) : null}
       <TopNavBar
         currentMode={mode}
         onModeChange={onModeChange}

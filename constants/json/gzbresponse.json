@@ -312,7 +312,7 @@
   },
   "unexpectedErrorWhenAuthenticating": {
     "error": true,
-    "error_code": "0306",
+    "error_code": "0309",
     "code": "UEXPECTED_ERROR_WHEN_AUTHENTICATING",
     "details": "Unexpected Error When Authenticating User with Credentials",
     "api_version": "v1",
@@ -333,7 +333,7 @@
     }
   },
   "unauthorizedUser": {
-    "error": false,
+    "error": true,
     "error_code": "0202",
     "code": "UNAUTHORIZED_USER",
     "details": "Unauthorized User",
@@ -341,6 +341,17 @@
     "product-specs": {
       "name": "Backend Database Error",
       "id": "02"
+    }
+  },
+  "invalidFriendRequest": {
+    "error": true,
+    "error_code": "0310",
+    "code": "INVALID_FRIEND_REQUEST",
+    "details": "User trying to add friend is not authorized. Either the requestor has revoked the request or user is not authorized.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Invalid Friend Request",
+      "id": "03"
     }
   }
 }

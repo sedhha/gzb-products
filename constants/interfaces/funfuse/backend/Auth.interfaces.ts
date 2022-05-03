@@ -95,6 +95,7 @@ export interface IAuthRequest {
 
 export interface IDecodedIdToken {
   email_verified: boolean;
+  uid: string;
 }
 export interface IProfilePicture {
   userDetails: IFunFuseUserData;

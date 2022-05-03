@@ -7,9 +7,14 @@ import Link from 'next/link';
 type Props = {
   requests: IFunfuseFrontendUser[];
   username?: string;
+  onAcceptFriendRequst: (id: string) => void;
 };
 
-export default function ExistingConnections({ requests, username }: Props) {
+export default function ExistingConnections({
+  requests,
+  username,
+  onAcceptFriendRequst,
+}: Props) {
   return (
     <div className='flex flex-col items-center gap-2 mt-4 overflow-auto'>
       {requests.map((element) => (
@@ -18,6 +23,8 @@ export default function ExistingConnections({ requests, username }: Props) {
           imageUrl={element.imageLoc}
           bio={element.bio}
           userName={element.name}
+          uid={element.uid}
+          addFriend={onAcceptFriendRequst}
         />
       ))}
       {requests.length === 0 && (
