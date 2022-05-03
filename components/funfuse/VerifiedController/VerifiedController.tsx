@@ -11,12 +11,16 @@ import AppWrapper from '@/components/funfuse/hoc/AppWrapper';
 import Head from 'next/head';
 import { disconnectFireStoreUser } from '@redux-apis/external/login';
 
-export default function VerifiedController() {
+interface IRoute {
+  pageRoute: string;
+  username: string;
+}
+
+export default function VerifiedController({ pageRoute, username }: IRoute) {
   const user = useAppSelector((state) => state.user);
-  const router = useRouter();
-  const pageRoute = router.query?.urlSlug?.[1] ?? verifiedRoutes.HOME_ROUTE;
   const isVerifiedUser = user?.isUserVerified ?? false;
   let navBarHeader = navBarHeaders.HOME_ROUTE;
+  const router = useRouter();
 
   const setUserOffline = React.useCallback(() => {
     if (user.isLoggedIn && user.firebaseToken)
@@ -84,14 +88,18 @@ export default function VerifiedController() {
   return (
     <React.Fragment>
       <Head>
-        <title>Funfuse: {user?.user?.username ?? 'Guest'}</title>
+        <title>Funfuse: {username ?? 'Guest'}</title>
       </Head>
       <AppWrapper
         topNavBarprops={{
           headerText: navBarHeader,
-          username: user?.user?.username,
+          username: username,
         }}
         childComponent={RenderComponent}
+        bottomNavBarprops={{
+          username: username,
+          currentRoute: pageRoute,
+        }}
       />
     </React.Fragment>
   );

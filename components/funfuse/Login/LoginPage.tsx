@@ -64,7 +64,7 @@ export default function LoginPage({ idToken }: Props) {
     if (user?.username) {
       if (isUserVerified)
         router.push(`/funfuse/${user.username}/${verifiedRoutes.HOME_ROUTE}`);
-      else router.push(`/funfuse/${genericRoutes.UNVERIFIED}`);
+      else router.push(`/funfuse/${user.username}/${genericRoutes.UNVERIFIED}`);
     }
   }, [user?.username, router, isUserVerified]);
 

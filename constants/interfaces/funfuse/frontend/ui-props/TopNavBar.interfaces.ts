@@ -3,3 +3,8 @@ export type HeaderProps = {
   imageRef?: string;
   username?: string;
 };
+
+export type IBottomNav = {
+  username: string;
+  currentRoute: string;
+};

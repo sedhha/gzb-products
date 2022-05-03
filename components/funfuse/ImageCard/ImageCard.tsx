@@ -18,7 +18,7 @@ export default function ImageCard({
   const [imageReady, setImageReady] = useState(false);
   const [mounted, setMounted] = useState(true);
   const imDim = imgDimension ?? '5rem';
-  const styleDim = imgDimension ? { height: imDim, width: imDim } : {};
+  const styleDim = { height: imDim, width: imDim };
   useEffect(() => {
     return () => {
       setMounted(false);
@@ -56,7 +56,7 @@ export default function ImageCard({
       alt={altString ?? 'Message Image'}
       src={uri ?? '/funfuse/avatar-02.jpg'}
       style={styleDim}
-      className={`flex-1 rounded-full shadow-lg shadow-indigo-500/50 h-[${imDim}] w-[${imDim}] min-h-[${imDim}] min-w-[${imDim}] max-h-[${imDim}] max-w-[${imDim}]`}
+      className={`flex-1 rounded-full shadow-lg shadow-indigo-500/50`}
     />
   ) : (
     <ResizeSpinner />

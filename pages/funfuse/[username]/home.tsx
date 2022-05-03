@@ -5,9 +5,13 @@ import FirebaseClientAuth from '@firebase-client/client.config';
 import { useAppDispatch } from '@redux-tools/hooks';
 import { updateUserVerification } from '@redux-slices/user';
 import AuthWrapper from '@/components/funfuse/hoc/AuthWrapper';
+import { verifiedRoutes } from '@/components/funfuse/constants/verifiedRoutes';
+import { useRouter } from 'next/router';
+
 export default function UserName() {
   const [userIdToken, setUserIdToken] = useState<string>('');
   const [mounted, setMounted] = useState<boolean>(true);
+  const username = useRouter().query?.username ?? 'Guest';
   useEffect(() => {
     return () => setMounted(false);
   }, []);
@@ -23,7 +27,12 @@ export default function UserName() {
   return (
     <AuthWrapper
       idToken={userIdToken}
-      childComponent={<VerifiedController />}
+      childComponent={
+        <VerifiedController
+          pageRoute={verifiedRoutes.HOME_ROUTE}
+          username={username as string}
+        />
+      }
     />
   );
 }

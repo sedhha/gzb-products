@@ -9,6 +9,7 @@ import Head from 'next/head';
 import AppWrapper from '../hoc/AppWrapper';
 import Link from 'next/link';
 import { IResponse } from '@constants/interfaces/gcorn/backend/apis/response.interfaces';
+import { genericRoutes } from '../constants/verifiedRoutes';
 
 export default function LoginPage() {
   const { query } = useRouter();
@@ -92,6 +93,10 @@ export default function LoginPage() {
       </Head>
       <AppWrapper
         topNavBarprops={{ headerText: 'Verify Email' }}
+        bottomNavBarprops={{
+          username: '',
+          currentRoute: genericRoutes.VERIFY_EMAIL_ROUTE,
+        }}
         childComponent={
           <div className='flex flex-col justify-center w-screen h-screen p-2'>
             <div className='h-[10rem] w-auto'>

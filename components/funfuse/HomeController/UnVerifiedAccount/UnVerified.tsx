@@ -4,9 +4,10 @@ import AppWrapper from '../../hoc/AppWrapper';
 
 type Props = {
   username: string;
+  pageRoute: string;
 };
 
-export default function UnVerified({ username }: Props) {
+export default function UnVerified({ username, pageRoute }: Props) {
   const isUnknownName = username === 'uv';
   return (
     <React.Fragment>
@@ -17,6 +18,10 @@ export default function UnVerified({ username }: Props) {
         topNavBarprops={{
           headerText: 'Unverified Account',
           imageRef: '/funfuse/avatar.png',
+          username,
+        }}
+        bottomNavBarprops={{
+          currentRoute: pageRoute,
           username,
         }}
         childComponent={
