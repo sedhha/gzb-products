@@ -53,6 +53,7 @@ export const convertFbToFrontend = (
   imageLoc: completeData.imageLoc ?? '/funfuse/avatar-02.jpg',
   isImageAvailable: completeData.imageLoc ? true : false,
   uid: completeData.uid,
+  username: completeData.username,
 });
 
 export const errorHandler = (error: FirebaseError) => {

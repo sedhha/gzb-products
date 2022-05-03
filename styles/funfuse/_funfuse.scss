@@ -111,6 +111,11 @@
   mask: url('/funfuse/icons/funfuse-glass-view.svg') no-repeat center;
 }
 
+.funfuse-icons-back {
+  -webkit-mask: url('/funfuse/icons/funfuse-back.svg') no-repeat center;
+  mask: url('/funfuse/icons/funfuse-back.svg') no-repeat center;
+}
+
 /* ------------------------Custom Scrollbar------------------------ */
 funfuseScrollbar::-webkit-scrollbar {
   width: 0.5rem;
@@ -128,5 +133,4 @@ funfuseScrollbar::-webkit-scrollbar-thumb {
 /* -----------------------Toggle Button--------------------------- */
 .funfuseToggleButtonClass input:checked ~ .dot {
   transform: translateX(100%);
-  // background-color: #48bb78;
 }

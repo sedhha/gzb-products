@@ -17,8 +17,10 @@ export default function ExistingConnections({ connections, username }: Props) {
         <ConnectCard
           key={element.uid}
           imageUrl={element.imageLoc}
-          userName={element.name}
+          name={element.name}
           bio={element.bio}
+          recipientUserName={element.username}
+          userName={username ?? 'unknown'}
         />
       ))}
       {connections.length === 0 && (

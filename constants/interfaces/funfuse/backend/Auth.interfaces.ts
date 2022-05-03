@@ -64,6 +64,7 @@ export interface IFunfuseFrontendUser {
   interests: string[];
   imageLoc: string;
   isImageAvailable: boolean;
+  username: string;
 }
 
 export interface IFunFuseProfileUpdate {
@@ -100,4 +101,10 @@ export interface IDecodedIdToken {
 export interface IProfilePicture {
   userDetails: IFunFuseUserData;
   decodedToken: IDecodedIdToken;
+}
+
+export interface IFunFuseMessageBox {
+  fromSelf: boolean;
+  textContent: string;
+  time: number;
 }

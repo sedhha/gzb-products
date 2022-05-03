@@ -1,14 +1,25 @@
+import { verifiedRoutes } from '@/components/funfuse/constants/verifiedRoutes';
 import ImageCard from '@/components/funfuse/ImageCard/ImageCard';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 type Props = {
   imageUrl?: string;
-  userName: string;
+  name: string;
   bio: string;
+  recipientUserName: string;
+  userName: string;
 };
 
-export default function ConnectionBox({ imageUrl, userName, bio }: Props) {
+export default function ConnectionBox({
+  imageUrl,
+  name,
+  bio,
+  recipientUserName,
+  userName,
+}: Props) {
   const newMsgValue = bio.length > 60 ? `${bio.slice(0, 60)}...` : bio;
+  const router = useRouter();
   return (
     <React.Fragment>
       <div className='flex w-full gap-2' aria-label='Funfuse-Message-Container'>
@@ -17,16 +28,26 @@ export default function ConnectionBox({ imageUrl, userName, bio }: Props) {
           <div
             aria-label='Funfuse-Message-Header'
             className='flex flex-row items-center gap-2 mt-1'>
-            <h2 className='px-1 text-xl text-black'>
-              {userName ?? 'John Doe'}
-            </h2>
+            <h2 className='px-1 text-xl text-black'>{name ?? 'John Doe'}</h2>
           </div>
           <div
             aria-label='Funfuse-Message-Body'
             className='flex items-center justify-between w-full'>
             <label className='text-sm text-gray-400'>{newMsgValue}</label>
             <div className='p-1 rounded-sm bg-funfuse'>
-              <div className='w-4 h-4 bg-white funfuse-icons-send hover:scale-95' />
+              <div
+                className='w-4 h-4 bg-white funfuse-icons-send hover:scale-95'
+                onClick={() => {
+                  const pathName = `/funfuse/${userName}/${verifiedRoutes.MESSAGES_ROUTE}/${userName}-${recipientUserName}`;
+                  router.push(
+                    {
+                      pathname: pathName,
+                      query: { name, imageUrl },
+                    },
+                    pathName
+                  );
+                }}
+              />
             </div>
           </div>
         </div>
