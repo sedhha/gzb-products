@@ -21,6 +21,7 @@ export default function ExistingConnections({ connections, username }: Props) {
           bio={element.bio}
           recipientUserName={element.username}
           userName={username ?? 'unknown'}
+          uid={element.uid}
         />
       ))}
       {connections.length === 0 && (

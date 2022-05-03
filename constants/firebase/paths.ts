@@ -11,4 +11,5 @@ export const rdb_paths = {
   funfuse_requested_users: 'funfuse/users/requested-users',
   funfuse_requests_users: 'funfuse/users/requests-users',
   funfuse_rejected_users: 'funfuse/users/rejected-users',
+  funfuse_messages: 'funfuse/messages',
 };

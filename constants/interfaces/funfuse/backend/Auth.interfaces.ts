@@ -104,7 +104,7 @@ export interface IProfilePicture {
 }
 
 export interface IFunFuseMessageBox {
-  fromSelf: boolean;
+  senderUid: string;
   textContent: string;
   time: number;
 }

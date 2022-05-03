@@ -6,6 +6,7 @@ type Props = IFunFuseMessageBox & {
   name: string;
   uri: string;
   loading: boolean;
+  fromSelf: boolean;
 };
 export default function Conversation({
   name,

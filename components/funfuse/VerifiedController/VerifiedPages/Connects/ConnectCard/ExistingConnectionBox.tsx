@@ -9,6 +9,7 @@ type Props = {
   bio: string;
   recipientUserName: string;
   userName: string;
+  uid: string;
 };
 
 export default function ConnectionBox({
@@ -17,6 +18,7 @@ export default function ConnectionBox({
   bio,
   recipientUserName,
   userName,
+  uid,
 }: Props) {
   const newMsgValue = bio.length > 60 ? `${bio.slice(0, 60)}...` : bio;
   const router = useRouter();
@@ -42,7 +44,7 @@ export default function ConnectionBox({
                   router.push(
                     {
                       pathname: pathName,
-                      query: { name, imageUrl },
+                      query: { name, imageUrl, uid },
                     },
                     pathName
                   );
