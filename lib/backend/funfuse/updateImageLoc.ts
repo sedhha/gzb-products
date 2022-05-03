@@ -15,7 +15,7 @@ export const updateImageLoc = async (
   uid: string
 ): Promise<{ error: boolean; data: IResponse }> => {
   const storagePath = `${firebasePaths.storage_images}/${uid}/profile-photo`;
-  const documentPath = `${firebasePaths.funfuse_users}/${uid}`;
+  const documentPath = `${firebasePaths.funfuse_verified_users}/${uid}`;
   try {
     const promises = [
       Server.db

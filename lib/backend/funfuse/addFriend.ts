@@ -58,6 +58,51 @@ export const acceptFriendRequest = async (
   }
 };
 
+export const rejectFriendRequest = async (
+  uid: string,
+  requestorUid: string
+): Promise<IResponse> => {
+  const data = await getRequestedUsers(requestorUid);
+  if (!data.includes(uid))
+    return errorResponse({
+      opsDetails: getErrorDetailsFromKey(ErrorCodes.INVALID_FRIEND_REQUEST),
+    });
+
+  const allPromises = [
+    // Add to Acceptor Rejected Connections
+    Server.rdb
+      .ref(`${rdb_paths.funfuse_rejected_users}`)
+      .child(uid)
+      .push(requestorUid),
+    // Add to Requestor Rejected Connections
+    Server.rdb
+      .ref(`${rdb_paths.funfuse_rejected_users}`)
+      .child(requestorUid)
+      .push(uid),
+    // Remove from requestor requests
+    deleteAnEntryFromRDB(
+      `${rdb_paths.funfuse_requested_users}/${requestorUid}`,
+      uid
+    ),
+    // Remove from Acceptor Incoming
+    deleteAnEntryFromRDB(
+      `${rdb_paths.funfuse_requests_users}/${uid}`,
+      requestorUid
+    ),
+  ];
+  try {
+    await Promise.all(allPromises);
+    return genericResponse({
+      opsDetails: getErrorDetailsFromKey(ErrorCodes.FUNFUSE_ACTION_SUCCESS),
+    });
+  } catch (error) {
+    return errorResponse({
+      opsDetails: getErrorDetailsFromKey(ErrorCodes.FIREBASE_GENERATED_ERROR),
+      message: (error as { message: string } | FirebaseError).message,
+    });
+  }
+};
+
 const deleteAnEntryFromRDB = (path: string, entry: string) => {
   Server.rdb
     .ref(path)

@@ -69,6 +69,7 @@ const prepareDiscoveryUsers = async (uid: string) => {
     getConnectedUsers(uid),
     getRequestedUsers(uid),
     getIncomingRequestedUsers(uid),
+    getRejectedUsers(uid),
   ];
   const allUserData = await Promise.all(allExistingUsers);
   const allUsers = allUserData.reduce((acc, curr) => {
@@ -101,6 +102,15 @@ export const getIncomingRequestedUsers = async (
 ): Promise<string[]> => {
   return await Server.rdb
     .ref(`${rdb_paths.funfuse_requests_users}`)
+    .child(uid)
+    .get() //@ts-ignore
+    .then(converSnapShotIntoArray)
+    .catch(errorHandler);
+};
+
+export const getRejectedUsers = async (uid: string): Promise<string[]> => {
+  return await Server.rdb
+    .ref(`${rdb_paths.funfuse_rejected_users}`)
     .child(uid)
     .get() //@ts-ignore
     .then(converSnapShotIntoArray)

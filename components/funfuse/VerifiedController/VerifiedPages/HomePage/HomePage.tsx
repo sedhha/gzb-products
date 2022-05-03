@@ -39,12 +39,19 @@ export default function HomePage() {
   const onProfileNextHandler = () => {
     if (state.activeIndex >= state.users.length) return;
     if (firebaseToken) {
+      dispatch({ type: ACTIONTYPES.SET_LOADING, payload: true });
       const uid = state.users[state.activeIndex].uid;
-      connectToFunFuseUser(firebaseToken, uid).then((response) => {
-        if (response) {
-          dispatch({ type: ACTIONTYPES.GO_NEXT });
-        }
-      });
+      connectToFunFuseUser(firebaseToken, uid)
+        .then((response) => {
+          dispatch({ type: ACTIONTYPES.SET_LOADING, payload: false });
+          if (response) {
+            dispatch({ type: ACTIONTYPES.GO_NEXT });
+          }
+        })
+        .catch((error) => {
+          dispatch({ type: ACTIONTYPES.SET_LOADING, payload: false });
+          console.log(error);
+        });
     }
   };
   const onSkipHandler = () => {
@@ -84,38 +91,42 @@ export default function HomePage() {
             layout='fixed'
             height={200}
             width={200}
+            priority
           />
           <label className='font-semibold text-center text-funfuse font-md font-funfuse'>
             That&apos;s all for now! Check back later for more funfused
             community!
           </label>
         </div>
-      ) : null}
-      <label
-        onClick={() => setShowModal(true)}
-        className='flex-0.5 mb-1 text-sm text-center text-indigo-500 underline underline-offset-1 font-funfuse'>
-        Update Preferences
-      </label>
-      <div className='flex flex-row items-center justify-around flex-1 w-full gap-2 px-2'>
-        <ThemeButton
-          buttonText={'Skip'}
-          buttonCallback={onSkipHandler}
-          twClass='bg-funfuse_red rounded-md flex-1 p-0'
-        />
+      ) : (
+        <React.Fragment>
+          <label
+            onClick={() => setShowModal(true)}
+            className='flex-0.5 mb-1 text-sm text-center text-indigo-500 underline underline-offset-1 font-funfuse'>
+            Update Preferences
+          </label>
+          <div className='flex flex-row items-center justify-around flex-1 w-full gap-2 px-2'>
+            <ThemeButton
+              buttonText={'Skip'}
+              buttonCallback={onSkipHandler}
+              twClass='bg-funfuse_red rounded-md flex-1 p-0'
+            />
 
-        <div className='h-[4rem] w-[4rem]'>
-          <SwapIcon
-            onLeftDragHandler={onSkipHandler}
-            onRightDragHandler={onProfileNextHandler}
-            minDragMagnitude={80}
-          />
-        </div>
-        <ThemeButton
-          buttonText={'Connect'}
-          buttonCallback={onProfileNextHandler}
-          twClass='rounded-md flex-1 p-0'
-        />
-      </div>
+            <div className='h-[4rem] w-[4rem]'>
+              <SwapIcon
+                onLeftDragHandler={onSkipHandler}
+                onRightDragHandler={onProfileNextHandler}
+                minDragMagnitude={80}
+              />
+            </div>
+            <ThemeButton
+              buttonText={'Connect'}
+              buttonCallback={onProfileNextHandler}
+              twClass='rounded-md flex-1 p-0'
+            />
+          </div>
+        </React.Fragment>
+      )}
       {state.showModal ? (
         <NotificationModal
           ModalBody={<PreferencesComponent closeModal={closeModal} />}

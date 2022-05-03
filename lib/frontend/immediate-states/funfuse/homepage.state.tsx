@@ -23,6 +23,7 @@ export const ACTIONTYPES = {
   MODAL_MODIFY: 'MODAL_MODIFY',
   SET_USERS: 'SET_USERS',
   GO_NEXT: 'GO_NEXT',
+  SET_LOADING: 'SET_LOADING',
 } as const;
 
 type ExpectedPayload = boolean | IFunfuseFrontendUser[];
@@ -55,6 +56,11 @@ export const reducer = (
         showModal: false,
         showAllInterests: false,
         showAllSkills: false,
+      };
+    case ACTIONTYPES.SET_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload as boolean,
       };
     default:
       return state;

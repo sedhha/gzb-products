@@ -209,6 +209,32 @@ export const addFriendinFunFuse = async (
     )
     .catch(booleanErrorHandler);
 
+export const rejectFriendinFunFuse = async (
+  firebaseToken: string,
+  requestorUid: string
+): Promise<{ error: boolean; message?: string }> =>
+  fetch('/api/funfuse/ops/reject-request', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': firebaseToken,
+    },
+    body: JSON.stringify({
+      requestorUid,
+    }),
+  })
+    .then((response) =>
+      response
+        .json()
+        .then((data: IResponse) => {
+          if (data.error)
+            return { error: true, message: data.opsDetails.details };
+          return { error: false };
+        })
+        .catch(booleanErrorHandler)
+    )
+    .catch(booleanErrorHandler);
+
 const errorHandler = (error: any) => {
   console.log('Error = ', error);
   return [];

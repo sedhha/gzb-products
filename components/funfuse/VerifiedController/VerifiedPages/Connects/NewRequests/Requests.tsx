@@ -8,12 +8,14 @@ type Props = {
   requests: IFunfuseFrontendUser[];
   username?: string;
   onAcceptFriendRequst: (id: string) => void;
+  onRejectFriendRequst: (id: string) => void;
 };
 
 export default function ExistingConnections({
   requests,
   username,
   onAcceptFriendRequst,
+  onRejectFriendRequst,
 }: Props) {
   return (
     <div className='flex flex-col items-center gap-2 mt-4 overflow-auto'>
@@ -25,6 +27,7 @@ export default function ExistingConnections({
           userName={element.name}
           uid={element.uid}
           addFriend={onAcceptFriendRequst}
+          rejectFriend={onRejectFriendRequst}
         />
       ))}
       {requests.length === 0 && (

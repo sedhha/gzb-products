@@ -1,6 +1,4 @@
 import ImageCard from '@/components/funfuse/ImageCard/ImageCard';
-import { addFriendinFunFuse } from '@redux-apis/external/firestoreProfile';
-import { useAppSelector } from '@redux-tools/hooks';
 import React from 'react';
 
 type Props = {
@@ -9,6 +7,7 @@ type Props = {
   bio: string;
   uid: string;
   addFriend: (senderUid: string) => void;
+  rejectFriend: (senderUid: string) => void;
 };
 
 export default function ConnectionBox({
@@ -17,6 +16,7 @@ export default function ConnectionBox({
   bio,
   uid,
   addFriend,
+  rejectFriend,
 }: Props) {
   const newMsgValue = bio.length > 60 ? `${bio.slice(0, 60)}...` : bio;
 
@@ -43,7 +43,10 @@ export default function ConnectionBox({
             className='w-6 h-6 border rounded-sm bg-funfuse_green funfuse-icons-check hover:scale-95'
             onClick={() => addFriend(uid)}
           />
-          <div className='w-6 h-6 border rounded-sm bg-funfuse_red funfuse-icons-cross hover:scale-95' />
+          <div
+            className='w-6 h-6 border rounded-sm bg-funfuse_red funfuse-icons-cross hover:scale-95'
+            onClick={() => rejectFriend(uid)}
+          />
         </div>
       </div>
       <div className='w-full px-2 h-[0.02rem] bg-gray-500 my-2' />

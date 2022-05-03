@@ -17,9 +17,9 @@ import {
   addFriendinFunFuse,
   getFunFuseUserConnections,
   getFunFuseUserRequests,
+  rejectFriendinFunFuse,
 } from '@redux-apis/external/firestoreProfile';
 import ResizeSpinner from '@/components/funfuse/Spinner/ResizeSpinner';
-import { IResponse } from '@constants/interfaces/gcorn/backend/apis/response.interfaces';
 
 export default function HomePage() {
   const [state, dispatch] = useReducer(reducer, initState);
@@ -124,6 +124,15 @@ export default function HomePage() {
         .catch(errorHandler);
     }
   };
+
+  const onRejectFriendRequst = (senderUid: string) => {
+    if (firebaseToken) {
+      dispatch({ type: ACTIONTYPES.SET_LOADING, payload: true });
+      rejectFriendinFunFuse(firebaseToken, senderUid)
+        .then(thenHandler)
+        .catch(errorHandler);
+    }
+  };
   const isError = error !== '';
 
   let ResultComponent = (
@@ -139,6 +148,7 @@ export default function HomePage() {
           requests={state.reqUsers}
           username={user?.username}
           onAcceptFriendRequst={onAcceptFriendRequst}
+          onRejectFriendRequst={onRejectFriendRequst}
         />
       );
       break;

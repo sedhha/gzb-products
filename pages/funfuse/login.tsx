@@ -11,7 +11,6 @@ export default function LoginPageRoute() {
   const [stateLoading, setStateLoading] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    console.log(FirebaseClientAuth.currentUser);
     FirebaseClientAuth.onAuthStateChanged((user) => {
       if (user) {
         setStateLoading(true);
