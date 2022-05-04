@@ -108,3 +108,11 @@ export interface IFunFuseMessageBox {
   textContent: string;
   time: number;
 }
+
+export interface IFunFuseUserMessages {
+  textContent: string;
+  name: string;
+  recieverUid: string;
+  time: number;
+  recieverUrl: string;
+}

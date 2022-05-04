@@ -1,3 +1,4 @@
+import { reducer, initState } from '@immediate-states/funfuse/messages.state';
 import React from 'react';
 import MessageBox from './MessageBox';
 
@@ -31,6 +32,8 @@ const messages = [
 ];
 
 export default function HomePage() {
+  const [state, dispatch] = React.useReducer(reducer, initState);
+
   return (
     <div className='block h-full min-w-0 p-2 m-2'>
       <div className='flex flex-row items-center justify-around gap-2 overflow-hidden'>
@@ -42,7 +45,7 @@ export default function HomePage() {
         </div>
       </div>
       <div className='flex flex-col items-center gap-2 mt-4'>
-        {messages.map((message, index) => (
+        {state.messages.map((message, index) => (
           <MessageBox key={index} {...message} />
         ))}
       </div>

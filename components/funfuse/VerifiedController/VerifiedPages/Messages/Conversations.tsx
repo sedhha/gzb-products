@@ -10,8 +10,19 @@ import {
 } from '@immediate-states/funfuse/conversation.state';
 import { rdb_paths } from '@constants/firebase/paths';
 import { rdb } from '@firebase-client/client.config';
-import { ref as dbref, off, get, onChildAdded, push } from 'firebase/database';
-import { IFunFuseMessageBox } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
+import {
+  ref as dbref,
+  off,
+  get,
+  onChildAdded,
+  push,
+  update,
+  child,
+} from 'firebase/database';
+import {
+  IFunFuseMessageBox,
+  IFunFuseUserMessages,
+} from '@constants/interfaces/funfuse/backend/Auth.interfaces';
 type Props = {
   selfUrl: string;
   recieverUrl: string;
@@ -81,23 +92,47 @@ export default function Conversations({
     });
   }, [senderUid, recieverUid]);
 
+  const time = new Date().getTime();
+
   const onSendHandler = () => {
-    if (messagesPath === '') return;
+    if (messagesPath === '' || message === '') return;
     const messagesRef = dbref(rdb, messagesPath);
     const messageObj: IFunFuseMessageBox = {
       textContent: message,
       senderUid,
-      time: new Date().getTime(),
+      time,
     };
 
     push(messagesRef, messageObj)
       .then(() => {
         dispatch({ type: ACTIONTYPES.UPDATE_MESSAGE, payload: '' });
-        console.log('Done');
       })
       .catch((eror) => {
         console.log('Error sending message: ', eror);
       });
+
+    const senderPath = `${rdb_paths.funfuse_user_messages}/${senderUid}/${recieverUid}`;
+    const recieverPath = `${rdb_paths.funfuse_user_messages}/${recieverUid}/${senderUid}`;
+
+    const senderRef = dbref(rdb, senderPath);
+    const recieverRef = dbref(rdb, recieverPath);
+
+    const latestSenderMessage: IFunFuseUserMessages = {
+      textContent: message,
+      name: recieverName,
+      recieverUid,
+      recieverUrl,
+      time,
+    };
+    const latestRecieverMessage: IFunFuseUserMessages = {
+      textContent: message,
+      name: selfName,
+      recieverUid: senderUid,
+      recieverUrl: selfUrl,
+      time,
+    };
+    update(senderRef, latestSenderMessage);
+    update(recieverRef, latestRecieverMessage);
   };
 
   React.useEffect(() => {
