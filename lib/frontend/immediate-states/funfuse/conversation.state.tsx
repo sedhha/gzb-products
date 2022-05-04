@@ -29,16 +29,18 @@ export const initState: IConversations = {
 
 export const ACTIONTYPES = {
   UPDATE_URI: 'UPDATE_URI',
-  UPDATE_CONVERSATIOS: 'UPDATE_CONVERSATIOS',
+  UPDATE_CONVERSATIONS: 'UPDATE_CONVERSATIONS',
   SET_LOADING: 'SET_LOADING',
   UPDATE_MESSAGE: 'UPDATE_MESSAGE',
   SET_MESSAGE_PATH: 'SET_MESSAGE_PATH',
+  ADD_TO_CONVERSATIONS: 'ADD_TO_CONVERSATIONS',
 } as const;
 
 type ExpectedPayload =
   | string
   | { newUri: string; updateKey: IConversationKeys }
   | IFunFuseMessageBox[]
+  | IFunFuseMessageBox
   | boolean;
 type ReducerAction = {
   type: keyof typeof ACTIONTYPES;
@@ -64,7 +66,7 @@ export const reducer = (
           return state;
       }
     }
-    case ACTIONTYPES.UPDATE_CONVERSATIOS:
+    case ACTIONTYPES.UPDATE_CONVERSATIONS:
       return {
         ...state,
         conversations: action.payload as IFunFuseMessageBox[],
@@ -83,6 +85,14 @@ export const reducer = (
       return {
         ...state,
         messagesPath: action.payload as string,
+      };
+    case ACTIONTYPES.ADD_TO_CONVERSATIONS:
+      return {
+        ...state,
+        conversations: [
+          ...state.conversations,
+          action.payload as IFunFuseMessageBox,
+        ],
       };
     default:
       return state;

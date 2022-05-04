@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Conversation from '@/components/funfuse/VerifiedController/VerifiedPages/Messages/Conversation';
 import { ref, getDownloadURL } from 'firebase/storage';
 import { storage } from '@firebase-client/client.config';
@@ -10,14 +10,7 @@ import {
 } from '@immediate-states/funfuse/conversation.state';
 import { rdb_paths } from '@constants/firebase/paths';
 import { rdb } from '@firebase-client/client.config';
-import {
-  ref as dbref,
-  off,
-  get,
-  onChildAdded,
-  set,
-  push,
-} from 'firebase/database';
+import { ref as dbref, off, get, onChildAdded, push } from 'firebase/database';
 import { IFunFuseMessageBox } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
 type Props = {
   selfUrl: string;
@@ -37,8 +30,15 @@ export default function Conversations({
   recieverUid,
 }: Props) {
   const [state, dispatch] = React.useReducer(reducer, initState);
-  const { conversations, messagesPath, message } = state;
+  const lastMessageRef = useRef<HTMLHeadingElement>(null);
+  const scrollToBottom = () => {
+    lastMessageRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
+  const { conversations, messagesPath, message } = state;
+  React.useEffect(() => {
+    scrollToBottom();
+  }, [conversations.length]);
   const updateImageByPath = (
     imagePath: string,
     imageKey: IConversationKeys
@@ -74,9 +74,10 @@ export default function Conversations({
   }, [selfUrl, recieverUrl]);
 
   React.useEffect(() => {
+    const uidPath = [senderUid, recieverUid].sort().join('__');
     dispatch({
       type: ACTIONTYPES.SET_MESSAGE_PATH,
-      payload: `${rdb_paths.funfuse_messages}/${senderUid}__${recieverUid}`,
+      payload: `${rdb_paths.funfuse_messages}/${uidPath}`,
     });
   }, [senderUid, recieverUid]);
 
@@ -90,9 +91,9 @@ export default function Conversations({
     };
 
     push(messagesRef, messageObj)
-      .then((response) => {
-        console.log('Message sent: ', response);
+      .then(() => {
         dispatch({ type: ACTIONTYPES.UPDATE_MESSAGE, payload: '' });
+        console.log('Done');
       })
       .catch((eror) => {
         console.log('Error sending message: ', eror);
@@ -106,19 +107,33 @@ export default function Conversations({
       get(messagesRef)
         .then((result) => {
           dispatch({ type: ACTIONTYPES.SET_LOADING, payload: false });
-          console.log('All Data = ', Object.values(result.val()));
+          if (result.exists()) {
+            const incomingData = Object.values(
+              result.val()
+            ) as IFunFuseMessageBox[];
+            const messages = incomingData.sort((a, b) => {
+              return a.time - b.time;
+            });
+            dispatch({
+              type: ACTIONTYPES.UPDATE_CONVERSATIONS,
+              payload: messages,
+            });
+          }
         })
         .catch((error) => {
           console.log('Error Occured = ', error);
           dispatch({ type: ACTIONTYPES.SET_LOADING, payload: false });
         });
       onChildAdded(messagesRef, (snapshot) => {
-        console.log('New Child = ', snapshot.val());
+        const newMessage = snapshot.val();
+        dispatch({
+          type: ACTIONTYPES.ADD_TO_CONVERSATIONS,
+          payload: newMessage as IFunFuseMessageBox,
+        });
       });
       return () => off(messagesRef, 'child_added');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [senderUid]);
+  }, [senderUid, messagesPath]);
 
   return (
     <React.Fragment>
@@ -138,6 +153,7 @@ export default function Conversations({
             />
           );
         })}
+        <div ref={lastMessageRef} />
       </div>
       <div className='flex flex-row items-center justify-around gap-2 mt-2'>
         <div className='flex-auto drop-shadow-xl'>
@@ -149,12 +165,13 @@ export default function Conversations({
                 payload: e.target.value,
               });
             }}
+            onKeyPress={(e) => e.key === 'Enter' && onSendHandler()}
+            value={state.message}
           />
         </div>
         <div
           className='h-[2rem] w-[2rem] flex justify-center items-center bg-funfuse rounded-md'
           onClick={() => {
-            console.log('Sending');
             onSendHandler();
           }}>
           <div className='funfuse-icons-send h-[1rem] w-[1rem] bg-white' />
