@@ -1,39 +1,33 @@
-import { reducer, initState } from '@immediate-states/funfuse/messages.state';
+import {
+  reducer,
+  initState,
+  ACTIONTYPES,
+} from '@immediate-states/funfuse/messages.state';
 import React from 'react';
 import MessageBox from './MessageBox';
-
-const messages = [
-  {
-    senderName: 'John Doe',
-    imageUrl: '/funfuse/avatar-02.jpg',
-    newMessageCount: 0,
-    latestMessage: 'Hello, how are you?',
-  },
-  {
-    senderName: 'John Doe',
-    imageUrl: '/funfuse/avatar-02.jpg',
-    newMessageCount: 4,
-    latestMessage:
-      'Hello, how are you doing? I was wondering if you could help me with a problem I had.',
-  },
-  {
-    senderName: 'John Doe',
-    imageUrl: '/funfuse/avatar-02.jpg',
-    newMessageCount: 0,
-    latestMessage: 'Hello, how are you?',
-  },
-  {
-    senderName: 'John Doe',
-    imageUrl: '/funfuse/avatar-02.jpg',
-    newMessageCount: 4,
-    latestMessage:
-      'Hello, how are you doing? I was wondering if you could help me with a problem I had.',
-  },
-];
+import { useAppSelector } from '@redux-tools/hooks';
+import { rdb_paths } from '@constants/firebase/paths';
+import { ref, onValue, off } from 'firebase/database';
+import { rdb } from '@firebase-client/client.config';
 
 export default function HomePage() {
   const [state, dispatch] = React.useReducer(reducer, initState);
-
+  const { user } = useAppSelector((state) => state.user);
+  React.useEffect(() => {
+    if (user?.uid) {
+      const path = `${rdb_paths.funfuse_user_messages}/${user?.uid}`;
+      const messageRef = ref(rdb, path);
+      onValue(messageRef, (snapshot) => {
+        if (snapshot.exists()) {
+          dispatch({
+            type: ACTIONTYPES.UPDATE_MESSAGES,
+            payload: Object.values(snapshot.val()),
+          });
+        }
+      });
+      return () => off(messageRef);
+    }
+  }, [user?.uid]);
   return (
     <div className='block h-full min-w-0 p-2 m-2'>
       <div className='flex flex-row items-center justify-around gap-2 overflow-hidden'>

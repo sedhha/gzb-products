@@ -115,4 +115,6 @@ export interface IFunFuseUserMessages {
   recieverUid: string;
   time: number;
   recieverUrl: string;
+  bySelf: boolean;
+  recieverUserName: string;
 }

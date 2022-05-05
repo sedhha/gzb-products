@@ -1,23 +1,23 @@
-import { IFunFuseMessageBox } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
 import { useAppSelector } from '@redux-tools/hooks';
-import { useRouter, withRouter, SingletonRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import { withRouter, SingletonRouter } from 'next/router';
+import React from 'react';
 
 import Conversations from './Conversations';
 type IMessageUserProps = {
   router: SingletonRouter;
 };
 
-type IMessageUser = {
+export type IMessageUserUrlParams = {
   name: string;
   imageUrl: string;
   uid: string;
+  recipientUserName: string;
 };
 
 const MessageWindows = (props: IMessageUserProps) => {
-  const router = useRouter();
   // const senderUserName = router.query.messageId as string;
-  const { name, imageUrl, uid } = props.router.query as IMessageUser;
+  const { name, imageUrl, uid, recipientUserName } = props.router
+    .query as IMessageUserUrlParams;
   const { user } = useAppSelector((state) => state.user);
 
   return (
@@ -37,6 +37,7 @@ const MessageWindows = (props: IMessageUserProps) => {
         recieverName={name}
         senderUid={user?.uid ?? ''}
         recieverUid={uid}
+        recipientUserName={recipientUserName}
       />
     </div>
   );

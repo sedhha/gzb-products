@@ -17,12 +17,12 @@ import {
   onChildAdded,
   push,
   update,
-  child,
 } from 'firebase/database';
 import {
   IFunFuseMessageBox,
   IFunFuseUserMessages,
 } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
+import { useAppSelector } from '@redux-tools/hooks';
 type Props = {
   selfUrl: string;
   recieverUrl: string;
@@ -30,6 +30,7 @@ type Props = {
   recieverName: string;
   senderUid: string;
   recieverUid: string;
+  recipientUserName: string;
 };
 
 export default function Conversations({
@@ -39,12 +40,14 @@ export default function Conversations({
   recieverName,
   senderUid,
   recieverUid,
+  recipientUserName,
 }: Props) {
   const [state, dispatch] = React.useReducer(reducer, initState);
   const lastMessageRef = useRef<HTMLHeadingElement>(null);
   const scrollToBottom = () => {
     lastMessageRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
+  const { user } = useAppSelector((state) => state.user);
 
   const { conversations, messagesPath, message } = state;
   React.useEffect(() => {
@@ -123,6 +126,8 @@ export default function Conversations({
       recieverUid,
       recieverUrl,
       time,
+      bySelf: true,
+      recieverUserName: recipientUserName,
     };
     const latestRecieverMessage: IFunFuseUserMessages = {
       textContent: message,
@@ -130,6 +135,8 @@ export default function Conversations({
       recieverUid: senderUid,
       recieverUrl: selfUrl,
       time,
+      bySelf: false,
+      recieverUserName: user?.username ?? 'Unknown User',
     };
     update(senderRef, latestSenderMessage);
     update(recieverRef, latestRecieverMessage);

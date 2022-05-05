@@ -2,6 +2,7 @@ import { verifiedRoutes } from '@/components/funfuse/constants/verifiedRoutes';
 import ImageCard from '@/components/funfuse/ImageCard/ImageCard';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { IMessageUserUrlParams } from '@/components/funfuse/VerifiedController/VerifiedPages/Messages/MessageWindow';
 
 type Props = {
   imageUrl?: string;
@@ -44,7 +45,12 @@ export default function ConnectionBox({
                   router.push(
                     {
                       pathname: pathName,
-                      query: { name, imageUrl, uid },
+                      query: {
+                        name,
+                        imageUrl,
+                        uid,
+                        recipientUserName,
+                      } as IMessageUserUrlParams,
                     },
                     pathName
                   );
