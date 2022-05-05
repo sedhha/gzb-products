@@ -204,7 +204,7 @@ export default function Conversations({
               <label className='text-center text-gray-400 font-md font-funfuse'>
                 It&apos;s too quiet here. Start your conversation with{' '}
                 <span className='font-semibold'>
-                  {recieverName.split(' ')?.[0] ?? 'them'}
+                  {recieverName?.split(' ')?.[0] ?? 'them'}
                 </span>{' '}
                 and maybe they could help you grow your Business!
               </label>
