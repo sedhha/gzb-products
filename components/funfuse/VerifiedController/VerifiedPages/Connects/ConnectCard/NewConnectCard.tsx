@@ -1,4 +1,10 @@
+import {
+  genericRoutes,
+  verifiedRoutes,
+} from '@/components/funfuse/constants/verifiedRoutes';
 import ImageCard from '@/components/funfuse/ImageCard/ImageCard';
+import { useAppSelector } from '@redux-tools/hooks';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 type Props = {
@@ -19,11 +25,18 @@ export default function ConnectionBox({
   rejectFriend,
 }: Props) {
   const newMsgValue = bio.length > 60 ? `${bio.slice(0, 60)}...` : bio;
-
+  const router = useRouter();
+  const username = router.query.username ?? 'unknown';
   return (
     <React.Fragment>
       <div className='flex w-full gap-2' aria-label='Funfuse-Message-Container'>
-        <ImageCard imageUrl={imageUrl} />
+        <ImageCard
+          imageUrl={imageUrl}
+          onClick={() => {
+            const pathName = `/funfuse/${username}/${genericRoutes.VIEW_ROUTE}/${uid}`;
+            router.push(pathName);
+          }}
+        />
         <div className='flex flex-col flex-auto w-full'>
           <div
             aria-label='Funfuse-Message-Header'

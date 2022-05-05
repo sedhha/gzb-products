@@ -27,4 +27,5 @@ export const genericRoutes = {
   UNVERIFIED: 'unverified-profile',
   PROFILE_ROUTE: 'profile',
   VERIFY_EMAIL_ROUTE: 'verify-email',
+  VIEW_ROUTE: 'view',
 };

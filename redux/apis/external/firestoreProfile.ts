@@ -245,3 +245,32 @@ const booleanErrorHandler = (
   console.log('Error = ', error);
   return { error: true, message: error.message };
 };
+const genericerrorHandler = <T>(error: any, returnValue: T): T => {
+  console.log('Error = ', error);
+  return returnValue;
+};
+
+export const getFunFuseUser = (firebaseToken: string, userUid: string) =>
+  fetch('/api/funfuse/ops/view-user', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': firebaseToken,
+    },
+    body: JSON.stringify({
+      userUid,
+    }),
+  })
+    .then((response) =>
+      response
+        .json()
+        .then((result: IResponse) => {
+          if (result.error) return genericerrorHandler(result, {});
+          console.log('Result = ', result);
+          return result.data as IFunfuseFrontendUser;
+        })
+        .catch((error) =>
+          genericerrorHandler(error, {} as IFunfuseFrontendUser)
+        )
+    )
+    .catch((error) => genericerrorHandler(error, {} as IFunfuseFrontendUser));

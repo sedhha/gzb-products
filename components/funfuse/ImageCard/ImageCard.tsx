@@ -7,12 +7,14 @@ type Props = {
   imageUrl?: string;
   altString?: string;
   imgDimension?: string;
+  onClick?: () => void;
 };
 
 export default function ImageCard({
   imageUrl,
   altString,
   imgDimension,
+  onClick,
 }: Props) {
   const [uri, setUri] = useState('');
   const [imageReady, setImageReady] = useState(false);
@@ -57,6 +59,7 @@ export default function ImageCard({
       src={uri ?? '/funfuse/avatar-02.jpg'}
       style={styleDim}
       className={`flex-1 rounded-full shadow-lg shadow-indigo-500/50`}
+      onClick={onClick}
     />
   ) : (
     <ResizeSpinner />

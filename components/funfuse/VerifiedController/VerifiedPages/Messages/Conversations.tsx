@@ -23,6 +23,7 @@ import {
   IFunFuseUserMessages,
 } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
 import { useAppSelector } from '@redux-tools/hooks';
+import IMessage from '@/components/funfuse/IllustrationMessage/IMessage';
 type Props = {
   selfUrl: string;
   recieverUrl: string;
@@ -195,6 +196,21 @@ export default function Conversations({
             />
           );
         })}
+        {conversations.length <= 0 && (
+          <IMessage
+            src={'/funfuse/no-conversations.svg'}
+            alt={'No Connections'}
+            JSXMessageComponent={
+              <label className='text-center text-gray-400 font-md font-funfuse'>
+                It&apos;s too quiet here. Start your conversation with{' '}
+                <span className='font-semibold'>
+                  {recieverName.split(' ')?.[0] ?? 'them'}
+                </span>{' '}
+                and maybe they could help you grow your Business!
+              </label>
+            }
+          />
+        )}
         <div ref={lastMessageRef} />
       </div>
       <div className='flex flex-row items-center justify-around gap-2 mt-2'>

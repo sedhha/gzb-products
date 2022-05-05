@@ -1,5 +1,5 @@
 import { useAppSelector } from '@redux-tools/hooks';
-import { withRouter, SingletonRouter } from 'next/router';
+import { withRouter, SingletonRouter, useRouter } from 'next/router';
 import React from 'react';
 
 import Conversations from './Conversations';
@@ -19,6 +19,7 @@ const MessageWindows = (props: IMessageUserProps) => {
   const { name, imageUrl, uid, recipientUserName } = props.router
     .query as IMessageUserUrlParams;
   const { user } = useAppSelector((state) => state.user);
+  const router = useRouter();
 
   return (
     <div className='flex flex-col w-full h-full p-2 overflow-auto'>
@@ -27,7 +28,10 @@ const MessageWindows = (props: IMessageUserProps) => {
           {name ?? 'John Doe'}
         </label>
         <div className='h-[2rem] w-[2rem] flex justify-center items-center bg-funfuse rounded-md'>
-          <div className='funfuse-icons-back h-[1rem] w-[1rem] bg-white' />
+          <div
+            className='funfuse-icons-back h-[1rem] w-[1rem] bg-white'
+            onClick={() => router.back()}
+          />
         </div>
       </div>
       <Conversations

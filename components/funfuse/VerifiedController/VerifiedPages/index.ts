@@ -6,7 +6,7 @@ const Home = dynamic(() => import('./HomePage/HomePage'));
 const Mentorship = dynamic(() => import('./Mentorship/Mentorship'));
 const Unknown = dynamic(() => import('./UnknownPage/UnknownPage'));
 const Profile = dynamic(() => import('./Profile/Profile'));
-
+const ViewProfile = dynamic(() => import('./ViewProfile/ViewProfile'));
 const VerifiedComponents = {
   Connects,
   Events,
@@ -15,6 +15,7 @@ const VerifiedComponents = {
   Mentorship,
   Unknown,
   Profile,
+  ViewProfile,
 };
 
 export default VerifiedComponents;

@@ -9,10 +9,14 @@ import { useAppSelector } from '@redux-tools/hooks';
 import { rdb_paths } from '@constants/firebase/paths';
 import { ref, onValue, off } from 'firebase/database';
 import { rdb } from '@firebase-client/client.config';
+import IMessage from '@/components/funfuse/IllustrationMessage/IMessage';
+import { useRouter } from 'next/router';
+import { verifiedRoutes } from '@/components/funfuse/constants/verifiedRoutes';
 
 export default function HomePage() {
   const [state, dispatch] = React.useReducer(reducer, initState);
   const { user } = useAppSelector((state) => state.user);
+  const router = useRouter();
   React.useEffect(() => {
     if (user?.uid) {
       const path = `${rdb_paths.funfuse_user_messages}/${user?.uid}`;
@@ -42,6 +46,27 @@ export default function HomePage() {
         {state.messages.map((message, index) => (
           <MessageBox key={index} {...message} />
         ))}
+        {state.messages.length <= 0 && (
+          <IMessage
+            src={'/funfuse/no-conversations.svg'}
+            alt={'No Connections'}
+            JSXMessageComponent={
+              <label className='text-center text-gray-400 font-md font-funfuse'>
+                It&apos;s too quiet here. Talk to your{' '}
+                <span
+                  className='underline decoration-funfuse text-funfuse underline-offset-2'
+                  onClick={() => {
+                    router.push(
+                      `/funfuse/${user?.username}/${verifiedRoutes.CONNECTS_ROUTE}`
+                    );
+                  }}>
+                  connections
+                </span>{' '}
+                and grow with them together!
+              </label>
+            }
+          />
+        )}
       </div>
     </div>
   );

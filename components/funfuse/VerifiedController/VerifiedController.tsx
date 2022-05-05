@@ -78,6 +78,12 @@ export default function VerifiedController({ pageRoute, username }: IRoute) {
       navBarHeader = navBarHeaders.PROFILE_ROUTE;
       break;
     }
+    case genericRoutes.VIEW_ROUTE: {
+      const ViewPage = VerifiedComponents.ViewProfile;
+      RenderComponent = <ViewPage />;
+      navBarHeader = navBarHeaders.PROFILE_ROUTE;
+      break;
+    }
     default: {
       const UnknownPage = VerifiedComponents.Unknown;
       RenderComponent = <UnknownPage />;
