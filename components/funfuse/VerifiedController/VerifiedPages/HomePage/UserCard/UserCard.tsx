@@ -1,9 +1,6 @@
 import React from 'react';
 import ComponentDisplay from '@/components/funfuse/VerifiedController/VerifiedPages/HomePage/ComponentDisplay/ComponentDisplay';
-import Image from 'next/image';
 import { IFunfuseFrontendUser } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
-
-import ResizeSpinner from '@/components/funfuse/Spinner/ResizeSpinner';
 import ImageCard from '@/components/funfuse/ImageCard/ImageCard';
 type Props = {
   showAllSkills: boolean;
@@ -11,6 +8,8 @@ type Props = {
   showAllInterests: boolean;
   modifyShowAllInterests: (show: boolean) => void;
   user: IFunfuseFrontendUser;
+  imgDim?: string;
+  noSetAuto?: boolean;
 };
 
 export default function UserCard({
@@ -19,16 +18,20 @@ export default function UserCard({
   showAllInterests,
   modifyShowAllInterests,
   user,
+  imgDim,
+  noSetAuto,
 }: Props) {
   return (
     <div
       aria-label='funfuse-user-card'
-      className='relative flex flex-col items-center flex-auto w-full p-2 m-2 my-auto overflow-x-hidden overflow-y-auto'>
+      className={`relative flex flex-col items-center w-full p-2 ${
+        noSetAuto ? '' : 'm-2 my-auto flex-auto'
+      } overflow-x-hidden overflow-y-auto`}>
       <div className='relative'>
         <ImageCard
           imageUrl={user.imageLoc}
           altString={'Profile-' + user.name}
-          imgDimension={'16rem'}
+          imgDimension={imgDim ?? '16rem'}
         />
         {user.online ? (
           <div className='h-[1.5rem] w-[1.5rem] bottom-4 left-3/4 bg-green-500 absolute rounded-full' />

@@ -274,3 +274,32 @@ export const getFunFuseUser = (firebaseToken: string, userUid: string) =>
         )
     )
     .catch((error) => genericerrorHandler(error, {} as IFunfuseFrontendUser));
+
+export const discoverFunFuseMentors = async (
+  firebaseToken: string,
+  startIndex: number,
+  endIndex: number
+): Promise<IFunfuseFrontendUser[]> => {
+  const data = await fetch('/api/funfuse/ops/discover-mentor', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': firebaseToken,
+    },
+    body: JSON.stringify({
+      startIndex,
+      endIndex,
+    }),
+  })
+    .then((response) =>
+      response
+        .json()
+        .then((payload: IResponse) => {
+          if (!payload.error) return payload.data as IFunfuseFrontendUser[];
+          else return errorHandler(payload);
+        })
+        .catch(errorHandler)
+    )
+    .catch(errorHandler);
+  return data;
+};

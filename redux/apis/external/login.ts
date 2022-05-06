@@ -15,3 +15,4 @@ export const disconnectFireStoreUser = async (token: string) =>
       'Authorization': token,
     },
   });
+

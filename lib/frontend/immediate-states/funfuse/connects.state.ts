@@ -6,8 +6,8 @@ export const navModes = {
 } as const;
 
 export const navModeToIconMap = {
-  VIEW_CONNECTIONS: { iconName: 'funfuse-icons-list', updates: false },
-  VIEW_REQUESTS: { iconName: 'funfuse-icons-find', updates: true },
+  VIEW_CONNECTIONS: 'funfuse-icons-list',
+  VIEW_REQUESTS: 'funfuse-icons-find',
 };
 
 export type ConnectNavModes = keyof typeof navModes;

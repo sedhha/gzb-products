@@ -145,6 +145,7 @@ export const registerFunFuseUser = async (
         skills: [],
         interests: [],
         discoverability: true,
+        isMentor: false,
         uid: userRecord.uid,
         lastLoggedIn: new Date().getTime(),
       };

@@ -5,6 +5,7 @@ import {
   ConnectNavModes,
   ACTIONTYPES,
   navModes,
+  navModeToIconMap,
 } from '@immediate-states/funfuse/connects.state';
 import TopNavBar from '@/components/funfuse/VerifiedController/VerifiedPages/Connects/TopNavBar/TopNavBar';
 import ExistingConnections from '@/components/funfuse/VerifiedController/VerifiedPages/Connects/ExistingConnections/ExistingConnections';
@@ -24,7 +25,7 @@ import ResizeSpinner from '@/components/funfuse/Spinner/ResizeSpinner';
 export default function HomePage() {
   const [state, dispatch] = useReducer(reducer, initState);
   const { mode, newRequests, error } = state;
-  const onModeChange = (mode: ConnectNavModes) => {
+  const onModeChange = (mode: string) => {
     if (mode === navModes.VIEW_REQUESTS)
       dispatch({
         type: ACTIONTYPES.SET_NEW_REQUESTS,
@@ -166,6 +167,7 @@ export default function HomePage() {
         currentMode={mode}
         onModeChange={onModeChange}
         showNotifMode={newRequests}
+        navModeToIconMap={navModeToIconMap}
       />
       {state.loading ? (
         <ResizeSpinner />

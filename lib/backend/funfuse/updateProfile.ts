@@ -22,7 +22,7 @@ export const updateFireStoreProfile = async (
   const customError = getErrorDetailsFromKey(
     ErrorCodes.CUSTOM_FORM_FIELD_ERROR
   );
-  const keys = ['bio', 'skills', 'interests', 'discoverability'];
+  const keys = ['bio', 'skills', 'interests', 'discoverability', 'isMentor'];
   const areKeysValid = formValidator.mustBeDefinedKey(data, keys);
   if (areKeysValid.error) {
     customError.details = `${areKeysValid.key} is not valid`;
@@ -30,7 +30,7 @@ export const updateFireStoreProfile = async (
       opsDetails: customError,
     });
   }
-  const { skills, interests, discoverability } = data;
+  const { skills, interests, discoverability, isMentor } = data;
 
   if (typeof data.bio !== 'string') {
     customError.details = 'Invalid Bio';
@@ -57,12 +57,19 @@ export const updateFireStoreProfile = async (
       opsDetails: customError,
     });
   }
+  if (typeof isMentor !== 'boolean') {
+    customError.details = 'Mentorship Option can either be true or false.';
+    return errorResponse({
+      opsDetails: customError,
+    });
+  }
   await Server.db.doc(docPath).set(
     {
       bio: data.bio,
       skills: data.skills,
       interests: data.interests,
       discoverability: data.discoverability,
+      isMentor: data.isMentor,
     },
     { merge: true }
   );

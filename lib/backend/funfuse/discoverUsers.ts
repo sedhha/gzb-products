@@ -161,3 +161,40 @@ const converSnapShotIntoArray = (snapshot: DataSnapshot): string[] => {
   }
   return [];
 };
+
+export const discoverFunFuseMentors = async (
+  uid: string,
+  startIndex: number,
+  endIndex: number
+): Promise<IFunfuseFrontendUser[]> => {
+  const bulkRequest = endIndex - startIndex > 20;
+  const startAt =
+    startIndex !== undefined && endIndex !== undefined && !bulkRequest
+      ? startIndex
+      : 0;
+  const limit =
+    startIndex !== undefined && endIndex !== undefined && !bulkRequest
+      ? endIndex
+      : 20;
+  const docRef = Server.db
+    .collection(firebasePaths.funfuse_verified_users)
+    .orderBy('uid')
+    .where('uid', '!=', uid)
+    .where('online', '==', true)
+    .where('isMentor', '==', true)
+    .where('activeMentorSession', '==', false)
+    .orderBy('lastLoggedIn', 'desc')
+    .startAt(startAt)
+    .limit(limit);
+
+  const data = await docRef.get();
+
+  if (data.empty) {
+    return [];
+  }
+  const result = data.docs.map((doc) => {
+    const completeData = doc.data() as IFunFuseFbData;
+    return convertFbToFrontend(completeData);
+  });
+  return result;
+};

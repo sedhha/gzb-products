@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { acceptFriendRequest } from '@global-backend/funfuse/addFriend';
+import { discoverFunFuseMentors } from '@global-backend/funfuse/discoverUsers';
 
 const devRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   if (process.env.ALLOW_UNAUTHENTICATED_CALLS === 'true') {
-    const data = await acceptFriendRequest(req.body.uid, req.body.requestorUid);
+    const data = await discoverFunFuseMentors('1', 0, 20);
     return res.status(201).json({ data });
   }
   return res.status(401).json({ message: 'Unauthorized' });

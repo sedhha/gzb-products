@@ -1,19 +1,17 @@
-import {
-  ConnectNavModes,
-  navModeToIconMap,
-} from '@immediate-states/funfuse/connects.state';
 import React from 'react';
 
 type Props = {
-  onModeChange: (mode: ConnectNavModes) => void;
-  currentMode: ConnectNavModes;
-  showNotifMode?: ConnectNavModes;
+  onModeChange: (mode: string) => void;
+  currentMode: string;
+  showNotifMode?: string;
+  navModeToIconMap: { [key: string]: string };
 };
 
 export default function TopNavBar({
   onModeChange,
   currentMode,
   showNotifMode,
+  navModeToIconMap,
 }: Props) {
   return (
     <div className='flex items-center justify-around w-full px-1 mb-1'>
@@ -24,8 +22,8 @@ export default function TopNavBar({
         return (
           <div className='relative' key={navClass}>
             <div
-              onClick={() => onModeChange(navClass as ConnectNavModes)}
-              className={`${value.iconName} ${
+              onClick={() => onModeChange(navClass)}
+              className={`${value} ${
                 navClass === currentMode ? 'bg-funfuse' : 'bg-gray-300'
               } h-[3rem] w-[3rem] relative
           `}

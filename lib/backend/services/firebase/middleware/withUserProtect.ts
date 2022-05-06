@@ -1,4 +1,3 @@
-import { IProtectedRoute } from '@constants/interfaces/firebase/Auth.interfaces';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import Server from '@firebase-server/server.config';
 import {

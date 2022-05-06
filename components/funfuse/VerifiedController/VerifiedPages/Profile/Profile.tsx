@@ -193,7 +193,10 @@ export default function Profile() {
   const [discoverability, setDiscoverability] = useState(
     firestoreUser?.discoverability ?? true
   );
+  const [isMentor, setMentor] = useState(firestoreUser?.isMentor ?? false);
   const toggleDiscoverability = () => setDiscoverability((prev) => !prev);
+  const toggleMentorship = () => setMentor((prev) => !prev);
+
   const [file, setFile] = React.useState({
     file: null,
     preview: displayPicture ?? '/funfuse/avatar.png',
@@ -231,6 +234,7 @@ export default function Profile() {
       discoverability,
       skills: skills.map((element) => element.value),
       interests: interests.map((element) => element.value),
+      isMentor,
     };
     if (firebaseToken) {
       updateFireStoreProfile(firebaseToken, profileForm)
@@ -440,6 +444,11 @@ export default function Profile() {
         toggle={discoverability}
         setToggle={toggleDiscoverability}
       />
+      <label className='w-full p-0 mt-2 text-xl'>Mentorship</label>
+      <label className='w-full text-gray-500 text-md'>
+        Let&apos;s other users discover you for one to one mentorship.
+      </label>
+      <ToggleButton toggle={isMentor} setToggle={toggleMentorship} />
       {error && (
         <label className='mb-1 text-red-600 font-funfuse'>{errorMessage}</label>
       )}

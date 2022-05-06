@@ -42,7 +42,7 @@ export default function ComponentDisplay({
           onClick={() => updateDisplay(true)}>
           {`+ ${hiddenElements} more`}
         </label>
-      ) : (
+      ) : hiddenElements <= 0 ? null : (
         <label
           className='mt-0.5 text-xs text-center text-indigo-500 underline underline-offset-1 font-funfuse'
           onClick={() => updateDisplay(false)}>

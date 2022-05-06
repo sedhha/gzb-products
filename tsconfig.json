@@ -22,6 +22,7 @@
       "@constants/*": ["constants/*"],
       "@firebase-server/*": ["lib/backend/services/firebase/*"],
       "@firebase-client/*": ["lib/frontend/services/firebase/*"],
+      "@dyte-server/*": ["lib/backend/services/dyte/*"],
       "@gzb-mocks/*": ["mocks/*"],
       "@/pages/*": ["pages/*"],
       "@/styles/*": ["styles/*"],

@@ -27,6 +27,7 @@ export interface IFunFuseUserData {
   imageLoc?: string;
   online?: boolean;
   lastLoggedIn?: number;
+  isMentor: boolean;
 }
 
 export interface IFunFuseFbData {
@@ -72,6 +73,7 @@ export interface IFunFuseProfileUpdate {
   skills: string[];
   interests: string[];
   discoverability: boolean;
+  isMentor: boolean;
 }
 
 export interface IErrorNotificationSlice {
