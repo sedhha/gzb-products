@@ -1,5 +1,9 @@
 import { IFunfuseFrontendUser } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
-import { IFunFuseMentorRDBConfig } from '@constants/interfaces/funfuse/backend/Dyte.interfaces';
+import {
+  IDyteParticipantCred,
+  IFunFuseMentorRDBConfig,
+  IDyteMeetingData,
+} from '@constants/interfaces/funfuse/backend/Dyte.interfaces';
 
 export const ACTIONTYPES = {
   SHOW_SKILLS_MODIFY: 'SHOW_SKILLS_MODIFY',
@@ -10,6 +14,10 @@ export const ACTIONTYPES = {
   SET_LOADING: 'SET_LOADING',
   TOGGLE_MODE: 'TOGGLE_MODE',
   UPDATE_REQUESTS: 'UPDATE_REQUESTS',
+  UPDATE_IN_CALL: 'UPDATE_IN_CALL',
+  UPDATE_IN_CALL_DETAILS: 'UPDATE_IN_CALL_DETAILS',
+  UPDATE_ERROR_MESSAGES: 'UPDATE_ERROR_MESSAGES',
+  RESET_ERROR_MESSAGES: 'RESET_ERROR_MESSAGES',
 } as const;
 
 export const navModeToIconMap = {
@@ -26,6 +34,14 @@ export const navModes = {
 
 export type IMentorRequests = Record<string, IFunFuseMentorRDBConfig>;
 
+export interface ILiveMeetingInterface {
+  clientDetails: IDyteParticipantCred;
+  meetingDetails: IDyteMeetingData;
+  name: string;
+  url: string;
+  uid: string;
+}
+
 export interface IHomeFrontendState {
   showAllSkills: boolean;
   showAllInterests: boolean;
@@ -37,6 +53,8 @@ export interface IHomeFrontendState {
   mode: ConnectNavModes;
   requestsCount: number;
   inCall: boolean;
+  callDetails?: ILiveMeetingInterface;
+  errorMessage?: string;
 }
 export const initState: IHomeFrontendState = {
   showAllSkills: false,
@@ -55,7 +73,9 @@ type ExpectedPayload =
   | boolean
   | IFunfuseFrontendUser[]
   | ConnectNavModes
-  | IMentorRequests;
+  | IMentorRequests
+  | ILiveMeetingInterface
+  | string;
 
 type ReducerAction = {
   type: keyof typeof ACTIONTYPES;
@@ -101,6 +121,26 @@ export const reducer = (
         ...state,
         requests: { ...(action.payload as IMentorRequests) },
         requestsCount: Object.keys(action.payload as IMentorRequests).length,
+      };
+    case ACTIONTYPES.UPDATE_IN_CALL:
+      return {
+        ...state,
+        inCall: action.payload as boolean,
+      };
+    case ACTIONTYPES.UPDATE_IN_CALL_DETAILS:
+      return {
+        ...state,
+        callDetails: { ...(action.payload as ILiveMeetingInterface) },
+      };
+    case ACTIONTYPES.UPDATE_ERROR_MESSAGES:
+      return {
+        ...state,
+        errorMessage: action.payload as string,
+      };
+    case ACTIONTYPES.RESET_ERROR_MESSAGES:
+      return {
+        ...state,
+        errorMessage: undefined,
       };
     default:
       return state;

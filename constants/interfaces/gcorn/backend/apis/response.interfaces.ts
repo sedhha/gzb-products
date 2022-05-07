@@ -76,4 +76,5 @@ export enum ErrorCodes {
   USER_APPROVED_ANOTHER_MEETING = 'userApprovedAnotherRequest',
   MEETING_NOT_FOUND = 'meetingNotFound',
   MEETING_CREATED_SUCCESS = 'meetingCreatedSuccess',
+  VIDEO_SERVER_ACTION_SUCCESS = 'videoServerActionSuccess',
 }

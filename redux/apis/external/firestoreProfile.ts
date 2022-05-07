@@ -270,7 +270,6 @@ export const getFunFuseUser = (firebaseToken: string, userUid: string) =>
         .json()
         .then((result: IResponse) => {
           if (result.error) return genericerrorHandler(result, {});
-          console.log('Result = ', result);
           return result.data as IFunfuseFrontendUser;
         })
         .catch((error) =>
@@ -382,3 +381,32 @@ export const acceptMeetingCall = async (
       };
     });
 };
+
+export const endMeetingCall = async (
+  firebaseToken: string
+): Promise<{ error: boolean; message: string }> =>
+  fetch('/api/funfuse/ops/end-meeting', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': firebaseToken,
+    },
+  })
+    .then((response) =>
+      response
+        .json()
+        .then((data) => {
+          if (data.error) {
+            return { error: true, message: data.opsDetails.details };
+          }
+          return { error: false, message: '' };
+        })
+        .catch((error) => {
+          console.log('Error = ', error);
+          return { error: true, message: 'Unable to End Meeting' };
+        })
+    )
+    .catch((error) => {
+      console.log('Error While Ending meeting call = ', error);
+      return { error: true, message: error.message };
+    });

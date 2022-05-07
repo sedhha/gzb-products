@@ -488,5 +488,16 @@
       "name": "Meeting Created Success",
       "id": "03"
     }
+  },
+  "videoServerActionSuccess": {
+    "error": false,
+    "error_code": "0323",
+    "code": "VIDEO_SERVER_ACTION_SUCCESS",
+    "details": "Video Server Action Fullfilled Successfully.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Video Server Action Success",
+      "id": "03"
+    }
   }
 }

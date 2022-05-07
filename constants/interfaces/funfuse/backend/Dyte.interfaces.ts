@@ -24,6 +24,25 @@ export interface IParticipantDetails {
   data: IParticipantInterface;
 }
 
+export interface IDyteParticipant {
+  id: string;
+  name: string;
+  picture: string | null;
+  email: string;
+  createdAt: string | null;
+}
+
+export interface IGetAllParticipants {
+  total: number;
+  participants: IDyteParticipant[];
+}
+
+export interface IAllParticipants {
+  success: boolean;
+  message: string;
+  data: IGetAllParticipants;
+}
+
 export interface IFunFuseMentorRDBConfig {
   inAMeeting: boolean;
   meetingDetails: IDyteMeetingData;
@@ -51,6 +70,7 @@ export interface ILiveMeetingDetails {
   name: string;
   url: string;
   uid: string;
+  uid2: string;
 }
 
 export interface IFunFuseAddToMeeting {

@@ -37,6 +37,10 @@ jobs:
           echo APPSCRIPT_DEPLOYMENT_URL=${{ secrets.APPSCRIPT_DEPLOYMENT_URL }} >> .env.local
           echo APPSCRIPT_API_KEY=${{ secrets.APPSCRIPT_API_KEY }} >> .env.local
           echo FUNFUSE_EMAIL_HANDLER=${{ secrets.FUNFUSE_EMAIL_HANDLER }} >> .env.local
+          echo NEXT_PUBLIC_DYTE_ORG_ID=${{ secrets.NEXT_PUBLIC_DYTE_ORG_ID }} >> .env.local
+          echo DYTE_API_BASE=${{ secrets.DYTE_API_BASE }} >> .env.local
+          echo DYTE_API_KEY=${{ secrets.DYTE_API_KEY }} >> .env.local
+          echo DYTE_ORG_ID=${{ secrets.DYTE_ORG_ID }} >> .env.local
           echo NODE_ENV=${{ secrets.NODE_ENV }} >> .env.local
           yarn test:ci
           yarn build

@@ -183,6 +183,7 @@ export const startAMeeting = async (
     uid: creator_uid,
     name: creatorName,
     url: creatorUrl,
+    uid2: mentor_uid,
   };
 
   const liveMeetingMentorData: ILiveMeetingDetails = {
@@ -192,6 +193,7 @@ export const startAMeeting = async (
     uid: mentor_uid,
     name: mentorName,
     url: mentorUrl,
+    uid2: creator_uid,
   };
 
   const dbPromises2 = [
@@ -209,6 +211,42 @@ export const startAMeeting = async (
 
   //6. Return Success Response
 
+  return genericResponse({
+    opsDetails: getErrorDetailsFromKey(ErrorCodes.FUNFUSE_ACTION_SUCCESS),
+  });
+};
+
+export const endUserMeeting = async (uid: string) => {
+  // Check if the Live Meet Exists, if it does, delete the data and also send
+  // a dyte request to kick out all participants and update meeting to ended
+  const liveMeetingRef = `${rdb_paths.funfuse_meeting_users_live}/${uid}`;
+  const liveMeetingData = await Server.rdb.ref(liveMeetingRef).get();
+  if (!liveMeetingData.exists()) {
+    return errorResponse({
+      opsDetails: getErrorDetailsFromKey(ErrorCodes.MEETING_NOT_FOUND),
+    });
+  }
+  const liveMeetingDetails = liveMeetingData.val() as ILiveMeetingDetails;
+  const meetingDetails = liveMeetingDetails.meetingDetails;
+  const uid1 = liveMeetingDetails.uid;
+  const uid2 = liveMeetingDetails.uid2;
+  const kickResult = await Dyte.kickAllParticipantsByMeetingId(
+    meetingDetails.id
+  );
+
+  if (kickResult.error) return kickResult;
+  const endMeetingResult = await Dyte.endAMeeting(meetingDetails.id);
+  if (!endMeetingResult)
+    return errorResponse({
+      opsDetails: getErrorDetailsFromKey(
+        ErrorCodes.INVALID_VIDEO_SERVER_RESPONSE_ERROR
+      ),
+    });
+  const rdbRefs = [uid1, uid2].map((element) => {
+    const path = `${rdb_paths.funfuse_meeting_users_live}/${element}`;
+    return Server.rdb.ref(path).remove();
+  });
+  await Promise.all(rdbRefs);
   return genericResponse({
     opsDetails: getErrorDetailsFromKey(ErrorCodes.FUNFUSE_ACTION_SUCCESS),
   });
