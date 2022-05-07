@@ -3,6 +3,10 @@ import {
   IFunFuseProfileUpdate,
 } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
 import { IFunFuseUserData } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
+import {
+  IFunFuseInvitePayload,
+  IFunFuseMentorRDBConfig,
+} from '@constants/interfaces/funfuse/backend/Dyte.interfaces';
 import { IResponse } from '@constants/interfaces/gcorn/backend/apis/response.interfaces';
 import { FirebaseError } from 'firebase/app';
 
@@ -302,4 +306,79 @@ export const discoverFunFuseMentors = async (
     )
     .catch(errorHandler);
   return data;
+};
+
+export const requestMeetingCall = async (
+  accessToken: string,
+  payload: IFunFuseInvitePayload
+): Promise<{ error: boolean; message: string }> => {
+  return fetch('/api/funfuse/ops/request-meeting', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': accessToken,
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) =>
+      response
+        .json()
+        .then((data: IResponse) => {
+          if (data.error) {
+            return { error: true, message: data.opsDetails.details };
+          }
+          return { error: false, message: data.opsDetails.details };
+        })
+        .catch((error) => {
+          console.log('Error = ', error);
+          return {
+            error: true,
+            message: 'Unable to Decode the Server Response.',
+          };
+        })
+    )
+    .catch((error) => ({
+      error: true,
+      message:
+        'Unable to Request Data from Backend Video Server! ' + error.message,
+    }));
+};
+
+export const acceptMeetingCall = async (
+  accessToken: string,
+  payload: IFunFuseMentorRDBConfig
+): Promise<{ error: boolean; message: string }> => {
+  return fetch('/api/funfuse/ops/accept-meeting', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': accessToken,
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) =>
+      response
+        .json()
+        .then((data: IResponse) => {
+          if (data.error) {
+            errorHandler(data);
+            return { error: true, message: data.opsDetails.details };
+          }
+          return { error: false, message: data.opsDetails.details };
+        })
+        .catch((error) => {
+          errorHandler(error);
+          return {
+            error: true,
+            message: 'Unable to Get Appropriate Server Response',
+          };
+        })
+    )
+    .catch((error) => {
+      errorHandler(error);
+      return {
+        error: true,
+        message: 'Unable to Get Appropriate Server Response',
+      };
+    });
 };

@@ -25,9 +25,10 @@ export interface IFunFuseUserData {
   skills: IFunFuseSelectInterface[];
   interests: IFunFuseSelectInterface[];
   imageLoc?: string;
-  online?: boolean;
-  lastLoggedIn?: number;
+  online: boolean;
+  lastLoggedIn: number;
   isMentor: boolean;
+  activeMentorSession: boolean;
 }
 
 export interface IFunFuseFbData {

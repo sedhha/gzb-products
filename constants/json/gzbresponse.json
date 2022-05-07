@@ -353,5 +353,140 @@
       "name": "Invalid Friend Request",
       "id": "03"
     }
+  },
+  "funfuseMeetingUserUnavailable": {
+    "error": true,
+    "error_code": "0311",
+    "code": "UNAVAILABLE_MEETING_USER",
+    "details": "Funfuse Meeting User that you want to connect with is Unavailable",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Invalid Meeting Request",
+      "id": "03"
+    }
+  },
+  "funfuseUserAlreadyInAMeeting": {
+    "error": true,
+    "error_code": "0312",
+    "code": "USER_ALREADY_IN_A_MEETING",
+    "details": "You're already part of an active meeting! Please end the meeting before moving ahead.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Already in a Meeting",
+      "id": "03"
+    }
+  },
+
+  "jsonDecodeError": {
+    "error": true,
+    "error_code": "0313",
+    "code": "JSON_DECODE_ERROR",
+    "details": "JSON Decode Error. Unable to Decode JSON Object.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "JSON Decode Error",
+      "id": "03"
+    }
+  },
+
+  "invalidServerResponseError": {
+    "error": true,
+    "error_code": "0314",
+    "code": "VALID_SERVER_RESPONSE_ERROR",
+    "details": "Unable to obtain a valid server response.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Valid Server Response Error",
+      "id": "03"
+    }
+  },
+  "invalidVideoServerResponse": {
+    "error": true,
+    "error_code": "0315",
+    "code": "INVALID_VIDEO_SERVER_RESPONSE",
+    "details": "Unable to get an expected valid response from the Video Server.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Invalid Video Server Response",
+      "id": "03"
+    }
+  },
+  "anotherMeetingRequestInProcess": {
+    "error": true,
+    "error_code": "0316",
+    "code": "ANOTHER_MEETING_REQUEST_IN_PROCESS",
+    "details": "Another Meeting Request is already in Process. Please wait for the current meeting to end.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Another Meeting Request in Process",
+      "id": "03"
+    }
+  },
+  "mentorSessionInProgress": {
+    "error": true,
+    "error_code": "0317",
+    "code": "MENTOR_SESSION_IN_PROGRESS",
+    "details": "Another Mentor Session with the given mentor is already in Progress. Please wait for the current session to end.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Another Mentor Session in Progress",
+      "id": "03"
+    }
+  },
+  "mentorWentOffline": {
+    "error": true,
+    "error_code": "0318",
+    "code": "MENTOR_WENT_OFFLINE",
+    "details": "Mentor went offline. Please try again later.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Mentor Went Offline",
+      "id": "03"
+    }
+  },
+  "creatorWentOffline": {
+    "error": true,
+    "error_code": "0321",
+    "code": "CREATOR_WENT_OFFLINE",
+    "details": "Creator went offline. Please try again later.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Creator Went Offline",
+      "id": "03"
+    }
+  },
+
+  "userApprovedAnotherRequest": {
+    "error": true,
+    "error_code": "0319",
+    "code": "USER_APPROVED_ANOTHER_REQUEST",
+    "details": "You have already approved a meeting request. You must either cancel the existing meeting or complete it before requesting new meetings.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Already accepted a Meeting",
+      "id": "03"
+    }
+  },
+  "meetingNotFound": {
+    "error": true,
+    "error_code": "0320",
+    "code": "MEETING_NOT_FOUND",
+    "details": "Requested Meeting could not be found.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Meeting Not Found",
+      "id": "03"
+    }
+  },
+  "meetingCreatedSuccess": {
+    "error": false,
+    "error_code": "0322",
+    "code": "MEETING_CREATED_SUCCESS",
+    "details": "Meeting created successfully.",
+    "api_version": "v1",
+    "product-specs": {
+      "name": "Meeting Created Success",
+      "id": "03"
+    }
   }
 }

@@ -13,4 +13,7 @@ export const rdb_paths = {
   funfuse_rejected_users: 'funfuse/users/rejected-users',
   funfuse_user_messages: 'funfuse/users/messages-users',
   funfuse_messages: 'funfuse/messages',
+  funfuse_meeting_users_requested: 'funfuse/users/meeting-users/requested',
+  funfuse_meeting_users_pending: 'funfuse/users/meeting-users/pending',
+  funfuse_meeting_users_live: 'funfuse/users/meeting-users/live',
 };

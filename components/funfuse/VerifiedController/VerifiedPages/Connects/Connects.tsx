@@ -2,7 +2,6 @@ import React, { useReducer, useEffect } from 'react';
 import {
   reducer,
   initState,
-  ConnectNavModes,
   ACTIONTYPES,
   navModes,
   navModeToIconMap,

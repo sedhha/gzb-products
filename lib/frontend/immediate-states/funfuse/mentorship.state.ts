@@ -1,4 +1,5 @@
 import { IFunfuseFrontendUser } from '@constants/interfaces/funfuse/backend/Auth.interfaces';
+import { IFunFuseMentorRDBConfig } from '@constants/interfaces/funfuse/backend/Dyte.interfaces';
 
 export const ACTIONTYPES = {
   SHOW_SKILLS_MODIFY: 'SHOW_SKILLS_MODIFY',
@@ -8,6 +9,7 @@ export const ACTIONTYPES = {
   GO_NEXT: 'GO_NEXT',
   SET_LOADING: 'SET_LOADING',
   TOGGLE_MODE: 'TOGGLE_MODE',
+  UPDATE_REQUESTS: 'UPDATE_REQUESTS',
 } as const;
 
 export const navModeToIconMap = {
@@ -22,14 +24,19 @@ export const navModes = {
   VIEW_REQUESTS: 'VIEW_REQUESTS',
 } as const;
 
+export type IMentorRequests = Record<string, IFunFuseMentorRDBConfig>;
+
 export interface IHomeFrontendState {
   showAllSkills: boolean;
   showAllInterests: boolean;
   showModal: boolean;
   users: IFunfuseFrontendUser[];
+  requests: IMentorRequests;
   activeIndex: number;
   isLoading: boolean;
   mode: ConnectNavModes;
+  requestsCount: number;
+  inCall: boolean;
 }
 export const initState: IHomeFrontendState = {
   showAllSkills: false,
@@ -37,11 +44,18 @@ export const initState: IHomeFrontendState = {
   showModal: false,
   activeIndex: 0,
   users: [],
+  requests: {},
   isLoading: false,
   mode: navModes.DISCOVER_MENTORS,
+  requestsCount: 0,
+  inCall: false,
 };
 
-type ExpectedPayload = boolean | IFunfuseFrontendUser[] | ConnectNavModes;
+type ExpectedPayload =
+  | boolean
+  | IFunfuseFrontendUser[]
+  | ConnectNavModes
+  | IMentorRequests;
 
 type ReducerAction = {
   type: keyof typeof ACTIONTYPES;
@@ -81,6 +95,12 @@ export const reducer = (
       return {
         ...state,
         mode: action.payload as ConnectNavModes,
+      };
+    case ACTIONTYPES.UPDATE_REQUESTS:
+      return {
+        ...state,
+        requests: { ...(action.payload as IMentorRequests) },
+        requestsCount: Object.keys(action.payload as IMentorRequests).length,
       };
     default:
       return state;

@@ -148,6 +148,8 @@ export const registerFunFuseUser = async (
         isMentor: false,
         uid: userRecord.uid,
         lastLoggedIn: new Date().getTime(),
+        activeMentorSession: false,
+        online: false,
       };
 
       await Promise.all([
