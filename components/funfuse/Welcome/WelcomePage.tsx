@@ -20,7 +20,7 @@ export default function WelcomePage() {
         <div className='h-[20rem] w-auto py-0 px-2'>
           <FullWidthImage
             alt='Funfuse Home'
-            priority
+            priority={true}
             src='/funfuse/homepage.svg'
           />
         </div>
