@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import React from 'react';
 import AppWrapper from '../../hoc/AppWrapper';
-
+import Auth from '@firebase-client/client.config';
+import { useRouter } from 'next/router';
 type Props = {
   username: string;
   pageRoute: string;
@@ -9,6 +10,12 @@ type Props = {
 
 export default function UnVerified({ username, pageRoute }: Props) {
   const isUnknownName = username === 'uv';
+  const router = useRouter();
+  React.useEffect(() => {
+    if (Auth.currentUser === null) {
+      router.push('/funfuse/login');
+    }
+  }, [router]);
   return (
     <React.Fragment>
       <Head>
