@@ -10,12 +10,6 @@ type Props = {
 
 export default function UnVerified({ username, pageRoute }: Props) {
   const isUnknownName = username === 'uv';
-  const router = useRouter();
-  React.useEffect(() => {
-    if (Auth.currentUser === null) {
-      router.push('/funfuse/login');
-    }
-  }, [router]);
   return (
     <React.Fragment>
       <Head>
