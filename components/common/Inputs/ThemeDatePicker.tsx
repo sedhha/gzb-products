@@ -8,6 +8,7 @@ type Props = {
 };
 
 const isIOS = (): boolean => {
+  if (typeof navigator === 'undefined') return false;
   const userAgent =
     navigator?.userAgent || navigator?.vendor || (window as any)?.opera;
 
