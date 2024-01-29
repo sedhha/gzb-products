@@ -22,7 +22,7 @@ export default function ThemeDatePicker({
         placeholder={placeholder ?? 'Enter Email Address'}
         value={value}
         onChange={onChange}
-        type={isFocussed ? 'date' : 'text'}
+        type={'date'}
         onFocus={() => setFoussed(true)}
         onBlur={() => setFoussed(false)}
       />
