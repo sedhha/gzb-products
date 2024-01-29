@@ -7,6 +7,17 @@ type Props = {
   value: string | number;
 };
 
+const isIOS = (): boolean => {
+  const userAgent =
+    navigator?.userAgent || navigator?.vendor || (window as any)?.opera;
+
+  // iOS detection
+  return (
+    /iPad|iPhone|iPod/.test(userAgent) &&
+    !(window as unknown as { MSStream: boolean })?.MSStream
+  );
+};
+
 export default function ThemeDatePicker({
   placeholder,
   iconClass,
@@ -22,7 +33,7 @@ export default function ThemeDatePicker({
         placeholder={placeholder ?? 'Enter Email Address'}
         value={value}
         onChange={onChange}
-        type={'date'}
+        type={isFocussed ? 'date' : isIOS() ? 'date' : 'text'}
         onFocus={() => setFoussed(true)}
         onBlur={() => setFoussed(false)}
       />
